@@ -12,6 +12,19 @@
     <header>
       <h1>Extractor de color</h1>
       <p>Sube una imagen y haz clic sobre el lienzo para capturar el color.</p>
+
+          <nav class="menu">
+        <!-- Ícono hamburguesa (solo móvil) -->
+        <div class="menu-toggle" id="menu-toggle">☰</div>
+        <ul id="menu-list">
+            <li><a href="../inicio.html">Mapa</a></li>
+            <li><a href="../temaColores/indexTemas.html">Colores por tema</a></li>
+            <li><a href="../generadoDePaletasDeColores/indexGenerador.html">Paletas al azar</a></li>
+            <li><a href="../ingresarColor/indexIngresarColor.html">Ingresar color</a></li>
+            <li><a href="../contraste/contraste.html">Revisar contraste</a></li>
+            <li><a href="../extractorDeColor/extractor.html">Extractor de color</a></li>
+        </ul>
+    </nav>
     </header>
 
     <div class="grid">
@@ -20,10 +33,7 @@
         <div class="drop" id="drop">
           <button id="pickBtn">Seleccionar imagen</button>
           <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.svg,image/*" />
-          <span class="tip">Arrastra una imagen desde tu disco.</span>
         </div>
-
-        <!-- Eliminado el campo para vínculos -->
 
         <div class="stage-wrap">
           <canvas id="stage"></canvas>

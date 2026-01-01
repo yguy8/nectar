@@ -1,3 +1,30 @@
+//menú hamburguesa en moviles/celulares
+const toggle = document.getElementById('menu-toggle');
+const menu = document.getElementById('menu-list');
+
+toggle.addEventListener('click', () => {
+    menu.classList.toggle('show');
+
+    // Cambiar ícono ☰ ↔ ✖
+    if (menu.classList.contains('show')) {
+        toggle.textContent = '✖';
+    } else {
+        toggle.textContent = '☰';
+    }
+});
+
+// Generar colores aleatorios hex
+function randomColor() {
+    return "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0");
+}
+
+// Valida si un valor es un color CSS válido
+function isValidCssColor(value) {
+    const s = new Option().style;
+    s.color = value;
+    return s.color !== "";
+}
+
 const pickBtn = document.getElementById("pickBtn");
 const fileInput = document.getElementById("fileInput");
 const stage = document.getElementById("stage");
