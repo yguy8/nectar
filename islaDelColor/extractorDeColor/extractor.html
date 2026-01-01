@@ -27,44 +27,48 @@
     </nav>
     </header>
 
-    <div class="grid">
-      <section class="panel">
-        <h2>Imagen</h2>
-        <div class="drop" id="drop">
-          <button id="pickBtn">Seleccionar imagen</button>
-          <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.svg,image/*" />
-        </div>
+  <div class="grid">
+    <!-- Panel de imagen -->
+    <section class="panel">
+      <h2>Imagen</h2>
+      <div class="drop" id="drop">
+        <button id="pickBtn">Seleccionar imagen</button>
+        <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.svg,image/*" />
+      </div>
 
-        <div class="stage-wrap">
-          <canvas id="stage"></canvas>
-          <div class="empty" id="emptyMsg">No hay imagen cargada. Sube una para comenzar.</div>
-        </div>
+      <!-- Canvas zoom flotante -->
+      <canvas id="zoomCanvas" width="100" height="100"></canvas>
 
-        <div class="tools">
-          <button class="btn" id="fitBtn" disabled>Ajustar al ancho</button>
-          <button class="btn" id="resetBtn" disabled>Restablecer</button>
+      <div class="stage-wrap">
+        <canvas id="stage"></canvas>
+        <div class="empty" id="emptyMsg">No hay imagen cargada. Sube una para comenzar.</div>
+      </div>
+
+      <div class="tools">
+        <button class="btn" id="fitBtn" disabled>Ajustar al ancho</button>
+        <button class="btn" id="resetBtn" disabled>Restablecer</button>
+      </div>
+    </section>
+    
+    <!-- Panel de colores -->
+    <section class="panel">
+      <h2>Color seleccionado</h2>
+      <div class="output">
+        <div class="swatch" id="swatch"></div>
+        <div class="codes">
+          <div class="code-line"><span class="badge">HEX</span><span id="hex">—</span></div>
+          <div class="code-line"><span class="badge">RGB</span><span id="rgb">—</span></div>
+        </div>
+        <div class="copy">
+          <!-- Botón global copiar paleta -->
           <button class="btn primary" id="paletteBtn" disabled>Generar paleta</button>
+          <button class="btn" id="copyPalette" disabled>Copiar paleta</button>
         </div>
-      </section>
+      </div>
 
-      <section class="panel">
-        <h2>Color seleccionado</h2>
-        <div class="output">
-          <div class="swatch" id="swatch"></div>
-          <div class="codes">
-            <div class="code-line"><span class="badge">HEX</span><span id="hex">—</span></div>
-            <div class="code-line"><span class="badge">RGB</span><span id="rgb">—</span></div>
-          </div>
-          <div class="copy">
-            <button class="btn" id="copyHex" disabled>Copiar HEX</button>
-            <button class="btn" id="copyRgb" disabled>Copiar RGB</button>
-          </div>
-        </div>
-
-        <h2 style="margin-top:14px;">Paleta dominante</h2>
-        <div class="palette" id="palette"></div>
-      </section>
-    </div>
+      <h2 style="margin-top:14px;">Paleta dominante</h2>
+      <div class="palette" id="palette"></div>
+    </section>
   </div>
 
   <div class="toast" id="toast">Copiado al portapapeles</div>

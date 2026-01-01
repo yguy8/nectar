@@ -13,18 +13,18 @@ toggle.addEventListener('click', () => {
     }
 });
 
-// Generar colores aleatorios hex
+// --- Utilidades extra ---
 function randomColor() {
-    return "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0");
+  return "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0");
 }
 
-// Valida si un valor es un color CSS válido
 function isValidCssColor(value) {
-    const s = new Option().style;
-    s.color = value;
-    return s.color !== "";
+  const s = new Option().style;
+  s.color = value;
+  return s.color !== "";
 }
 
+// --- Variables y constantes globales ---
 const pickBtn = document.getElementById("pickBtn");
 const fileInput = document.getElementById("fileInput");
 const stage = document.getElementById("stage");
@@ -34,14 +34,21 @@ const emptyMsg = document.getElementById("emptyMsg");
 const swatch = document.getElementById("swatch");
 const hexEl = document.getElementById("hex");
 const rgbEl = document.getElementById("rgb");
-const copyHexBtn = document.getElementById("copyHex");
-const copyRgbBtn = document.getElementById("copyRgb");
 const paletteContainer = document.getElementById("palette");
 const toast = document.getElementById("toast");
+const paletteBtn = document.getElementById("paletteBtn");
+const copyPaletteBtn = document.getElementById("copyPalette"); // botón global copiar paleta
+
+const zoomCanvas = document.getElementById("zoomCanvas");
+const zoomCtx = zoomCanvas.getContext("2d");
+zoomCanvas.width = 100;
+zoomCanvas.height = 100;
 
 let img = null;
+let selectedPoints = []; // hasta 5 puntos
+let draggingPoint = null;
 
-// --- Utilidades ---
+// --- Funciones utilitarias ---
 function showToast(msg) {
   toast.textContent = msg;
   toast.classList.add("show");
@@ -67,6 +74,19 @@ function drawImageToCanvas(image) {
   emptyMsg.style.display = "none";
 }
 
+function redrawAll() {
+  drawImageToCanvas(img);
+  selectedPoints.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 5, 0, Math.PI * 2);
+    ctx.strokeStyle = "#000";
+    ctx.lineWidth = 2;
+    ctx.fillStyle = p.hex;
+    ctx.fill();
+    ctx.stroke();
+  });
+}
+
 // --- Cargar imagen desde disco ---
 pickBtn.addEventListener("click", () => fileInput.click());
 
@@ -82,16 +102,44 @@ fileInput.addEventListener("change", e => {
   const image = new Image();
   image.onload = () => {
     img = image;
+    selectedPoints = []; // reset puntos
     drawImageToCanvas(img);
     URL.revokeObjectURL(url);
+    paletteBtn.disabled = false;
+    copyPaletteBtn.disabled = false;
   };
   image.onerror = () => showToast("No se pudo cargar la imagen");
   image.src = url;
 });
 
+// --- Zoom pixelado flotante ---
+stage.addEventListener("mousemove", e => {
+  if (!img) return;
+  const rect = stage.getBoundingClientRect();
+  const scaleX = stage.width / rect.width;
+  const scaleY = stage.height / rect.height;
+  const x = Math.floor((e.clientX - rect.left) * scaleX);
+  const y = Math.floor((e.clientY - rect.top) * scaleY);
+
+  const size = 20; // área de recorte
+  zoomCtx.imageSmoothingEnabled = false;
+  zoomCtx.clearRect(0, 0, zoomCanvas.width, zoomCanvas.height);
+  zoomCtx.drawImage(
+    stage,
+    x - size/2, y - size/2, size, size,
+    0, 0, zoomCanvas.width, zoomCanvas.height
+  );
+
+  // posicionar el zoomCanvas cerca del cursor
+  zoomCanvas.style.position = "absolute";
+  zoomCanvas.style.left = `${e.pageX + 20}px`;
+  zoomCanvas.style.top = `${e.pageY + 20}px`;
+});
+
 // --- Selección de color en canvas ---
 stage.addEventListener("click", e => {
   if (!img) return;
+
   const rect = stage.getBoundingClientRect();
   const scaleX = stage.width / rect.width;
   const scaleY = stage.height / rect.height;
@@ -100,58 +148,67 @@ stage.addEventListener("click", e => {
   const data = ctx.getImageData(x, y, 1, 1).data;
   const [r, g, b] = data;
   const hex = rgbToHex(r, g, b);
+
+  // Si ya hay 5 puntos, elimina el primero (FIFO)
+  if (selectedPoints.length >= 5) {
+    selectedPoints.shift();
+  }
+
+  // Guardar nuevo punto
+  selectedPoints.push({ x, y, r, g, b, hex });
+
+  redrawAll();
+
+  // Mostrar último color en panel
   swatch.style.backgroundColor = `rgb(${r},${g},${b})`;
   hexEl.textContent = hex;
   rgbEl.textContent = `rgb(${r},${g},${b})`;
-  copyHexBtn.disabled = false;
-  copyRgbBtn.disabled = false;
-  generatePaletteFromSeed([r, g, b]);
+
+  renderSelectedColors();
 });
 
-// --- Copiado ---
-copyHexBtn.addEventListener("click", () => {
-  navigator.clipboard.writeText(hexEl.textContent)
-    .then(() => showToast("HEX copiado"))
-    .catch(() => showToast("No se pudo copiar HEX"));
+// --- Drag & Drop de puntos ---
+stage.addEventListener("mousedown", e => {
+  const rect = stage.getBoundingClientRect();
+  const scaleX = stage.width / rect.width;
+  const scaleY = stage.height / rect.height;
+  const x = Math.floor((e.clientX - rect.left) * scaleX);
+  const y = Math.floor((e.clientY - rect.top) * scaleY);
+
+  selectedPoints.forEach((p, idx) => {
+    const dx = x - p.x;
+    const dy = y - p.y;
+    if (Math.sqrt(dx*dx + dy*dy) < 8) {
+      draggingPoint = idx;
+    }
+  });
 });
-copyRgbBtn.addEventListener("click", () => {
-  navigator.clipboard.writeText(rgbEl.textContent)
-    .then(() => showToast("RGB copiado"))
-    .catch(() => showToast("No se pudo copiar RGB"));
+
+stage.addEventListener("mousemove", e => {
+  if (draggingPoint === null) return;
+  const rect = stage.getBoundingClientRect();
+  const scaleX = stage.width / rect.width;
+  const scaleY = stage.height / rect.height;
+  const x = Math.floor((e.clientX - rect.left) * scaleX);
+  const y = Math.floor((e.clientY - rect.top) * scaleY);
+
+  const data = ctx.getImageData(x, y, 1, 1).data;
+  const [r, g, b] = data;
+  const hex = rgbToHex(r, g, b);
+  selectedPoints[draggingPoint] = { x, y, r, g, b, hex };
+
+  redrawAll();
+  renderSelectedColors();
 });
 
-// --- Paleta dominante  ---
-function generatePaletteFromSeed(seed) {
-  const tmp = document.createElement("canvas");
-  const tctx = tmp.getContext("2d");
-  tmp.width = 200;
-  tmp.height = Math.round(200 * (stage.height / stage.width));
-  tctx.drawImage(stage, 0, 0, tmp.width, tmp.height);
-  const { data } = tctx.getImageData(0, 0, tmp.width, tmp.height);
+stage.addEventListener("mouseup", () => {
+  draggingPoint = null;
+});
 
-  const buckets = new Map();
-  for (let i = 0; i < data.length; i += 4) {
-    const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
-    if (a < 64) continue;
-    const key = `${r},${g},${b}`;
-    const dist = Math.sqrt(
-      Math.pow(r - seed[0], 2) +
-      Math.pow(g - seed[1], 2) +
-      Math.pow(b - seed[2], 2)
-    );
-    buckets.set(key, dist);
-  }
-
-  const sorted = [...buckets.entries()]
-    .sort((a, b) => a[1] - b[1])
-    .slice(0, 6)
-    .map(([key]) => {
-      const [r, g, b] = key.split(",").map(Number);
-      return { r, g, b, hex: rgbToHex(r, g, b) };
-    });
-
+// --- Renderizar lista de colores ---
+function renderSelectedColors() {
   paletteContainer.innerHTML = "";
-  sorted.forEach(c => {
+  selectedPoints.forEach((c, idx) => {
     const chip = document.createElement("div");
     chip.className = "chip";
 
@@ -161,27 +218,89 @@ function generatePaletteFromSeed(seed) {
 
     const meta = document.createElement("div");
     meta.className = "meta";
+    meta.innerHTML = `<span>${c.hex}</span> <span>rgb(${c.r},${c.g},${c.b})</span>`;
 
-    const hexSpan = document.createElement("span");
-    hexSpan.className = "hex";
-    hexSpan.textContent = c.hex;
+    // Botón copiar color (azul)
+    const copyBtn = document.createElement("button");
+    copyBtn.className = "copy-btn";
+    copyBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" 
+           viewBox="0 0 24 24" fill="none" stroke="#5257ff" 
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" />
+        <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
+      </svg>
+    `;
+    copyBtn.onclick = () => {
+      const text = `${c.hex} rgb(${c.r},${c.g},${c.b})`;
+      navigator.clipboard.writeText(text)
+        .then(() => showToast("Color copiado"))
+        .catch(() => showToast("No se pudo copiar el color"));
+    };
 
-    const rgbSpan = document.createElement("span");
-    rgbSpan.textContent = `rgb(${c.r},${c.g},${c.b})`;
-
-    meta.appendChild(hexSpan);
-    meta.appendChild(rgbSpan);
+    // Botón eliminar (rojo)
+    const removeBtn = document.createElement("button");
+    removeBtn.className = "remove-btn";
+    removeBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" 
+           viewBox="0 0 24 24" fill="none" stroke="#ff0000" 
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M18 6l-12 12" />
+        <path d="M6 6l12 12" />
+      </svg>
+    `;
+    removeBtn.onclick = () => {
+      selectedPoints.splice(idx, 1);
+      redrawAll();
+      renderSelectedColors();
+    };
 
     chip.appendChild(colorDiv);
     chip.appendChild(meta);
+    chip.appendChild(copyBtn);
+    chip.appendChild(removeBtn);
     paletteContainer.appendChild(chip);
   });
 }
 
+// --- Generar paleta completa ---
+paletteBtn.addEventListener("click", () => {
+  if (selectedPoints.length === 0) {
+    showToast("Selecciona al menos un punto");
+    return;
+  }
+  paletteContainer.innerHTML = "";
+  selectedPoints.forEach(c => {
+    const chip = document.createElement("div");
+    chip.className = "chip";
+    chip.innerHTML = `
+      <div class="color" style="background:rgb(${c.r},${c.g},${c.b})"></div>
+      <div class="meta">
+        <span>${c.hex}</span>
+        <span>rgb(${c.r},${c.g},${c.b})</span>
+      </div>`;
+    paletteContainer.appendChild(chip);
+  });
+});
+
+// --- Copiar paleta completa ---
+copyPaletteBtn.addEventListener("click", () => {
+  if (selectedPoints.length === 0) {
+    showToast("No hay colores en la paleta");
+    return;
+  }
+  const text = selectedPoints.map(c => `${c.hex} rgb(${c.r},${c.g},${c.b})`).join("\n");
+  navigator.clipboard.writeText(text)
+    .then(() => showToast("Paleta copiada"))
+    .catch(() => showToast("No se pudo copiar la paleta"));
+});
+
 // --- Estado inicial ---
 (function init() {
   emptyMsg.style.display = "block";
-  copyHexBtn.disabled = true;
-  copyRgbBtn.disabled = true;
   setCanvasSize(320, 240);
+  paletteBtn.disabled = true;
+  copyPaletteBtn.disabled = true;
 })();
