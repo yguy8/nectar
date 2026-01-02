@@ -60,8 +60,10 @@ function rgbToHex(r, g, b) {
 }
 
 function setCanvasSize(w, h) {
-  stage.width = w;
+  stage.width = w;        // tamaño interno
   stage.height = h;
+  stage.style.width = w + "px";   // tamaño visible
+  stage.style.height = h + "px";
 }
 
 function drawImageToCanvas(image) {
