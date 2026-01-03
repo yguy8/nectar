@@ -33,7 +33,6 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
 //menú hamburguesa en moviles/celulares
 const toggle = document.getElementById('menu-toggle');
 const menu = document.getElementById('menu-list');

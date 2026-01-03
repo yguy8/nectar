@@ -6,10 +6,12 @@
 }
 /* Variables globales colores */
 :root{
-    --pergamino:#fdf6e3;
+    --color-de-fondo:#fdf6e3;
+    --color-de-fondo-2:rgba(253, 246, 227, 0.8);
     --tesoro:#d4af37;
+    --hover-fondo:#b8860b;
     --blanco:#ffffff;
-    --negro:#222;
+    --color-letras:#222;
     --azul-boton: #007BFF;
     --azul-boton-hover: #0056b3;
     --sangre:#8b0000;
@@ -18,18 +20,28 @@
 /* Fondo general */
 body {
     font-family: 'Cinzel Decorative', serif;
-    background-color: var(--pergamino);
-    color: var(--negro);
+    background-color: var(--color-de-fondo);
+    color: var(--color-letras);
     margin: 0;
     padding: 0;
 }
 
+/* modo oscuro */
+body.oscuro {
+    /*modo oscuro*/
+    --color-de-fondo:#23043A; 
+    --color-letras:#dcfbc5; 
+    --tesoro:#5d8ece; 
+    --hover-fondo:#054a2c; 
+    --sangre:#60065c; 
+    --azul-boton-hover:#f7b8b0;
+}
 /* Menú */
 .menu {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: var(--pergamino);
+    background-color: var(--color-de-fondo);
     padding: 10px 0;
     z-index: 1000;
     box-shadow: 2px 2px 0px #000;
@@ -61,6 +73,15 @@ body {
 .menu a:hover {
     color: var(--azul-boton-hover);
     border-bottom: 2px solid var(--tesoro);
+}
+
+#modoOscuroBtn{
+    background-color: var(--color-de-fondo);
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 /* Header */
 header {
@@ -125,7 +146,7 @@ input{
 }
 .spec-btn {
     background: var(--tesoro);
-    color: var(--negro);
+    color: var(--color-letras);
     border-radius: 20px;
     padding: 5px 10px;
     cursor: pointer;
@@ -176,7 +197,7 @@ input{
     justify-content: center;
     gap: 15px;
     padding: 15px;
-    background: var(--pergamino);
+    background: var(--color-de-fondo);
     border: 2px dashed var(--madera);
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
@@ -194,7 +215,7 @@ input{
     bottom: 5px;
     left: 5px;
     font-size: 15px;
-    background: var(--pergamino);
+    background: var(--color-de-fondo);
     padding: 3px 6px;
     border-radius: 5px;
     font-weight: bold;
@@ -204,14 +225,14 @@ input{
     bottom: 5px;
     right: 5px;
     border: none;
-    background: var(--pergamino);
+    background: var(--hover-fondo);
     cursor: pointer;
     padding: 4px;
     border-radius: 5px;
 }
 
 .copy-color-btn:hover {
-    background: var(--blanco);
+    background: var(--tesoro);
 }
 
 .remove-btn {
@@ -253,7 +274,7 @@ input{
     visibility: hidden;
     min-width: 250px;
     background-color: var(--azul-boton-hover);
-    color: var(--pergamino);
+    color: var(--color-de-fondo);
     text-align: center;
     transform: translate(-50%, -50%); /*centrar */
     border-radius: 8px;
@@ -286,7 +307,7 @@ input{
         display: none;
         flex-direction: column;
         width: 100%;
-        background-color: var(--pergamino);
+        background-color: var(--color-de-fondo);
         position: absolute;
         top: 50px;
         left: 0;
@@ -305,7 +326,7 @@ input{
 .menu-mapa {
     border: none;
     box-shadow: none;
-    background-color: rgba(253, 246, 227, 0.8); /* pergamino translúcido */
+    background-color: var(--color-de-fondo-2); /* pergamino translúcido */
     border-radius: 12px;
     padding: 40px 20px;
     margin: 40px auto;

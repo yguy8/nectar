@@ -556,9 +556,9 @@ body.oscuro {
     --color-de-fondo:#23043A; 
     --color-letras:#dcfbc5; 
     --tesoro:#5d8ece; 
-    --hover-fondo:#043a23; 
+    --hover-fondo:#054a2c; 
     --color-de-fondo-2:#3a0437; 
-    /* --color-a-usar-pendiente:#f7b8b0; */
+    --azul-hover:#f7b8b0;
 }
 /*Media queries para responsividad*/
 /* --- MÓVIL --- */
