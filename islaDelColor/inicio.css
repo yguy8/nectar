@@ -18,6 +18,7 @@
     --sangre:#8b0000;
     --madera:#984c4c;
     --rojo:red;
+    --github-icon:#000000;
 }
 
 /* Fondo y tipografía */
@@ -523,7 +524,7 @@ footer p {
 }
 
 .github-icon {
-    width: 32px;
+    fill: var(--github-icon);
     transition: transform 0.3s ease, filter 0.3s ease;
 }
 
@@ -561,7 +562,13 @@ body.oscuro {
     --hover-fondo:#054a2c; 
     --color-de-fondo-2:#3a0437; 
     --azul-hover:#f7b8b0;
+    --github-icon:#fff;
 }
+
+body.oscuro img {
+    visibility: hidden;
+}
+
 /*Media queries para responsividad*/
 /* --- MÓVIL --- */
 @media (max-width: 768px) {
