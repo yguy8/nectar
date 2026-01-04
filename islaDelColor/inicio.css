@@ -503,15 +503,22 @@ footer {
     text-align: center;
     flex: 1; /* ocupa el espacio central */
 }
+.footer-center > * {
+    margin-top: 20px; /* espacio arriba solo en los elementos del centro */
+}
 
 footer h2 {
-    margin: 0;
     font-size: 1.4rem;
     color: var(--color-letras);
 }
+footer a{
+    color: var(--tesoro);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px;
+}
 
 footer p {
-    margin: 5px 0 10px;
     color: var(--color-letras, #555);
     font-weight: bold;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
@@ -519,7 +526,6 @@ footer p {
 
 .github-link {
     display: inline-block;
-    margin-top: 8px;
     text-decoration: none;
 }
 
