@@ -53,10 +53,35 @@ function randomColor() {
   return "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0");
 }
 
-function isValidCssColor(value) {
-  const s = new Option().style;
-  s.color = value;
-  return s.color !== "";
+function rgbToHex(r, g, b) {
+  return "#" + [r, g, b].map(v => v.toString(16).padStart(2, "0")).join("").toUpperCase();
+}
+
+function rgbString(r, g, b) {
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h, s, l = (max + min) / 2;
+
+  if (max === min) {
+    h = s = 0;
+  } else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h /= 6;
+  }
+  h = Math.round(h * 360);
+  s = Math.round(s * 100);
+  l = Math.round(l * 100);
+  return `hsl(${h}, ${s}%, ${l}%)`;
 }
 
 // --- Variables y constantes globales ---
@@ -68,16 +93,18 @@ const emptyMsg = document.getElementById("emptyMsg");
 
 const swatch = document.getElementById("swatch");
 const hexEl = document.getElementById("hex");
-const rgbEl = document.getElementById("rgb");
 const paletteContainer = document.getElementById("palette");
 const toast = document.getElementById("toast");
 const paletteBtn = document.getElementById("paletteBtn");
-const copyPaletteBtn = document.getElementById("copyPalette"); // botón global copiar paleta
+const copyPaletteBtn = document.getElementById("copyPalette");
 
 const zoomCanvas = document.getElementById("zoomCanvas");
 const zoomCtx = zoomCanvas.getContext("2d");
 zoomCanvas.width = 100;
 zoomCanvas.height = 100;
+
+const formatSelect = document.getElementById("formatSelect");
+let currentFormat = "hex"; // por defecto HEX
 
 let img = null;
 let selectedPoints = []; // hasta 5 puntos
@@ -90,14 +117,10 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove("show"), 2000);
 }
 
-function rgbToHex(r, g, b) {
-  return "#" + [r, g, b].map(v => v.toString(16).padStart(2, "0")).join("").toUpperCase();
-}
-
 function setCanvasSize(w, h) {
-  stage.width = w;        // tamaño interno
+  stage.width = w;
   stage.height = h;
-  stage.style.width = w + "px";   // tamaño visible
+  stage.style.width = w + "px";
   stage.style.height = h + "px";
 }
 
@@ -139,7 +162,7 @@ fileInput.addEventListener("change", e => {
   const image = new Image();
   image.onload = () => {
     img = image;
-    selectedPoints = []; // reset puntos
+    selectedPoints = [];
     drawImageToCanvas(img);
     URL.revokeObjectURL(url);
     paletteBtn.disabled = false;
@@ -158,33 +181,25 @@ stage.addEventListener("mousemove", e => {
   const x = Math.floor((e.clientX - rect.left) * scaleX);
   const y = Math.floor((e.clientY - rect.top) * scaleY);
 
-  const size = 20; // área de recorte
+  const size = 20;
   zoomCtx.imageSmoothingEnabled = false;
   zoomCtx.clearRect(0, 0, zoomCanvas.width, zoomCanvas.height);
-  zoomCtx.drawImage(
-    stage,
-    x - size/2, y - size/2, size, size,
-    0, 0, zoomCanvas.width, zoomCanvas.height
-  );
+  zoomCtx.drawImage(stage, x - size/2, y - size/2, size, size, 0, 0, zoomCanvas.width, zoomCanvas.height);
 
-  // mostrar y posicionar el zoomCanvas cerca del cursor
   zoomCanvas.style.display = "block";
   zoomCanvas.style.position = "absolute";
   zoomCanvas.style.left = `${e.pageX + 20}px`;
   zoomCanvas.style.top = `${e.pageY + 20}px`;
 });
 
-// cuando el cursor entra al canvas
 stage.addEventListener("mouseenter", () => {
   zoomCanvas.style.display = "block";
 });
 
-// cuando el cursor sale del canvas
 stage.addEventListener("mouseleave", () => {
   zoomCanvas.style.display = "none";
-  zoomCtx.clearRect(0, 0, zoomCanvas.width, zoomCanvas.height); // opcional: limpiar
+  zoomCtx.clearRect(0, 0, zoomCanvas.width, zoomCanvas.height);
 });
-
 
 // --- Selección de color en canvas ---
 stage.addEventListener("click", e => {
@@ -199,21 +214,15 @@ stage.addEventListener("click", e => {
   const [r, g, b] = data;
   const hex = rgbToHex(r, g, b);
 
-  // Si ya hay 5 puntos, elimina el primero (FIFO)
   if (selectedPoints.length >= 5) {
     selectedPoints.shift();
   }
 
-  // Guardar nuevo punto
   selectedPoints.push({ x, y, r, g, b, hex });
 
   redrawAll();
-
-  // Mostrar último color en panel
-  swatch.style.backgroundColor = `rgb(${r},${g},${b})`;
-  hexEl.textContent = hex;
-
   renderSelectedColors();
+  renderMainColor(selectedPoints[selectedPoints.length - 1]);
 });
 
 // --- Drag & Drop de puntos ---
@@ -248,11 +257,26 @@ stage.addEventListener("mousemove", e => {
 
   redrawAll();
   renderSelectedColors();
+  renderMainColor(selectedPoints[draggingPoint]);
 });
 
 stage.addEventListener("mouseup", () => {
   draggingPoint = null;
 });
+
+// --- Renderizar color principal ---
+function renderMainColor(c) {
+  // Vista previa del color
+  swatch.style.backgroundColor = `rgb(${c.r},${c.g},${c.b})`;
+
+  // Mostrar nombre según formato
+  let displayValue;
+  if (currentFormat === "hex") displayValue = c.hex;
+  else if (currentFormat === "rgb") displayValue = rgbString(c.r, c.g, c.b);
+  else displayValue = rgbToHsl(c.r, c.g, c.b);
+
+  hexEl.textContent = displayValue;
+}
 
 // --- Renderizar lista de colores ---
 function renderSelectedColors() {
@@ -261,51 +285,53 @@ function renderSelectedColors() {
     const chip = document.createElement("div");
     chip.className = "chip";
 
+    // Vista previa del color
     const colorDiv = document.createElement("div");
     colorDiv.className = "color";
     colorDiv.style.background = `rgb(${c.r},${c.g},${c.b})`;
 
+    // Nombre según formato actual
+    let displayValue;
+    if (currentFormat === "hex") {
+      displayValue = c.hex;
+    } else if (currentFormat === "rgb") {
+      displayValue = rgbString(c.r, c.g, c.b);
+    } else {
+      displayValue = rgbToHsl(c.r, c.g, c.b);
+    }
+
     const meta = document.createElement("div");
     meta.className = "meta";
-    meta.innerHTML = `<span>${c.hex}</span> `;
+    meta.innerHTML = `<span>${displayValue}</span>`;
 
-    // Botón copiar color (azul)
+    // Botón copiar
     const copyBtn = document.createElement("button");
-    copyBtn.className = "copy-btn";
-    copyBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" 
-           viewBox="0 0 24 24" fill="none" stroke="#5257ff" 
-           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" />
-        <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
-      </svg>
-    `;
+copyBtn.className = "copy-btn";
+copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+  viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-copy">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667l0 -8.666" />
+  <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
+</svg>`;
     copyBtn.onclick = () => {
-      const text = `${c.hex}`;
-      navigator.clipboard.writeText(text)
+      navigator.clipboard.writeText(displayValue)
         .then(() => showToast("Color copiado"))
         .catch(() => showToast("No se pudo copiar el color"));
     };
 
-    // Botón eliminar (rojo)
+    // Botón eliminar
     const removeBtn = document.createElement("button");
     removeBtn.className = "remove-btn";
-    removeBtn.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" 
-           viewBox="0 0 24 24" fill="none" stroke="#ff0000" 
-           stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path d="M18 6l-12 12" />
-        <path d="M6 6l12 12" />
-      </svg>
-    `;
+    removeBtn.textContent = "❌";
     removeBtn.onclick = () => {
       selectedPoints.splice(idx, 1);
       redrawAll();
       renderSelectedColors();
     };
 
+    // Ensamblar chip
     chip.appendChild(colorDiv);
     chip.appendChild(meta);
     chip.appendChild(copyBtn);
@@ -313,6 +339,7 @@ function renderSelectedColors() {
     paletteContainer.appendChild(chip);
   });
 }
+
 
 // --- Generar paleta completa ---
 paletteBtn.addEventListener("click", () => {
@@ -322,14 +349,21 @@ paletteBtn.addEventListener("click", () => {
   }
   paletteContainer.innerHTML = "";
   selectedPoints.forEach(c => {
+    let displayValue;
+    if (currentFormat === "hex") {
+      displayValue = c.hex;
+    } else if (currentFormat === "rgb") {
+      displayValue = rgbString(c.r, c.g, c.b);
+    } else {
+      displayValue = rgbToHsl(c.r, c.g, c.b);
+    }
+
     const chip = document.createElement("div");
     chip.className = "chip";
     chip.innerHTML = `
       <div class="color" style="background:rgb(${c.r},${c.g},${c.b})"></div>
-      <div class="meta">
-        <span>${c.hex}</span>
-        
-      </div>`;
+      <div class="meta"><span>${displayValue}</span></div>
+    `;
     paletteContainer.appendChild(chip);
   });
 });
@@ -340,10 +374,25 @@ copyPaletteBtn.addEventListener("click", () => {
     showToast("No hay colores en la paleta");
     return;
   }
-  const text = selectedPoints.map(c => `${c.hex}`).join("\n");
+  const text = selectedPoints.map(c => {
+    if (currentFormat === "hex") return c.hex;
+    if (currentFormat === "rgb") return rgbString(c.r, c.g, c.b);
+    return rgbToHsl(c.r, c.g, c.b);
+  }).join("\n");
+
   navigator.clipboard.writeText(text)
     .then(() => showToast("Paleta copiada"))
     .catch(() => showToast("No se pudo copiar la paleta"));
+});
+
+// --- Cambio de formato desde el selector ---
+formatSelect.addEventListener("change", e => {
+  currentFormat = e.target.value;
+  renderSelectedColors();
+  if (selectedPoints.length > 0) {
+    renderMainColor(selectedPoints[selectedPoints.length - 1]);
+  }
+  showToast(`Formato cambiado a ${currentFormat.toUpperCase()}`);
 });
 
 // --- Estado inicial ---
@@ -353,4 +402,3 @@ copyPaletteBtn.addEventListener("click", () => {
   paletteBtn.disabled = true;
   copyPaletteBtn.disabled = true;
 })();
-
