@@ -216,7 +216,7 @@ p {
 }
 
 /* Media query para pantallas menores a 750px */
-@media (max-width: 750px) {
+@media (max-width: 900px) {
 .menu-toggle {
     display: block;
     padding-left: 40px;

@@ -276,7 +276,7 @@ input:focus {
   margin-top: 0.5rem;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 930px) {
 .menu-toggle {
     display: block;
     padding-left: 40px;
@@ -311,5 +311,10 @@ input:focus {
     margin: 40px auto;
     max-width: 600px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+h1, h2, p{
+  margin: 1rem; /* auto en los lados centra el bloque */
+  width: fit-content;    /* el ancho se ajusta al contenido */
 }
 }

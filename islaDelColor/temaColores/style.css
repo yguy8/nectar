@@ -300,7 +300,7 @@ input{
 
 
 /*media queries para cualquier dispositivo*/
-@media (max-width: 670px) {
+@media (max-width: 910px) {
     .menu-toggle {
         display: block;
         padding-left: 40px;
