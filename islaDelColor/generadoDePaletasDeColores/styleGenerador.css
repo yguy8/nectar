@@ -11,6 +11,7 @@
     --color-de-fondo-2:rgba(253, 246, 227, 0.8);
     --tesoro:#d4af37;
     --blanco:#ffffff;
+    --blanco-2:#ffffff;
     --color-letras:#222;
     --azul-boton: #007BFF;
     --azul-boton-hover: #0056b3;
@@ -43,8 +44,9 @@ body.oscuro {
     --hover-fondo:#054a2c; 
     --sangre:#60065c; 
     --azul-boton-hover:#f7b8b0;
-    --madera:#087077;
+    --madera:#1199a3;
     --blanco:#484747;
+    --blanco-2:#ffffff;
     --color-icono:#88ff80;
     --color-icono-hover:#fff;
 }
@@ -188,7 +190,7 @@ p {
 
 #color-btn:hover, #copy-palette-btn:hover {
     background-color:var(--madera);
-    color: var(--blanco);
+    color: var(--blanco-2);
     transform: scale(1.05);
 }
 
