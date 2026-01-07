@@ -20,17 +20,16 @@
     --madera:#984c4c;
 }
 
-/* Fondo y tipografía pirata */
 body {
-    font-family: 'Cinzel Decorative', serif; /* tipografía antigua */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     background-color: var(--color-de-fondo);
-    background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
     color: var(--color-letras);
     transition: background-color 0.5s ease;
+    font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+    line-height: 1.6;
 }
 
 /* modo oscuro */
@@ -55,40 +54,49 @@ body.oscuro {
     top: 0;
     width: 100%;
     background-color: var(--color-de-fondo);
-    padding: 10px 0;
+    padding: 1.2rem 0;
     z-index: 1000;
     border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    color: var(--color-letras);
 }
-/* Ícono hamburguesa */
+
 .menu-toggle {
-    font-size: 24px;
+    font-size: 1.5rem;
     cursor: pointer;
-    display: none; /* oculto en desktop/tablet */
+    display: none;
 }
+
 .menu ul {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     list-style: none;
-    align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 .menu li {
-    margin: 0px;
+    margin: 0 1.25rem;
 }
 
 .menu a {
     text-decoration: none;
     color: var(--color-negro);
     font-weight: 600;
+    padding: 0.25rem 0;
     transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
-.menu a:hover {
+.menu a:hover,
+.menu a:focus {
     color: var(--azul-boton-hover);
     border-bottom: 2px solid var(--tesoro);
 }
 
 #modoOscuroBtn {
+    position: fixed;  
+    top: 18px;
+    right: 20px;
     background: none;       
     border: none;           
     padding: 0;             
@@ -97,7 +105,6 @@ body.oscuro {
     align-items: center;    
     cursor: pointer;
 }
-
 
 /*diseño del formulario*/
 /* Contenedor del formulario */
@@ -221,6 +228,7 @@ button {
 button:hover {
     background-color:var(--madera);
     transform: scale(1.05);
+    color: var(--blanco);
 }
 
 

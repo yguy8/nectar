@@ -6,13 +6,13 @@
     --color-letras-2:#fff;
     --azul-boton: #007BFF;
     --azul-boton-hover: #0056b3;
+    --negro:#1f1f1f;
 }
 
 /* Reset básico */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
   background: var(--color-de-fondo);
   color: var(--color-letras);
   line-height: 1.6;
@@ -28,6 +28,7 @@ body.oscuro {
     --blanco:#484747;
     --azul-boton:#8d08d0;
     --azul-boton-hover:#cd2bed;
+    --negro:#d7d7d7;
 }
 /* Menú superior */
 .menu {
@@ -35,9 +36,11 @@ body.oscuro {
     top: 0;
     width: 100%;
     background-color: var(--color-de-fondo);
-    padding: 10px 0;
+    padding: 1.2rem 0;
     z-index: 1000;
-    box-shadow: 2px 2px 0px var(--negro);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    color: var(--color-letras);
 }
 .menu-toggle {
     font-size: 24px;
@@ -61,6 +64,9 @@ body.oscuro {
     border-bottom: 2px solid var(--tesoro);
 }
 #modoOscuroBtn {
+    position: fixed;  
+    top: 18px;
+    right: 20px;
     background: none;       
     border: none;           
     padding: 0;             
@@ -70,13 +76,13 @@ body.oscuro {
     cursor: pointer;
 }
 h1{
-  margin: 60px 0 0 0 ;
+  margin: 6rem 0 0 0 ;
   display: flex; /* Activa Flexbox */
   justify-content: center; /* Centra horizontalmente */
   align-items: center; /* Centra verticalmente */
 }
 h2{
-  margin:7px;
+  margin:1rempx;
 }
 p{
   display: flex; /* Activa Flexbox */
@@ -288,7 +294,7 @@ select{
   #stage { width: 100%; height: auto; }
 
 .swatch {
-  width: 90px;
+  width: 50px;
   height: 50px;
   border: 2px solid var(--negro);
   border-radius: 6px;

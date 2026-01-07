@@ -20,16 +20,17 @@
     --madera:#984c4c;
 }
 
-/* Fondo y tipografía pirata */
+
 body {
-    font-family: 'Cinzel Decorative', serif; /* tipografía antigua */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    transition: background-color 0.5s ease;
+    font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+    line-height: 1.6;
     background-color: var(--color-de-fondo-2);
     color: var(--color-letras);
-    transition: background-color 0.5s ease;
 }
 
 /* modo oscuro */
@@ -54,9 +55,11 @@ body.oscuro {
     top: 0;
     width: 100%;
     background-color: var(--color-de-fondo);
-    padding: 10px 0;
+    padding: 1.2rem 0;
     z-index: 1000;
     border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    color: var(--color-letras);
 }
 
 /* Ícono hamburguesa */
@@ -89,6 +92,9 @@ body.oscuro {
 }
 
 #modoOscuroBtn {
+    position: fixed;  
+    top: 18px;
+    right: 20px;
     background: none;       
     border: none;           
     padding: 0;             
@@ -182,6 +188,7 @@ p {
 
 #color-btn:hover, #copy-palette-btn:hover {
     background-color:var(--madera);
+    color: var(--blanco);
     transform: scale(1.05);
 }
 
