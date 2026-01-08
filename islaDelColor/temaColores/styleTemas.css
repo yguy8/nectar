@@ -16,6 +16,7 @@
     --azul-boton-hover: #0056b3;
     --sangre:#8b0000;
     --madera:#984c4c;
+    --sombra:rgba(0,0,0,0.25)
 }
 
 /* Fondo general */
@@ -36,6 +37,7 @@ body.oscuro {
     --sangre:#60065c; 
     --azul-boton-hover:#f7b8b0;
     --madera:#087077;
+    --sombra:rgba(255, 255, 255, 0.25)
 }
 /* Menú */
 .menu {
@@ -46,7 +48,7 @@ body.oscuro {
     padding: 1.2rem 0;
     z-index: 1000;
     border-radius: 0 0 10px 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    box-shadow: 0 4px 8px var(--sombra);
     color: var(--color-letras);
 }
 /* Ícono hamburguesa */

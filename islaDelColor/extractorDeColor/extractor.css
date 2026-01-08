@@ -7,6 +7,7 @@
     --azul-boton: #007BFF;
     --azul-boton-hover: #0056b3;
     --negro:#1f1f1f;
+    --sombra:rgba(0,0,0,0.25)
 }
 
 /* Reset básico */
@@ -29,6 +30,7 @@ body.oscuro {
     --azul-boton:#8d08d0;
     --azul-boton-hover:#cd2bed;
     --negro:#d7d7d7;
+    --sombra:rgba(255, 255, 255, 0.25)
 }
 /* Menú superior */
 .menu {
@@ -39,7 +41,7 @@ body.oscuro {
     padding: 1.2rem 0;
     z-index: 1000;
     border-radius: 0 0 10px 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    box-shadow: 0 4px 8px var(--sombra);
     color: var(--color-letras);
 }
 .menu-toggle {

@@ -21,6 +21,7 @@
     --madera:#984c4c;
     --color-negro:#333;
     --negro:#000;
+    --sombra:rgba(0,0,0,0.25)
 }
 
 body {
@@ -51,6 +52,7 @@ body.oscuro {
     --color-icono-hover:#fff;
     --color-negro:#ffffff;
     --negro:#e9e9e9;
+    --sombra:rgba(255, 255, 255, 0.25)
 }
 
 /* Menú pirata */
@@ -62,7 +64,7 @@ body.oscuro {
     padding: 1.2rem 0;
     z-index: 1000;
     border-radius: 0 0 10px 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    box-shadow: 0 4px 8px var(--sombra);
     color: var(--color-letras);
 }
 
