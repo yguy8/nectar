@@ -1,4 +1,4 @@
-// Paleta inicial de ejemplo
+// Paleta inicial dinámica
 let colores = [
   {nombre:"--fondo", valor:"#ffffff"},
   {nombre:"--letras", valor:"#121212"},
@@ -8,44 +8,57 @@ let colores = [
   {nombre:"--opcion6", valor:"#748582"}
 ];
 
-const colorList = document.getElementById("colorList");
-const formularioBtn = document.getElementById("formularioBtn");
-const formulario = document.getElementById("formulario");
-const cerrarBtn = document.getElementById("cerrarBtn");
-
+const colorList        = document.getElementById("colorList");
+const formularioBtn    = document.getElementById("formularioBtn");
+const formulario       = document.getElementById("formulario");
+const cerrarBtn        = document.getElementById("cerrarBtn");
+const formularioHeader = document.getElementById("formularioHeader");
 
 // --- Abrir / cerrar formulario ---
 formularioBtn.addEventListener("click", () => {
   formulario.classList.remove("oculto");
   formularioBtn.style.display = "none";
 });
-
-
-// Cerrar formulario al hacer clic en la X
 cerrarBtn.addEventListener("click", () => {
   formulario.classList.add("oculto");
   formularioBtn.style.display = "flex";
 });
 
-
-// --- Hacer botón flotante movible ---
-let dragging = false, offsetX, offsetY;
+// --- Mover botón flotante ---
+let draggingBtn = false, offsetXBtn, offsetYBtn;
 formularioBtn.addEventListener("mousedown", e => {
-  dragging = true;
-  offsetX = e.clientX - formularioBtn.offsetLeft;
-  offsetY = e.clientY - formularioBtn.offsetTop;
+  draggingBtn = true;
+  offsetXBtn = e.clientX - formularioBtn.offsetLeft;
+  offsetYBtn = e.clientY - formularioBtn.offsetTop;
 });
 document.addEventListener("mousemove", e => {
-  if (dragging) {
-    formularioBtn.style.left = (e.clientX - offsetX) + "px";
-    formularioBtn.style.top = (e.clientY - offsetY) + "px";
+  if (draggingBtn) {
+    formularioBtn.style.left = (e.clientX - offsetXBtn) + "px";
+    formularioBtn.style.top  = (e.clientY - offsetYBtn) + "px";
     formularioBtn.style.bottom = "auto";
-    formularioBtn.style.right = "auto";
+    formularioBtn.style.right  = "auto";
   }
 });
-document.addEventListener("mouseup", () => dragging = false);
+document.addEventListener("mouseup", () => draggingBtn = false);
 
-// --- Renderizar lista de colores ---
+// --- Mover formulario expandido ---
+let draggingForm = false, offsetXForm, offsetYForm;
+formularioHeader.addEventListener("mousedown", e => {
+  draggingForm = true;
+  offsetXForm = e.clientX - formulario.offsetLeft;
+  offsetYForm = e.clientY - formulario.offsetTop;
+});
+document.addEventListener("mousemove", e => {
+  if (draggingForm) {
+    formulario.style.left = (e.clientX - offsetXForm) + "px";
+    formulario.style.top  = (e.clientY - offsetYForm) + "px";
+    formulario.style.bottom = "auto";
+    formulario.style.right  = "auto";
+  }
+});
+document.addEventListener("mouseup", () => draggingForm = false);
+
+// --- Renderizar lista de colores con inputs dinámicos ---
 function renderColores() {
   colorList.innerHTML = "";
   colores.forEach((c,i) => {
@@ -55,16 +68,46 @@ function renderColores() {
     div.dataset.index = i;
 
     div.innerHTML = `
-      <div class="color-swatch" style="background:${c.valor}"></div>
-      <span>${c.nombre}: ${c.valor}</span>
-      <button onclick="quitarColor(${i})">✖</button>
-      <span class="drag-handle">☰</span>
+      <input type="color" value="${c.valor}" 
+             onchange="actualizarColor(${i}, this.value)">
+      <span>${c.nombre}</span>
+      <button onclick="quitarColor(${i})" class="btn-remove">
+        <!-- SVG X -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
+             viewBox="0 0 24 24" fill="none" stroke="#000000" 
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+             class="icon icon-tabler icon-tabler-x">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M18 6l-12 12" />
+          <path d="M6 6l12 12" />
+        </svg>
+      </button>
+      <span class="drag-handle">
+        <!-- SVG grip vertical -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
+             viewBox="0 0 24 24" fill="none" stroke="#000000" 
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+             class="icon icon-tabler icon-tabler-grip-vertical">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M8 5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+          <path d="M8 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+          <path d="M8 19a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+          <path d="M14 5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+          <path d="M14 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+          <path d="M14 19a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+        </svg>
+      </span>
     `;
     colorList.appendChild(div);
   });
 }
+// Actualizar color dinámicamente
+function actualizarColor(i, nuevoValor) {
+  colores[i].valor = nuevoValor;
+  document.documentElement.style.setProperty(colores[i].nombre, nuevoValor);
+}
 
-// Quitar color (máximo 2)
+// Quitar color (mínimo 4)
 function quitarColor(i) {
   if (colores.length > 4) {
     colores.splice(i,1);
@@ -97,7 +140,6 @@ document.getElementById("aplicarBtn").addEventListener("click", () => {
   style.innerHTML = vars;
   document.head.appendChild(style);
 
-  // Validar contraste texto vs fondo
   const fondo = getComputedStyle(document.documentElement).getPropertyValue("--fondo").trim();
   const texto = getComputedStyle(document.documentElement).getPropertyValue("--letras").trim();
   validarContraste(texto, fondo);
@@ -132,14 +174,7 @@ function showToast(msg, sugerencia, aplicarCallback) {
 function validarContraste(texto, fondo) {
   const ratio = contraste(texto,fondo);
   if (ratio < 4.5) {
-    let sugerido = texto;
-    const Ltext = luminancia(texto);
-    const Lfondo = luminancia(fondo);
-    if (Ltext > Lfondo) {
-      sugerido = "#000000"; // oscurecer texto
-    } else {
-      sugerido = "#FFFFFF"; // aclarar texto
-    }
+    let sugerido = (luminancia(texto) > luminancia(fondo)) ? "#000000" : "#FFFFFF";
     showToast("⚠️ El contraste no es bueno según WCAG. Ratio: "+ratio.toFixed(2),
               sugerido,
               () => aplicarSugerencia(sugerido));
