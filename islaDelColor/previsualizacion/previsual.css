@@ -5,27 +5,77 @@ body {
   background: #fdfdfd;
 }
 
-/* Cuadro flotante */
+/* Botón flotante cerrado */
+#formularioBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+#formularioBtn svg {
+  width: 28px;
+  height: 28px;
+  color: #333;
+}
+
+/* Formulario expandido */
 #formulario {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  bottom: 30px;
+  right: 20px;
   background: #f9f9f9;
   border: 1px solid #ccc;
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  width: 300px;
   z-index: 1000;
-  width: 250px;
-  transition: all 0.3s ease;
 }
 
-#formulario.minimizado {
-  height: 30px;
-  overflow: hidden;
+#formulario.oculto {
+  display: none;
+}
+
+#formulario h3 {
+  margin-top: 0;
+}
+
+#formulario button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #759AD3;
+  color: #fff;
+  border-radius: 4px;
   cursor: pointer;
-  width: 120px;
-  text-align: center;
+}
+
+#formulario button:hover {
+  background: #5a7fb5;
+}
+
+#formulario .cerrar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+}
+
+#formulario .cerrar svg {
+  width: 20px;
+  height: 20px;
+  stroke: #333;
 }
 
 /* Lista de colores */
@@ -52,20 +102,6 @@ body {
   cursor: grab;
   font-size: 18px;
   color: #666;
-}
-
-button {
-  margin-top: 0.5rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  background: #759AD3;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #5a7fb5;
 }
 
 /* Vista previa */
