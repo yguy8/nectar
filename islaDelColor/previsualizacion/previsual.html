@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Preview Isla del Color</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+
+    /* Pantalla inicial */
+    #configuracion {
+      padding: 2rem;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      font-family: monospace;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.8rem 1.2rem;
+      cursor: pointer;
+    }
+
+    /* Pantalla de vista previa (oculta al inicio) */
+    #vista {
+      display: none;
+    }
+    header, footer { padding: 1rem; text-align: center; }
+    nav a { margin: 0 1rem; text-decoration: none; }
+    .hero { padding: 2rem; text-align: center; }
+    .btn { padding: 0.8rem 1.2rem; border: none; cursor: pointer; }
+    .cards { display: flex; gap: 1rem; padding: 2rem; }
+    .card { flex: 1; padding: 1rem; border-radius: 8px; }
+  </style>
+</head>
+<body>
+
+  <!-- Pantalla inicial -->
+  <section id="configuracion">
+    <h1>Configura tu paleta</h1>
+    <p>Pega aquí tus variables CSS o ajusta los colores:</p>
+
+    <textarea id="variables">
+:root {
+  --color-primario: #3498db;
+  --color-secundario: #2ecc71;
+  --color-acento: #f39c12;
+  --color-texto: #000000;
+  --color-fondo: #ffffff;
+}
+    </textarea>
+
+    <button id="vistaBtn">Ver vista previa</button>
+  </section>
+
+  <!-- Pantalla de vista previa -->
+  <section id="vista">
+    <header id="header">
+      <h1>Mi Marca</h1>
+      <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Servicios</a>
+        <a href="#">Contacto</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="hero">
+      <h2>Bienvenido a la simulación</h2>
+      <p>Así se vería tu paleta aplicada.</p>
+      <button class="btn" id="cta">Llamada a la acción</button>
+    </section>
+
+    <section class="cards">
+      <div class="card" id="card1">
+        <h3>Tarjeta 1</h3>
+        <p>Texto de ejemplo.</p>
+      </div>
+      <div class="card" id="card2">
+        <h3>Tarjeta 2</h3>
+        <p>Más contenido.</p>
+      </div>
+    </section>
+
+    <footer id="footer">
+      <p>© 2026 Mi Marca</p>
+    </footer>
+  </section>
+
+  <script>
+    document.getElementById("vistaBtn").addEventListener("click", () => {
+      const vars = document.getElementById("variables").value;
+
+      // Inyectar variables CSS en la página
+      const style = document.createElement("style");
+      style.innerHTML = vars;
+      document.head.appendChild(style);
+
+      // Ocultar configuración y mostrar vista previa
+      document.getElementById("configuracion").style.display = "none";
+      document.getElementById("vista").style.display = "block";
+    });
+  </script>
+</body>
+</html>
