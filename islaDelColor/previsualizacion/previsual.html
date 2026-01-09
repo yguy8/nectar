@@ -3,57 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <title>Preview Isla del Color</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-
-    /* Pantalla inicial */
-    #configuracion {
-      padding: 2rem;
-    }
-    textarea {
-      width: 100%;
-      height: 150px;
-      font-family: monospace;
-    }
-    button {
-      margin-top: 1rem;
-      padding: 0.8rem 1.2rem;
-      cursor: pointer;
-    }
-
-    /* Pantalla de vista previa (oculta al inicio) */
-    #vista {
-      display: none;
-    }
-    header, footer { padding: 1rem; text-align: center; }
-    nav a { margin: 0 1rem; text-decoration: none; }
-    .hero { padding: 2rem; text-align: center; }
-    .btn { padding: 0.8rem 1.2rem; border: none; cursor: pointer; }
-    .cards { display: flex; gap: 1rem; padding: 2rem; }
-    .card { flex: 1; padding: 1rem; border-radius: 8px; }
-  </style>
+  <link rel="stylesheet" href="previsual.css">
 </head>
 <body>
 
-  <!-- Pantalla inicial -->
-  <section id="configuracion">
-    <h1>Configura tu paleta</h1>
-    <p>Pega aquí tus variables CSS o ajusta los colores:</p>
+  <!-- Cuadro flotante con formulario -->
+  <div id="formulario">
+    <h3>Configura tu paleta</h3>
+    <p>Arrastra y acomoda tus colores (mínimo 4, máximo 6). Puedes quitar hasta 2.</p>
+    <div id="colorList">
+      <!-- Los colores se renderizan aquí desde JS -->
+    </div>
+    <button id="aplicarBtn">Aplicar colores</button>
+  </div>
 
-    <textarea id="variables">
-:root {
-  --color-primario: #3498db;
-  --color-secundario: #2ecc71;
-  --color-acento: #f39c12;
-  --color-texto: #000000;
-  --color-fondo: #ffffff;
-}
-    </textarea>
-
-    <button id="vistaBtn">Ver vista previa</button>
-  </section>
-
-  <!-- Pantalla de vista previa -->
+  <!-- Vista previa -->
   <section id="vista">
     <header id="header">
       <h1>Mi Marca</h1>
@@ -86,19 +50,9 @@
     </footer>
   </section>
 
-  <script>
-    document.getElementById("vistaBtn").addEventListener("click", () => {
-      const vars = document.getElementById("variables").value;
+  <!-- Toast accesibilidad -->
+  <div id="toast"></div>
 
-      // Inyectar variables CSS en la página
-      const style = document.createElement("style");
-      style.innerHTML = vars;
-      document.head.appendChild(style);
-
-      // Ocultar configuración y mostrar vista previa
-      document.getElementById("configuracion").style.display = "none";
-      document.getElementById("vista").style.display = "block";
-    });
-  </script>
+  <script src="previsual.js"></script>
 </body>
 </html>
