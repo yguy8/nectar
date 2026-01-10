@@ -1,11 +1,11 @@
-// Paleta inicial dinámica
+// Paleta inicial dinámica con los nuevos nombres
 let colores = [
-  {nombre:"--fondo", valor:"#ffffff"},
-  {nombre:"--letras", valor:"#121212"},
-  {nombre:"--resaltar", valor:"#759AD3"},
-  {nombre:"--opcion4", valor:"#67FDA3"},
-  {nombre:"--opcion5", valor:"#868623"},
-  {nombre:"--opcion6", valor:"#748582"}
+  {nombre:"--color-fondo", valor:"#ffffff"},
+  {nombre:"--color-texto", valor:"#121212"},
+  {nombre:"--color-primario", valor:"#3498db"},
+  {nombre:"--color-secundario", valor:"#2ecc71"},
+  {nombre:"--color-acento", valor:"#f39c12"},
+  {nombre:"--color-resaltar", valor:"#759AD3"}
 ];
 
 const colorList        = document.getElementById("colorList");
@@ -43,20 +43,22 @@ document.addEventListener("mouseup", () => draggingBtn = false);
 
 // --- Mover formulario expandido ---
 let draggingForm = false, offsetXForm, offsetYForm;
-formularioHeader.addEventListener("mousedown", e => {
-  draggingForm = true;
-  offsetXForm = e.clientX - formulario.offsetLeft;
-  offsetYForm = e.clientY - formulario.offsetTop;
-});
-document.addEventListener("mousemove", e => {
-  if (draggingForm) {
-    formulario.style.left = (e.clientX - offsetXForm) + "px";
-    formulario.style.top  = (e.clientY - offsetYForm) + "px";
-    formulario.style.bottom = "auto";
-    formulario.style.right  = "auto";
-  }
-});
-document.addEventListener("mouseup", () => draggingForm = false);
+if (formularioHeader) {
+  formularioHeader.addEventListener("mousedown", e => {
+    draggingForm = true;
+    offsetXForm = e.clientX - formulario.offsetLeft;
+    offsetYForm = e.clientY - formulario.offsetTop;
+  });
+  document.addEventListener("mousemove", e => {
+    if (draggingForm) {
+      formulario.style.left = (e.clientX - offsetXForm) + "px";
+      formulario.style.top  = (e.clientY - offsetYForm) + "px";
+      formulario.style.bottom = "auto";
+      formulario.style.right  = "auto";
+    }
+  });
+  document.addEventListener("mouseup", () => draggingForm = false);
+}
 
 // --- Renderizar lista de colores con inputs dinámicos ---
 function renderColores() {
@@ -64,30 +66,30 @@ function renderColores() {
   colores.forEach((c,i) => {
     const div = document.createElement("div");
     div.className = "color-item";
-    div.draggable = true;
+    div.draggable = true;          // el bloque completo se arrastra
     div.dataset.index = i;
 
     div.innerHTML = `
+      <span class="color-name">${c.nombre}</span>
       <input type="color" value="${c.valor}" 
-             onchange="actualizarColor(${i}, this.value)">
-      <span>${c.nombre}</span>
+            onchange="actualizarColor(${i}, this.value)">
       <button onclick="quitarColor(${i})" class="btn-remove">
         <!-- SVG X -->
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
-             viewBox="0 0 24 24" fill="none" stroke="#000000" 
-             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
-             class="icon icon-tabler icon-tabler-x">
+            viewBox="0 0 24 24" fill="none" stroke="#000000" 
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+            class="icon icon-tabler icon-tabler-x">
           <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
           <path d="M18 6l-12 12" />
           <path d="M6 6l12 12" />
         </svg>
       </button>
+      <!-- SVG drag vertical -->
       <span class="drag-handle">
-        <!-- SVG grip vertical -->
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
-             viewBox="0 0 24 24" fill="none" stroke="#000000" 
-             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
-             class="icon icon-tabler icon-tabler-grip-vertical">
+            viewBox="0 0 24 24" fill="none" stroke="#000000" 
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+            class="icon icon-tabler icon-tabler-grip-vertical">
           <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
           <path d="M8 5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
           <path d="M8 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
@@ -100,7 +102,28 @@ function renderColores() {
     `;
     colorList.appendChild(div);
   });
+
+  // Botón "+" si hay menos de 6 colores
+  if (colores.length < 6) {
+    const addDiv = document.createElement("div");
+    addDiv.className = "color-item add-color";
+    addDiv.innerHTML = `
+      <button onclick="agregarColor()" class="btn-add">
+        <!-- SVG Plus -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+             viewBox="0 0 24 24" fill="none" stroke="#737373" 
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
+             class="icon icon-tabler icon-tabler-plus">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M12 5l0 14" />
+          <path d="M5 12l14 0" />
+        </svg>
+      </button>
+    `;
+    colorList.appendChild(addDiv);
+  }
 }
+
 // Actualizar color dinámicamente
 function actualizarColor(i, nuevoValor) {
   colores[i].valor = nuevoValor;
@@ -133,15 +156,14 @@ colorList.addEventListener("drop", e => {
 
 // --- Aplicar colores ---
 document.getElementById("aplicarBtn").addEventListener("click", () => {
-  const style = document.createElement("style");
-  let vars = ":root {\n";
-  colores.forEach(c => vars += `  ${c.nombre}: ${c.valor};\n`);
-  vars += "}";
-  style.innerHTML = vars;
-  document.head.appendChild(style);
+  // Aplica todas las variables definidas en la paleta
+  colores.forEach(c => {
+    document.documentElement.style.setProperty(c.nombre, c.valor);
+  });
 
-  const fondo = getComputedStyle(document.documentElement).getPropertyValue("--fondo").trim();
-  const texto = getComputedStyle(document.documentElement).getPropertyValue("--letras").trim();
+  // Validar contraste entre texto y fondo
+  const fondo = getValor("--color-fondo");
+  const texto = getValor("--color-texto");
   validarContraste(texto, fondo);
 });
 
@@ -175,14 +197,20 @@ function validarContraste(texto, fondo) {
   const ratio = contraste(texto,fondo);
   if (ratio < 4.5) {
     let sugerido = (luminancia(texto) > luminancia(fondo)) ? "#000000" : "#FFFFFF";
-    showToast("⚠️ El contraste no es bueno según WCAG. Ratio: "+ratio.toFixed(2),
+    showToast("El contraste no es bueno según WCAG. Ratio: "+ratio.toFixed(2),
               sugerido,
               () => aplicarSugerencia(sugerido));
   }
 }
 
 function aplicarSugerencia(color) {
-  document.documentElement.style.setProperty("--letras", color);
+  document.documentElement.style.setProperty("--color-texto", color);
+}
+
+// Helper para obtener valor actual de una variable
+function getValor(nombreVar) {
+  const item = colores.find(c => c.nombre === nombreVar);
+  return item ? item.valor : "#000000";
 }
 
 // Inicializar

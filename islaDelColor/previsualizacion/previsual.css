@@ -1,8 +1,21 @@
+:root{
+  /*solo el formulario tiene estas variables*/
+  --botones:#759AD3;
+  --botones-hover:#5a7fb5;
+  --letras-form:#000000;
+  --letras-btn:#ffffff;
+  --sombra:rgba(0,0,0,0.2);
+  --fondo-form:#eee;
+  --border-form:#ccc;
+  --svg-hover:#00cb07;
+}
+
 /* Estilos generales */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background: #fdfdfd;
+  background: var(--color-fondo, #fdfdfd);
+  color: var(--color-texto, #121212);
 }
 
 /* Botón flotante cerrado */
@@ -12,50 +25,47 @@ body {
   right: 20px;
   width: 55px;
   height: 55px;
-  background: #eee;
-  border: 1px solid #ccc;
+  background: var(--fondo-form);
+  border: 1px solid var(--border-form);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: grab;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px var(--sombra);
   z-index: 1000;
 }
 
 #formularioBtn svg {
   width: 28px;
   height: 28px;
-  color: #333;
+  color: var(--letras-form);
 }
 
 #formularioBtn svg:hover {
-  width: 28px;
-  height: 28px;
-  color: #00cb07;
-  cursor:all-scroll;
+  color: var(--svg-hover);
+  cursor: all-scroll;
 }
-
 
 /* Formulario expandido */
 #formulario {
   position: fixed;
-  bottom: 30px;
-  right: 20px;
-  background: #f9f9f9;
-  border: 1px solid #ccc;
+  bottom: 20px;
+  right: 25px;
+  background: var(--fondo-form);
+  border: 1px solid var(--border-form);
   padding: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px var(--sombra);
   width: 300px;
   z-index: 1000;
 }
 #formularioHeader {
-  cursor: move;      /* indica que se puede arrastrar */
+  cursor: move;
   margin-top: 0;
   padding: 0.5rem;
-  background: #eaeaea;
-  border-bottom: 1px solid #ccc;
+  background: var(--letras-btn);
+  border-bottom: 1px solid var(--border-form);
 }
 
 #formulario.oculto {
@@ -64,22 +74,29 @@ body {
 
 #formulario h3 {
   margin-top: 0;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  width: fit-content;
 }
 
+#formulario label {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--letras-form);
+}
 #formulario button {
   margin-top: 0.5rem;
   padding: 0.5rem 1rem;
   border: none;
-  background: #759AD3;
-  color: #fff;
+  background: var(--botones);
+  color: var(--letras-btn);
   border-radius: 4px;
   cursor: pointer;
-  align-items: center;
-  justify-content: center;
 }
 
 #formulario button:hover {
-  background: #5a7fb5;
+  background: var(--botones-hover);
 }
 
 #formulario .cerrar {
@@ -96,36 +113,50 @@ body {
 }
 
 #formulario .cerrar svg:hover {
-  width: 20px;
-  height: 20px;
   stroke: #ff0000;
 }
 
 /* Lista de colores */
 .color-item {
   display: flex;
+  height: fit-content;
   align-items: center;
   margin-bottom: 0.5rem;
-  padding: 0.3rem;
-  border: 1px dashed #aaa;
-  background: #fff;
+  border: 1px dashed var(--border-form);
+  background: var(--letras-btn);
   border-radius: 4px;
-}
-
-.color-swatch {
-  width: 25px;
-  height: 25px;
-  margin-right: 0.5rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
 }
 
 .drag-handle {
   margin-left: auto;
   cursor: grab;
   font-size: 18px;
-  color: #666;
+  color: var(--letras-form);
 }
+
+.btn-remove {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0.3rem;
+  border-radius: 4px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-remove:hover {
+  transform: scale(1.1);
+}
+
+.btn-remove svg {
+  stroke: var(--letras-form);
+  transition: stroke 0.2s ease;
+}
+
+.btn-remove:hover svg {
+  stroke: var(--letras-btn);
+}
+
+
 
 /* Vista previa */
 header, footer {
@@ -195,8 +226,8 @@ nav a {
 
 #toast button {
   margin-top: 0.5rem;
-  background: #67FDA3;
-  color: #121212;
+  background: var(--color-secundario, #67FDA3);
+  color: var(--color-texto, #121212);
 }
 
 @keyframes fadein {
