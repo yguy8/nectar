@@ -15,7 +15,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   background: var(--color-fondo);
-  color: var(--color-texto);
+  color: var(--color-texto); 
 }
 
 /* Botón flotante cerrado */
@@ -159,25 +159,25 @@ body {
 
 
 
-/* Vista previa */
+/* Vista previa de la página*/
 header, footer {
   padding: 1rem;
   text-align: center;
   background-color: var(--color-primario, #3498db);
-  color: var(--color-fondo, #ffffff);
+  color: var(--color-texto, #ffffff);
 }
 
 nav a {
   margin: 0 1rem;
   text-decoration: none;
-  color: var(--color-fondo, #ffffff);
+  color: var(--color-texto, #ffffff);
 }
 
 .hero {
   padding: 2rem;
   text-align: center;
   background-color: var(--color-secundario, #2ecc71);
-  color: var(--color-fondo, #ffffff);
+  color: var(--color-texto, #ffffff);
 }
 
 .btn {
@@ -185,7 +185,7 @@ nav a {
   border: none;
   cursor: pointer;
   background-color: var(--color-acento, #f39c12);
-  color: var(--color-fondo, #ffffff);
+  color: var(--color-texto, #ffffff);
   border-radius: 4px;
 }
 
@@ -200,7 +200,7 @@ nav a {
   padding: 1rem;
   border-radius: 8px;
   background-color: var(--color-primario, #3498db);
-  color: var(--color-fondo, #ffffff);
+  color: var(--color-texto, #ffffff);
 }
 
 /* Toast accesibilidad */
