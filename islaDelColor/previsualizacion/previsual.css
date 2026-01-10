@@ -14,8 +14,8 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background: var(--color-fondo, #fdfdfd);
-  color: var(--color-texto, #121212);
+  background: var(--color-fondo);
+  color: var(--color-texto);
 }
 
 /* Botón flotante cerrado */
@@ -59,6 +59,7 @@ body {
   box-shadow: 0 2px 6px var(--sombra);
   width: 300px;
   z-index: 1000;
+  color: var(--letras-form);
 }
 #formularioHeader {
   cursor: move;
