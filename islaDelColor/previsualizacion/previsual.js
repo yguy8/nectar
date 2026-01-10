@@ -128,7 +128,7 @@ function agregarColor(nombreOpcional, valorOpcional) {
     return;
   }
 
-  const baseNombre = "--color-personalizado";
+  const baseNombre = "--color-acento";
   let nuevoNombre = nombreOpcional || baseNombre;
   let contador = 1;
   const nombresExistentes = new Set(colores.map(c => c.nombre));
