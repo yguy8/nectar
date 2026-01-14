@@ -1,48 +1,61 @@
 :root {
-    --color-de-fondo:#fdf6e3;
-    --tesoro:#d4af37;
-    --blanco:#ffffff;
-    --color-letras:#222;
-    --color-letras-2:#fff;
-    --azul-boton: #007BFF;
-    --azul-boton-hover: #0056b3;
-    --negro:#1f1f1f;
-    --sombra:rgba(0,0,0,0.25)
+    /* Fondos y Superficies */
+    --fondo-principal: #fdf6e3;
+    --fondo-tarjetas: #ffffff;
+    --sombra: rgba(0, 0, 0, 0.25);
+
+    /* Textos */
+    --color-texto: #222;
+    --color-texto-2: #fff;
+
+    /* Identidad y Acentos */
+    --acento: #d4af37;
+    --detalles: #1f1f1f;
+
+    /* Botones y Navegación */
+    --boton: #007BFF;
+    --boton-hover: #0056b3;
+    --nav-hover: #0056b3;
 }
+
 
 /* Reset básico */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
-  background: var(--color-de-fondo);
-  color: var(--color-letras);
+  background: var(--fondo-principal);
+  color: var(--color-texto);
   line-height: 1.6;
 }
+
 /* modo oscuro */
 body.oscuro {
     /*modo oscuro*/
-    --color-de-fondo:#23043A; 
-    --color-de-fondo-2:#3a0437; 
-    --color-letras:#dcfbc5; 
-    --tesoro:#5d8ece; 
-    --hover-fondo:#47efa6; 
-    --blanco:#484747;
-    --azul-boton:#8d08d0;
-    --azul-boton-hover:#cd2bed;
-    --negro:#d7d7d7;
-    --sombra:rgba(255, 255, 255, 0.25)
+    --fondo-principal:#23043A;  
+    --fondo-tarjetas:#484747;
+    --sombra:rgba(255, 255, 255, 0.25);
+
+    --color-texto:#dcfbc5; 
+    --color-texto-2:#fff;
+
+    --acento:#5d8ece; 
+    --detalles:#d7d7d7;
+
+    --boton:#8d08d0;
+    --boton-hover:#cd2bed;
+    --nav-hover:#f7b8b0;
 }
 /* Menú superior */
 .menu {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: var(--color-de-fondo);
+    background-color: var(--fondo-principal);
     padding: 1.2rem 0;
     z-index: 1000;
     border-radius: 0 0 10px 10px;
     box-shadow: 0 4px 8px var(--sombra);
-    color: var(--color-letras);
+    color: var(--color-texto);
 }
 .menu-toggle {
     font-size: 24px;
@@ -57,13 +70,13 @@ body.oscuro {
 .menu li { margin: 0 20px; }
 .menu a {
     text-decoration: none;
-    color: var(--color-letras);
+    color: var(--color-texto);
     font-weight: 600;
     transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 .menu a:hover {
-    color: #f7b8b0;
-    border-bottom: 2px solid var(--tesoro);
+    color: var(--nav-hover);
+    border-bottom: 2px solid var(--acento);
 }
 #modoOscuroBtn {
     position: fixed;  
@@ -99,7 +112,7 @@ p{
   padding: 80px 20px 20px; /* espacio para menú fijo */
 }
 .panel {
-  background: var(--blanco);
+  background: var(--fondo-tarjetas);
   border-radius: 12px;
   padding: 16px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
@@ -120,14 +133,14 @@ p{
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--negro);
+  color: var(--detalles);
   font-weight: bold;
 }
 
 /* Zoom flotante */
 #zoomCanvas {
   position: absolute;
-  background: var(--blanco);
+  background: var(--fondo-tarjetas);
   pointer-events: none;
   border-radius: 6px;
   z-index: 10;
@@ -144,15 +157,15 @@ button {
   padding: 8px 16px;
   border: none;
   border-radius: 6px;
-  background: var(--azul-boton);
-  color: var(--color-letras-2);
+  background: var(--boton);
+  color: var(--color-texto-2);
   cursor: pointer;
   transition: background 0.3s ease;
   margin:5px;
 }
 
 button:hover { 
-  background: var(--azul-boton-hover);
+  background: var(--boton-hover);
 }
 
 button:disabled {
@@ -172,14 +185,14 @@ select{
 .swatch {
   width: 50px;
   height: 50px;
-  border: 2px solid var(--negro);
+  border: 2px solid var(--detalles);
   border-radius: 6px;
 }
 .codes { flex: 1; }
 .code-line { margin: 4px 0; }
 .badge {
-  background: var(--tesoro);
-  color: var(--color-letras);
+  background: var(--acento);
+  color: var(--color-texto);
   padding: 2px 6px;
   border-radius: 4px;
   margin-right: 6px;
@@ -226,8 +239,8 @@ select{
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--color-letras);
-  color: var(--blanco);
+  background: var(--color-texto);
+  color: var(--fondo-tarjetas);
   padding: 8px 16px;
   border-radius: 6px;
   opacity: 0;
@@ -254,7 +267,7 @@ select{
     display: none;
     flex-direction: column;
     width: 100%;
-    background-color: var(--color-de-fondo);
+    background-color: var(--fondo-principal);
     position: absolute;
     top: 50px;
     left: 0;
@@ -298,7 +311,7 @@ select{
 .swatch {
   width: 50px;
   height: 50px;
-  border: 2px solid var(--negro);
+  border: 2px solid var(--detalles);
   border-radius: 6px;
 }
 }

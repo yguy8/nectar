@@ -5,23 +5,48 @@
     box-sizing: border-box;
 }
 
-/* Variables globales */
-:root{
-    --color-de-fondo:#fdf6e3;
-    --color-de-fondo-2:rgba(253, 246, 227, 0.8);
-    --tesoro:#d4af37;
-    --blanco:#ffffff;
-    --blanco-2:#ffffff;
-    --color-letras:#222;
-    --azul-boton: #007BFF;
-    --azul-boton-hover: #0056b3;
-    --color-icono:#1e00ff;
-    --color-icono-hover:#a80707;
-    --sangre:#8b0000;
-    --madera:#984c4c;
-    --sombra:rgba(0,0,0,0.25)
+:root {
+    /* Fondos y Capas */
+    --fondo-principal: #fdf6e3;
+    --fondo-suave: rgba(253, 246, 227, 0.8);
+    --fondo-tarjeta: #ffffff;
+    /* Colores de Marca / Énfasis */
+    --color-primario: #d4af37;
+    --color-primario-oscuro: #984c4c;
+    --color-acentuado: #8b0000;
+    /* Textos */
+    --texto-principal: #222222;
+    --texto-contraste: #ffffff;
+    /* Acciones */
+    --accion-color: #007BFF;
+    --accion-hover: #0056b3;
+    /* Iconos */
+    --icono-color: #1e00ff;
+    --icono-hover: #a80707;
+    /* Sombras */
+    --sombra-principal: rgba(0, 0, 0, 0.25);
 }
 
+/* Modo oscuro */
+body.oscuro {
+    --fondo-principal: #23043A; 
+    --fondo-suave: #3a0437; 
+    --fondo-tarjeta: #484747;
+
+    --color-primario: #5d8ece; 
+    --color-primario-oscuro: #1199a3;
+    --color-acentuado: #60065c; 
+
+    --texto-principal: #dcfbc5; 
+    --texto-contraste: #ffffff;
+
+    --accion-hover: #f7b8b0;
+    
+    --icono-color: #88ff80;
+    --icono-hover: #fff;
+    
+    --sombra-principal: rgba(255, 255, 255, 0.25);
+}
 
 body {
     display: flex;
@@ -31,46 +56,27 @@ body {
     transition: background-color 0.5s ease;
     font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
     line-height: 1.6;
-    background-color: var(--color-de-fondo-2);
-    color: var(--color-letras);
+    background-color: var(--fondo-suave);
+    color: var(--texto-principal);
 }
 
-/* modo oscuro */
-body.oscuro {
-    /*modo oscuro*/
-    --color-de-fondo:#23043A; 
-    --color-de-fondo-2:#3a0437; 
-    --color-letras:#dcfbc5; 
-    --tesoro:#5d8ece; 
-    --hover-fondo:#054a2c; 
-    --sangre:#60065c; 
-    --azul-boton-hover:#f7b8b0;
-    --madera:#1199a3;
-    --blanco:#484747;
-    --blanco-2:#ffffff;
-    --color-icono:#88ff80;
-    --color-icono-hover:#fff;
-    --sombra:rgba(255, 255, 255, 0.25)
-}
-
-/* Menú pirata */
+/* Menú */
 .menu {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: var(--color-de-fondo);
+    background-color: var(--fondo-principal);
     padding: 1.2rem 0;
     z-index: 1000;
     border-radius: 0 0 10px 10px;
-    box-shadow: 0 4px 8px var(--sombra);
-    color: var(--color-letras);
+    box-shadow: 0 4px 8px var(--sombra-principal);
+    color: var(--texto-principal);
 }
 
-/* Ícono hamburguesa */
 .menu-toggle {
     font-size: 24px;
     cursor: pointer;
-    display: none; /* oculto en desktop/tablet */
+    display: none;
 }
 
 .menu ul {
@@ -85,14 +91,14 @@ body.oscuro {
 
 .menu a {
     text-decoration: none;
-    color: var(--color-negro);
+    color: var(--texto-principal);
     font-weight: 600;
     transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 
 .menu a:hover {
-    color: var(--azul-boton-hover);
-    border-bottom: 2px solid var(--tesoro);
+    color: var(--accion-hover);
+    border-bottom: 2px solid var(--color-primario);
 }
 
 #modoOscuroBtn {
@@ -108,17 +114,17 @@ body.oscuro {
     cursor: pointer;
 }
 
-/* Contenedor estilo pergamino */
+/* Contenedor estilo pergamino -> Ahora contenedor principal */
 .container {
     text-align: center;
     padding-top: 20px;
     margin-top: 1rem;
     border-radius: 12px;
-    background-color: var(--blanco);
+    background-color: var(--fondo-tarjeta);
 }
 
 /* Paleta */
-.palette-style{
+.palette-style {
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -126,21 +132,21 @@ body.oscuro {
     margin-top: 20px;
 }
 
-.color-block{
+.color-block {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
 }
 
-.color-label{
+.color-label {
     position: absolute;
     top: -25px;
     font-weight: bold;
-    color: var(--color-letras);
+    color: var(--texto-principal);
 }
 
-.color-box{
+.color-box {
     width: 100px; 
     height: 100px;
 }
@@ -148,176 +154,147 @@ body.oscuro {
 /* Textos */
 h2 {
     margin-bottom: 20px;
-    color: var(--color-letras);
-    text-shadow: var(--tesoro);
+    color: var(--texto-principal);
+    text-shadow: 1px 1px var(--color-primario);
     font-weight: bolder;
 }
+
 p {
     font-size: 18px;
     margin-bottom: 20px;
     font-weight: bold;
 }
 
-/* Icono copiar */
+/* Iconos */
 .copy-icon {
     cursor: pointer;
-    stroke:var(--color-icono);
+    stroke: var(--icono-color);
 }
 
 .copy-icon:hover {
-    stroke: var(--color-icono-hover);
+    stroke: var(--icono-hover);
 }
 
 #color-code {
     font-weight: bold;
-    color: var(--color-letras);
+    color: var(--texto-principal);
 }
 
-/* Botón estilo tesoro */
+/* Botones */
 #color-btn, #copy-palette-btn {
-    padding:10px 20px;
+    padding: 10px 20px;
     margin-bottom: 30px;
     font-size: 16px;
-    color:var(--negro);
-    background-color:var(--tesoro);
+    color: var(--texto-principal);
+    background-color: var(--color-primario);
     border-radius: 6px;
     cursor: pointer;
-    border:none;
+    border: none;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#copy-palette-btn{
-    margin-left:10px;
+#copy-palette-btn {
+    margin-left: 10px;
 }
 
 #color-btn:hover, #copy-palette-btn:hover {
-    background-color:var(--madera);
-    color: var(--blanco-2);
+    background-color: var(--color-primario-oscuro);
+    color: var(--texto-contraste);
     transform: scale(1.05);
 }
 
-/* Estilos generales para el toast */
+/* Toast */
 .toast {
     position: absolute;
-    background: linear-gradient(135deg, #007BFF, #0056b3); /* degradado bonito */
-    color: #fff;
+    background: linear-gradient(135deg, var(--accion-color), var(--accion-hover));
+    color: var(--texto-contraste);
     padding: 10px 10px;
     border-radius: 10px;
     font-size: 17px;
     display: flex;
     align-items: center;
     gap: 5px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+    box-shadow: 0 6px 12px var(--sombra-principal);
     opacity: 0;
     transform: translateY(-10px) scale(0.95);
     transition: opacity 0.4s ease, transform 0.4s ease;
     z-index: 1000;
 }
 
-/* Animación de entrada */
 .toast.show {
     opacity: 1;
     transform: translateY(0) scale(1);
 }
 
-/* Animación de salida */
 .toast.hide {
     opacity: 0;
     transform: translateY(-10px) scale(0.95);
 }
 
-/* Media query para pantallas menores a 750px */
+/* Media Queries */
 @media (max-width: 900px) {
-.menu-toggle {
-    display: block;
-    padding-left: 40px;
+    .menu-toggle {
+        display: block;
+        padding-left: 40px;
+    }
+
+    #menu-list {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--fondo-principal);
+        position: absolute;
+        top: 50px;
+        left: 0;
+        padding: 10px 0;
+    }
+
+    #menu-list.show {
+        display: flex;
+    }
+
+    #menu-list li {
+        margin: 10px 0;
+        text-align: center;
+    }
 }
 
-#menu-list {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    background-color: var(--color-de-fondo);
-    position: absolute;
-    top: 50px;
-    left: 0;
-    padding: 10px 0;
-}
-
-#menu-list li {
-    margin: 10px 0;
-    text-align: center;
-}
-
-#menu-list.show {
-    display: flex;
-}
-
-.menu-mapa {
-    border: none;
-    box-shadow: none;
-    background-color:var(--color-de-fondo-2); /* pergamino translúcido */
-    border-radius: 12px;
-    padding: 40px 20px;
-    margin: 40px auto;
-    max-width: 600px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-}
-
-/* Media query para pantallas menores a 612px */
 @media (max-width: 612px) {
-  /* estilo del div que une a selector visual y por texto */
-.color-form-style {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-}
+    .color-form-style {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
 
-/* Botón estilo tesoro */
-#color-btn, #copy-palette-btn {
-    padding: 10px 20px;
-    margin: 30px auto;       /* centrado horizontal */
-    display: block;          /* necesario para que auto funcione */
-    font-size: 12px;
-    color: var(--negro);
-    background-color: var(--tesoro);
-    border-radius: 6px;
-    cursor: pointer;
-    border: none;
-    box-shadow: 3px 3px 0px var(--negro);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 80%;              /* ancho relativo al contenedor */
-    text-align: center;      /* centra el texto dentro del botón */
-}
+    #color-btn, #copy-palette-btn {
+        padding: 10px 20px;
+        margin: 30px auto;
+        display: block;
+        font-size: 12px;
+        width: 80%;
+        box-shadow: 3px 3px 0px var(--texto-principal);
+    }
 
-#copy-palette-btn{
-    margin-bottom:30px;
-}
+    .palette-style {
+        display: grid;
+        grid-template-columns: repeat(3, 80px);
+        gap: 15px;
+        justify-content: center;
+        margin-top: 10px;
+    }
 
-  /* Paletas en grid: 3 arriba, 2 abajo */
-.palette-style {
-    display: grid;
-    grid-template-columns: repeat(3, 80px);
-    gap: 15px;
-    justify-content: center;
-    margin-top: 10px;
-}
+    .color-block {
+        width: 80px;
+    }
 
-.color-block {
-    width: 80px;
-    height: auto;
-    margin: 0;
-}
+    .color-box {
+        width: 80px;
+        height: 80px;
+    }
 
-.color-box {
-    width: 80px;
-    height: 80px;
-}
-
-.color-label {
-    top: -16px;
-    font-size: 1rem;
-}
+    .color-label {
+        top: -16px;
+        font-size: 1rem;
+    }
 }

@@ -1,45 +1,45 @@
 :root {
+    /* Fondos y Capas */
+    --fondo-principal: #fdf6e3;
+    --fondo-suave: rgba(253, 246, 227, 0.8);
+    --tarjeta-fondo: #984c4c;
+    --sombra: rgba(0, 0, 0, 0.25);
+
+    /* Identidad y Colores Marca */
+    --acento: #d4af37;
+    --acento-fuerte: #8b0000;
+
+    /* Textos */
+    --texto-base: #222;
+    --texto-claro: #ffffff;
+
+    /* Botones y Acciones */
+    --boton-fondo: #007BFF;
+    --boton-hover: #0056b3;
+
+    /* Estados*/
     --estado-exito: #15c46f;
     --estado-error: #f07070;
     --estado-foco: #5ab0ff;
-
-    --fondo-principal:#fdf6e3;
-    --fondo-suave:rgba(253, 246, 227, 0.8);
-    --acento:#d4af37;
-    --primario:#000129;
-    --boton-fondo: #007BFF;
-    --boton-hover: #0056b3;
-    --texto-claro:#ffffff;
-    --texto-base:#222;
-    --acento-fuerte:#8b0000;
-    --tarjeta-fondo:#984c4c;
-    --sombra:rgba(0,0,0,0.25)
 }
 
-* {
-    box-sizing: border-box;
-}
 
-body {
-    margin: 0;
-    font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
-    color: var(--texto-claro);
-    background:var(--fondo-principal) ;
-    line-height: 1.6;
-}
 
 /* modo oscuro */
 body.oscuro {
     /*modo oscuro*/
     --fondo-principal:#23043A; 
     --fondo-suave:#3a0437; 
-    --texto-base:#dcfbc5; 
-    --acento:#5d8ece; 
-    --hover-fondo:#054a2c; 
     --tarjeta-fondo:#087077;
+    --sombra:rgba(255, 255, 255, 0.25);
+    
+    --acento:#5d8ece; 
     --acento-fuerte:#60065c; 
+
+    --texto-base:#dcfbc5;
+    
+    --hover-fondo:#054a2c; 
     --boton-hover:#f7b8b0;
-    --sombra:rgba(255, 255, 255, 0.25)
 }
 
 /* Menú pirata */
