@@ -24,7 +24,7 @@
 
 /* Fondo y tipografía */
 body {
-    font-family: "Germania One", system-ui;
+    font-family: "EB Garamond", serif;
     font-style: normal;
     font-size: 20px;
     background-color: var(--color-de-fondo);
@@ -111,6 +111,8 @@ body {
 /* Botón explorar */
 .btn {
     padding: 12px 25px;
+    font-family: "EB Garamond", serif;
+    font-weight: bolder;
     font-size: 16px;
     color: var(--color-blanco);
     background-color: var(--tesoro);
@@ -384,6 +386,7 @@ img{
 
 /* Botón centrado para la guía EXPLORAR  de la isla */
 .btn-info {
+    font-family: "EB Garamond", serif;
     display: block;
     margin: 20px auto; /* centra horizontalmente */
     padding: 12px 25px;
@@ -493,12 +496,13 @@ img{
 
 /* Footer */
 footer {
+    font-family: "EB Garamond", serif;
+    font-weight: bolder;
     text-align: center;
     padding: 20px;
     background-color: var(--color-de-fondo);
     border-top: 2px dashed var(--tesoro);
     font-size: 0.9rem;
-    font-family: "Germania One", system-ui;
     color: var(--texto, #222);
     position: relative;
 }
