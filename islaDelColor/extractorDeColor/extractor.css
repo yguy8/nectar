@@ -62,7 +62,7 @@ body.oscuro {
     transition: color 0.3s ease, border-bottom 0.3s ease;
 }
 .menu a:hover {
-    color: var(--azul-boton-hover);
+    color: #f7b8b0;
     border-bottom: 2px solid var(--tesoro);
 }
 #modoOscuroBtn {
