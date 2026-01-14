@@ -9,13 +9,11 @@
 :root{
     --color-blanco:#ffffff;
     --color-letras:#333;
-    --azul: #007BFF;
-    --azul-hover: #0056b3;
     --color-de-fondo:#fdf6e3;
     --color-de-fondo-2:rgba(253, 246, 227, 0.8);
-    --tesoro:#d4af37;
+    --nav-hover: #0056b3;
+    --acento:#d4af37;
     --hover-fondo:#b8860b;
-    --sangre:#8b0000;
     --madera:#984c4c;
     --rojo:red;
     --github-icon:#000000;
@@ -30,6 +28,19 @@ body {
     background-color: var(--color-de-fondo);
     color: var(--color-letras);
     transition: background-color 0.5s ease;
+}
+
+/* modo oscuro */
+body.oscuro {
+    /*modo oscuro*/
+    --color-de-fondo:#23043A; 
+    --color-letras:#dcfbc5; 
+    --acento:#5d8ece; 
+    --hover-fondo:#054a2c; 
+    --color-de-fondo-2:#3a0437; 
+    --nav-hover:#f7b8b0;
+    --github-icon:#fff;
+    --sombra:rgba(255, 255, 255, 0.25);
 }
 
 #modoOscuroBtn {
@@ -83,8 +94,8 @@ body {
 }
 
 .menu a:hover {
-    color: var(--azul-hover);
-    border-bottom: 2px solid var(--tesoro);
+    color: var(--nav-hover);
+    border-bottom: 2px solid var(--acento);
     font-weight: bold;
 }
 
@@ -97,7 +108,7 @@ body {
 .hero h1 {
     font-size: 3rem;
     color: var(--color-letras);
-    text-shadow: 2px 2px var(--tesoro);
+    text-shadow: 2px 2px var(--acento);
     margin-bottom: 20px;
 }
 
@@ -115,7 +126,7 @@ body {
     font-weight: bolder;
     font-size: 16px;
     color: var(--color-blanco);
-    background-color: var(--tesoro);
+    background-color: var(--acento);
     border-radius: 6px;
     cursor: pointer;
     border: none;
@@ -138,7 +149,7 @@ section h2 {
     font-size: 2rem;
     margin-bottom: 20px;
     color: var(--color-letras);
-    text-shadow: 1px 1px var(--tesoro);
+    text-shadow: 1px 1px var(--acento);
     font-weight: bold;
 }
 
@@ -153,7 +164,7 @@ section p {
 /* Estilo para el Mapa EXPLORAR  */
 .menu-mapa {
     background-color: var(--color-de-fondo-2); /* pergamino translúcido */
-    border: 2px solid var(--tesoro);
+    border: 2px solid var(--acento);
     border-radius: 12px;
     padding: 40px 20px;
     margin: 40px auto;
@@ -171,7 +182,7 @@ section p {
 .menu-mapa h2 {
     font-size: 2rem;
     color: var(--color-letras);
-    text-shadow: 2px 2px var(--tesoro);
+    text-shadow: 2px 2px var(--acento);
     margin-bottom: 25px;
 }
 
@@ -188,7 +199,7 @@ section p {
 .menu-mapa a {
     display: block;
     padding: 12px 20px;
-    background-color: var(--tesoro);
+    background-color: var(--acento);
     color: var(--color-blanco);
     font-weight: bold;
     text-decoration: none;
@@ -392,7 +403,7 @@ img{
     padding: 12px 25px;
     font-size: 16px;
     color: var(--color-blanco);
-    background-color: var(--tesoro);
+    background-color: var(--acento);
     border-radius: 8px;
     cursor: pointer;
     border: none;
@@ -408,7 +419,7 @@ img{
 #infoIsla {
     margin-top: 20px;
     padding: 15px;
-    border: 2px solid var(--tesoro);
+    border: 2px solid var(--acento);
     background: var(--color-de-fondo);
     color:var(--color-letras);
     border-radius: 10px;
@@ -446,7 +457,7 @@ img{
 
 /* Botón */
 .btn-info {
-    background: var(--tesoro);
+    background: var(--acento);
     color: var(--color-blanco);
     border: none;
     padding: 10px 15px;
@@ -501,7 +512,7 @@ footer {
     text-align: center;
     padding: 20px;
     background-color: var(--color-de-fondo);
-    border-top: 2px dashed var(--tesoro);
+    border-top: 2px dashed var(--acento);
     font-size: 0.9rem;
     color: var(--texto, #222);
     position: relative;
@@ -525,8 +536,25 @@ footer h2 {
     font-size: 1.4rem;
     color: var(--color-letras);
 }
+
+footer nav a{
+    margin: 0 10px;
+    background-color: var(--color-letras);
+    padding: 8px 10px;
+    border-radius: 8px;
+    color:var(--color-de-fondo);
+}
+
+footer nav a:hover{
+    margin: 0 10px;
+    background-color: var(--github-icon);
+    padding: 8px 10px;
+    border-radius: 8px;
+    color:var(--color-de-fondo);
+}
+
 footer a{
-    color: var(--tesoro);
+    color: var(--acento);
     text-decoration: none;
     font-weight: bold;
     padding: 8px;
@@ -550,7 +578,7 @@ footer p {
 
 .github-icon:hover {
     transform: scale(1.2) rotate(8deg);
-    filter: drop-shadow(0 0 26px var(--tesoro));
+    filter: drop-shadow(0 0 26px var(--acento));
 }
 
 .footer-image {
@@ -571,19 +599,6 @@ footer p {
     width: 100%;
     height: 100%;
     display: block;
-}
-
-/* modo oscuro */
-body.oscuro {
-    /*modo oscuro*/
-    --color-de-fondo:#23043A; 
-    --color-letras:#dcfbc5; 
-    --tesoro:#5d8ece; 
-    --hover-fondo:#054a2c; 
-    --color-de-fondo-2:#3a0437; 
-    --azul-hover:#f7b8b0;
-    --github-icon:#fff;
-    --sombra:rgba(255, 255, 255, 0.25);
 }
 
 body.oscuro img {
@@ -632,7 +647,7 @@ body.oscuro img {
 .hero h1 {
     font-size: 2rem;
     color: var(--color-letras);
-    text-shadow: 2px 2px var(--tesoro);
+    text-shadow: 2px 2px var(--acento);
     margin-bottom: 20px;
 }
 
@@ -685,8 +700,7 @@ body.oscuro img {
     max-width: 300px;         /* límite opcional para que no se estiren demasiado */
     margin: 0 auto;           /* centrado automático */
 }
-
-    /* Footer móvil */
+/* Footer en móvil */
 .footer-content {
     flex-direction: column;
     align-items: center;
