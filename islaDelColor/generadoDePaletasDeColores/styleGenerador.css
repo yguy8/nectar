@@ -8,12 +8,10 @@
 :root {
     /* Fondos y Capas */
     --fondo-principal: #fdf6e3;
-    --fondo-suave: rgba(253, 246, 227, 0.8);
     --fondo-tarjeta: #ffffff;
     /* Colores de Marca / Énfasis */
     --color-primario: #d4af37;
     --color-primario-oscuro: #984c4c;
-    --color-acentuado: #8b0000;
     /* Textos */
     --texto-principal: #222222;
     --texto-contraste: #ffffff;
@@ -30,12 +28,10 @@
 /* Modo oscuro */
 body.oscuro {
     --fondo-principal: #23043A; 
-    --fondo-suave: #3a0437; 
     --fondo-tarjeta: #484747;
 
     --color-primario: #5d8ece; 
     --color-primario-oscuro: #1199a3;
-    --color-acentuado: #60065c; 
 
     --texto-principal: #dcfbc5; 
     --texto-contraste: #ffffff;
@@ -56,7 +52,7 @@ body {
     transition: background-color 0.5s ease;
     font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
     line-height: 1.6;
-    background-color: var(--fondo-suave);
+    background-color: var(--fondo-principal);
     color: var(--texto-principal);
 }
 
