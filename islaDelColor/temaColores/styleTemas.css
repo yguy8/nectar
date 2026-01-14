@@ -7,15 +7,13 @@
 /* Variables globales colores */
 :root{
     --color-de-fondo:#fdf6e3;
-    --color-de-fondo-2:rgba(253, 246, 227, 0.8);
-    --tesoro:#d4af37;
-    --hover-fondo:#b8860b;
+    --acento:#d4af37;
+    --fondo-icono:#b8860b;
     --blanco:#ffffff;
     --color-letras:#222;
-    --azul-boton: #007BFF;
-    --azul-boton-hover: #0056b3;
-    --sangre:#8b0000;
-    --madera:#984c4c;
+    --nav-hover: #0056b3;
+    --color-secundario:#8b0000;
+    --resaltar:#984c4c;
     --sombra:rgba(0,0,0,0.25)
 }
 
@@ -32,11 +30,11 @@ body.oscuro {
     /*modo oscuro*/
     --color-de-fondo:#23043A; 
     --color-letras:#dcfbc5; 
-    --tesoro:#5d8ece; 
-    --hover-fondo:#054a2c; 
-    --sangre:#60065c; 
-    --azul-boton-hover:#f7b8b0;
-    --madera:#087077;
+    --acento:#5d8ece; 
+    --fondo-icono:#054a2c; 
+    --color-secundario:#60065c; 
+    --nav-hover:#f7b8b0;
+    --resaltar:#087077;
     --sombra:rgba(255, 255, 255, 0.25)
 }
 /* Menú */
@@ -76,8 +74,8 @@ body.oscuro {
 }
 
 .menu a:hover {
-    color: var(--azul-boton-hover);
-    border-bottom: 2px solid var(--tesoro);
+    color: var(--nav-hover);
+    border-bottom: 2px solid var(--acento);
 }
 
 #modoOscuroBtn {
@@ -98,14 +96,14 @@ header {
     margin-top: 3.6rem;
     text-align: center;
     padding: 30px;
-    background-color: var(--sangre);
+    background-color: var(--color-secundario);
     color: var(--blanco);
     box-shadow: inset 0 0 20px var(--negro);
 }
 
 header h1 {
     font-size: 2.5rem;
-    text-shadow: 2px 2px var(--tesoro);
+    text-shadow: 2px 2px var(--acento);
 }
 
 p{
@@ -128,9 +126,9 @@ input{
 
 /*boton de generar paleta*/
 .generar {
-    background: var(--sangre);
+    background: var(--color-secundario);
     color: var(--blanco);
-    border: 2px solid var(--tesoro);
+    border: 2px solid var(--acento);
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 8px;
@@ -138,7 +136,7 @@ input{
     transition: background 0.3s ease, transform 0.2s ease;
 }
 .generar:hover {
-    background: var(--madera);
+    background: var(--resaltar);
     transform: scale(1.05);
 }
 
@@ -155,7 +153,7 @@ input{
     margin-top: 10px;
 }
 .spec-btn {
-    background: var(--tesoro);
+    background: var(--acento);
     color: var(--color-letras);
     border-radius: 20px;
     padding: 5px 10px;
@@ -166,7 +164,7 @@ input{
     margin-right: 8px;
 }
 .spec-btn .remove-spec {
-    background: var(--sangre);
+    background: var(--color-secundario);
     color: var(--blanco);
     border: none;
     border-radius: 50%;
@@ -208,7 +206,7 @@ input{
     gap: 15px;
     padding: 15px;
     background: var(--color-de-fondo);
-    border: 2px dashed var(--madera);
+    border: 2px dashed var(--resaltar);
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
@@ -218,7 +216,7 @@ input{
     border-radius: 10px;
     position: relative;
     box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-    border: 2px solid var(--madera);
+    border: 2px solid var(--resaltar);
 }
 .color-name {
     position: absolute;
@@ -235,21 +233,21 @@ input{
     bottom: 5px;
     right: 5px;
     border: none;
-    background: var(--hover-fondo);
+    background: var(--fondo-icono);
     cursor: pointer;
     padding: 4px;
     border-radius: 5px;
 }
 
 .copy-color-btn:hover {
-    background: var(--tesoro);
+    background: var(--acento);
 }
 
 .remove-btn {
     position: absolute;
     top: 5px;
     right: 5px;
-    background: var(--sangre);
+    background: var(--color-secundario);
     color: var(--blanco);
     border-radius: 50%;
     width: 30px;
@@ -260,8 +258,8 @@ input{
     margin: 7px;
 }
 .copy-btn {
-    background: var(--sangre);
-    border-color: var(--tesoro);
+    background: var(--color-secundario);
+    border-color: var(--acento);
     bottom: 10px;              
     left: 50%;                 
     width: 70%;
@@ -270,12 +268,11 @@ input{
     cursor: pointer;
     border-radius: 8px;
     color: var(--blanco);
-    font-family: 'Cinzel Decorative', serif;
     font-weight: bold;
     transition: background 0.3s ease, transform 0.2s ease;
 }
 .copy-btn:hover {
-    background: var(--madera);
+    background: var(--resaltar);
     transform: scale(1.05);
 }
 
@@ -283,7 +280,7 @@ input{
 #toast {
     visibility: hidden;
     min-width: 250px;
-    background-color: var(--azul-boton-hover);
+    background-color: var(--nav-hover);
     color: var(--color-de-fondo);
     text-align: center;
     transform: translate(-50%, -50%); /*centrar */
@@ -293,7 +290,6 @@ input{
     z-index: 1000;
     left: 50%;
     bottom: 70%;
-    font-family: 'Cinzel Decorative', serif;
     font-weight: bold;
     box-shadow: 0 4px 8px rgba(0,0,0,0.4);
     transition: visibility 0s, opacity 0.5s ease-in-out;
@@ -349,13 +345,13 @@ header {
     margin-top: 50px;
     text-align: center;
     padding: 30px;
-    background-color: var(--sangre);
+    background-color: var(--color-secundario);
     color: var(--blanco);
 }
 
 header h1 {
     font-size: 1.8rem;
-    text-shadow: 2px 2px var(--tesoro);
+    text-shadow: 2px 2px var(--acento);
 }
 
 p{
@@ -385,7 +381,7 @@ p{
     border-radius: 10px;
     position: relative;
     box-shadow: 0 4px 8px rgba(0,0,0,0.4);
-    border: 2px solid var(--madera);
+    border: 2px solid var(--resaltar);
 }
 
 /* Botón de eliminar en esquina superior derecha */
@@ -393,7 +389,7 @@ p{
     position: absolute;
     top: 5px;
     right: 5px;
-    background: var(--sangre);
+    background: var(--color-secundario);
     color: var(--blanco);
     border-radius: 50%;
     width: 30px;
@@ -416,12 +412,11 @@ p{
     height: 35px;
     padding: 10px;
     margin-top: 50px;
-    background: var(--sangre);
-    border: 2px solid var(--tesoro);
+    background: var(--color-secundario);
+    border: 2px solid var(--acento);
     cursor: pointer;
     border-radius: 8px;
     color: var(--blanco);
-    font-family: 'Cinzel Decorative', serif;
     font-weight: bold;
     transition: background 0.3s ease, transform 0.2s ease;
 }
@@ -437,7 +432,7 @@ p{
     position: absolute;
     top: 3px;
     right: 3px;
-    background: var(--sangre);
+    background: var(--color-secundario);
     color: var(--blanco);
     border-radius: 50%;
     width: 25px;
