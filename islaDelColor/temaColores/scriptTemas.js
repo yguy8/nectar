@@ -48,69 +48,56 @@ toggle.addEventListener('click', () => {
     }
 });
 
-// Generar colores aleatorios hex
+// --- CONVERSORES (Fundamentales para la manipulación orgánica) ---
+
+function hexToHsl(hex) {
+    const ctx = document.createElement('canvas').getContext('2d');
+    ctx.fillStyle = hex;
+    const c = ctx.fillStyle; 
+    let r = parseInt(c.substring(1, 3), 16) / 255;
+    let g = parseInt(c.substring(3, 5), 16) / 255;
+    let b = parseInt(c.substring(5, 7), 16) / 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, l = (max + min) / 2;
+    if (max === min) h = s = 0;
+    else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+        else if (max === g) h = (b - r) / d + 2;
+        else h = (r - g) / d + 4;
+        h /= 6;
+    }
+    return { h: h * 360, s: s * 100, l: l * 100 };
+}
+
+function hslToHex(h, s, l) {
+    l /= 100;
+    const a = s * Math.min(l, 1 - l) / 100;
+    const f = n => {
+        const k = (n + h / 30) % 12;
+        const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+        return Math.round(255 * color).toString(16).padStart(2, '0');
+    };
+    return `#${f(0)}${f(8)}${f(4)}`.toUpperCase();
+}
+
 function randomColor() {
     return "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0");
 }
 
-// Valida si un valor es un color CSS válido
-function isValidCssColor(value) {
-    const s = new Option().style;
-    s.color = value;
-    return s.color !== "";
-}
+// --- UTILIDADES ---
 
-// Normaliza el color ingresado (soporta español, hex, rgb/hsl)
-function normalizeUserColor(value) {
-    let v = value.trim().toLowerCase();
-
-    const map = {
-        "negro": "#000000",
-        "blanco": "#ffffff",
-        "rojo": "red",
-        "azul": "blue",
-        "verde": "green",
-        "amarillo": "yellow",
-        "naranja": "orange",
-        "morado": "purple",
-        "violeta": "violet",
-        "rosa": "pink",
-        "gris": "gray",
-        "cian": "cyan",
-        "magenta": "magenta",
-        "marron": "brown",
-        "marrón": "brown",
-        "cafe": "brown",
-        "café": "brown",
-        "turquesa": "turquoise",
-        "dorado": "gold",
-        "plata": "silver"
-    };
-
-    if (map[v]) return map[v];
-
-    if (/^#?[0-9a-f]{3}$/.test(v) || /^#?[0-9a-f]{6}$/.test(v)) {
-        if (!v.startsWith("#")) v = "#" + v;
-        return v;
-    }
-
-    if (isValidCssColor(v)) return v;
-
-    return null;
-}
-
-// Mostrar toast
 function showToast(msg) {
     const toast = document.getElementById("toast");
+    if (!toast) return;
     toast.innerText = msg;
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 3000);
 }
 
-// Copiar color individual
 function copyText(element) {
-    const parent = element.parentElement;
-    const textSpan = parent.querySelector(".color-name");
+    const textSpan = element.parentElement.querySelector(".color-name");
     const originalText = textSpan.innerText;
     navigator.clipboard.writeText(originalText).then(() => {
         textSpan.innerText = "¡Copiado!";
@@ -118,27 +105,17 @@ function copyText(element) {
     });
 }
 
-// Copiar toda la paleta
 function copyPalette(button) {
     const group = button.closest(".palette-group");
     const colors = [...group.querySelectorAll(".color-name")].map((span) => span.innerText);
-    const paletteText = colors.join(", ");
-    navigator.clipboard.writeText(paletteText).then(() => {
+    navigator.clipboard.writeText(colors.join(", ")).then(() => {
         button.innerText = "¡Paleta copiada!";
         setTimeout(() => (button.innerText = "Copiar paleta"), 1500);
     });
 }
 
-// Eliminar paleta
-function deletePalette(button) {
-    const group = button.closest(".palette-group");
-    group.remove();
-}
+// --- GENERADOR ORGÁNICO (AZAR BASADO EN TEMA) ---
 
-// Lista de colores añadidos por el usuario
-let userColors = [];
-
-// Generar paletas
 function generateThemePalette() {
     const tema = document.getElementById("tema").value.trim();
     const container = document.getElementById("paletteContainer");
@@ -150,46 +127,55 @@ function generateThemePalette() {
 
     container.innerHTML = "";
 
+    // Generamos 4 paletas que no siguen reglas, solo "vibras" del tema
     for (let i = 0; i < 4; i++) {
         const group = document.createElement("div");
         group.className = "palette-group";
-
+        
+        // Botón de eliminar
         const deleteBtn = document.createElement("button");
         deleteBtn.innerText = "✖";
         deleteBtn.className = "remove-btn";
-        deleteBtn.setAttribute("aria-label", "Eliminar paleta");
-        deleteBtn.onclick = () => deletePalette(deleteBtn);
+        deleteBtn.onclick = () => group.remove();
         group.appendChild(deleteBtn);
 
-        const paletteColors = [...userColors];
-        while (paletteColors.length < 4) {
-            const rand = randomColor();
-            paletteColors.push({ raw: rand, normalized: rand });
-        }
+        // AQUÍ CONECTARÁS EL RAG:
+        // El RAG analizará el "tema" y debería devolvernos un color base diferente para cada grupo
+        let seedHex = randomColor(); 
+        let hsl = hexToHsl(seedHex);
 
-        paletteColors.forEach((colorObj) => {
+        // Generamos 4 colores por grupo con variaciones aleatorias fuertes
+        for (let j = 0; j < 4; j++) {
+            // En lugar de ángulos fijos, rotamos el tono de forma impredecible
+            // pero manteniendo cierta cercanía para que no sea un caos total
+            let h = (hsl.h + (Math.random() * 120 - 60)) % 360; 
+            if (h < 0) h += 360;
+
+            // Saturación y Brillo totalmente dinámicos
+            let s = Math.max(10, Math.min(95, hsl.s + (Math.random() * 40 - 20)));
+            let l = Math.max(10, Math.min(90, hsl.l + (Math.random() * 50 - 25)));
+
+            const finalHex = hslToHex(h, s, l);
+
             const card = document.createElement("div");
             card.className = "color-card";
-            card.style.backgroundColor = colorObj.normalized;
+            card.style.backgroundColor = finalHex;
             card.innerHTML = `
-                <span class="color-swatch" style="background:${colorObj.normalized}"></span>
-                <span class="color-name">${colorObj.raw}</span>
-                <button onclick="copyText(this)" class="copy-color-btn" aria-label="Copiar color">
-                    <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" 
-                    viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-copy"><path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 
-                    2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 
-                    -2h10c.75 0 1.158 .385 1.5 1" /></svg> 
+                <span class="color-swatch" style="background:${finalHex}"></span>
+                <span class="color-name">${finalHex}</span>
+                <button onclick="copyText(this)" class="copy-color-btn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                        <path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" />
+                        <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
+                    </svg> 
                 </button>
             `;
             group.appendChild(card);
-        });
+        }
 
         const copyBtn = document.createElement("button");
         copyBtn.innerText = "Copiar paleta";
         copyBtn.className = "copy-btn";
-        copyBtn.setAttribute("aria-label", "Copiar paleta completa");
         copyBtn.onclick = () => copyPalette(copyBtn);
         group.appendChild(copyBtn);
 
@@ -197,66 +183,7 @@ function generateThemePalette() {
     }
 }
 
-// Añadir color específico
-function addSpec() {
-    const input = document.getElementById("specInput");
-    const raw = input.value.trim();
-    if (!raw) return;
-
-    const normalized = normalizeUserColor(raw);
-    if (!normalized) {
-        showToast("Color no válido. Usa nombres (negro, azul), hex (#000000), rgb(0,0,0) o hsl(0,0%,0%).");
-        return;
-    }
-
-    // Evitar duplicados
-    if (userColors.some(c => c.raw.toLowerCase() === raw.toLowerCase())) {
-        showToast("Ese color ya fue agregado");
-        input.value = "";
-        return;
-    }
-
-    userColors.push({ raw: raw, normalized: normalized });
-
-    const specList = document.getElementById("specList");
-    const specBtn = document.createElement("div");
-    specBtn.className = "spec-btn";
-
-    const swatch = document.createElement("span");
-    swatch.className = "spec-swatch";
-    swatch.style.backgroundColor = normalized;
-
-    const label = document.createElement("span");
-    label.innerText = raw;
-
-    const removeBtn = document.createElement("button");
-    removeBtn.innerText = "✖";
-    removeBtn.className = "remove-spec";
-    removeBtn.setAttribute("aria-label", "Eliminar color específico");
-    removeBtn.onclick = () => {
-        userColors = userColors.filter((c) => c.raw.toLowerCase() !== raw.toLowerCase());
-        specBtn.remove();
-    };
-
-    specBtn.appendChild(swatch);
-    specBtn.appendChild(label);
-    specBtn.appendChild(removeBtn);
-    specList.appendChild(specBtn);
-
-    input.value = "";
-}
-
-// Detectar Enter en los inputs
-document.getElementById("tema").addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        generateThemePalette();
-    }
-});
-
-document.getElementById("specInput").addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        addSpec();
-    }
+// Event Listener
+document.getElementById("tema").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") generateThemePalette();
 });
