@@ -1,0 +1,242 @@
+:root{
+  /*solo el formulario tiene estas variables*/
+  --botones:#759AD3;
+  --botones-hover:#5a7fb5;
+  --letras-form:#000000;
+  --letras-btn:#ffffff;
+  --sombra:rgba(0,0,0,0.2);
+  --fondo-form:#eee;
+  --border-form:#ccc;
+  --svg-hover:#00cb07;
+}
+
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: var(--color-fondo);
+  color: var(--color-texto); 
+}
+
+/* Botón flotante cerrado */
+#formularioBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
+  background: var(--fondo-form);
+  border: 1px solid var(--border-form);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  box-shadow: 0 2px 6px var(--sombra);
+  z-index: 1000;
+}
+
+#formularioBtn svg {
+  width: 28px;
+  height: 28px;
+  color: var(--letras-form);
+}
+
+#formularioBtn svg:hover {
+  color: var(--svg-hover);
+  cursor: all-scroll;
+}
+
+/* Formulario expandido */
+#formulario {
+  position: fixed;
+  bottom: 20px;
+  right: 25px;
+  background: var(--fondo-form);
+  border: 1px solid var(--border-form);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px var(--sombra);
+  width: 300px;
+  z-index: 1000;
+  color: var(--letras-form);
+}
+#formularioHeader {
+  cursor: move;
+  margin-top: 0;
+  padding: 0.5rem;
+  background: var(--letras-btn);
+  border-bottom: 1px solid var(--border-form);
+}
+
+#formulario.oculto {
+  display: none;
+}
+
+#formulario h3 {
+  margin-top: 0;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  width: fit-content;
+}
+
+#formulario label {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--letras-form);
+}
+#formulario button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: var(--botones);
+  color: var(--letras-btn);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#formulario button:hover {
+  background: var(--botones-hover);
+}
+
+#formulario .cerrar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+}
+
+#formulario .cerrar svg {
+  width: 20px;
+  height: 20px;
+  stroke: #333;
+}
+
+#formulario .cerrar svg:hover {
+  stroke: #ff0000;
+}
+
+/* Lista de colores */
+.color-item {
+  display: flex;
+  height: fit-content;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  border: 1px dashed var(--border-form);
+  background: var(--letras-btn);
+  border-radius: 4px;
+}
+
+.drag-handle {
+  margin-left: auto;
+  cursor: grab;
+  font-size: 18px;
+  color: var(--letras-form);
+}
+
+.btn-remove {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0.3rem;
+  border-radius: 4px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-remove:hover {
+  transform: scale(1.1);
+}
+
+.btn-remove svg {
+  stroke: var(--letras-form);
+  transition: stroke 0.2s ease;
+}
+
+.btn-remove:hover svg {
+  stroke: var(--letras-btn);
+}
+
+
+
+/* Vista previa de la página*/
+header, footer {
+  padding: 1rem;
+  text-align: center;
+  background-color: var(--color-primario, #3498db);
+  color: var(--color-texto, #ffffff);
+}
+
+nav a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: var(--color-texto, #ffffff);
+}
+
+.hero {
+  padding: 2rem;
+  text-align: center;
+  background-color: var(--color-secundario, #2ecc71);
+  color: var(--color-texto, #ffffff);
+}
+
+.btn {
+  padding: 0.8rem 1.2rem;
+  border: none;
+  cursor: pointer;
+  background-color: var(--color-acento, #f39c12);
+  color: var(--color-texto, #ffffff);
+  border-radius: 4px;
+}
+
+.cards {
+  display: flex;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.card {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--color-primario, #3498db);
+  color: var(--color-texto, #ffffff);
+}
+
+/* Toast accesibilidad */
+#toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 2000;
+  display: none;
+}
+
+#toast.show {
+  display: block;
+}
+
+#toast div {
+  background: #333;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  animation: fadein 0.5s, fadeout 0.5s 7.5s;
+}
+
+#toast button {
+  margin-top: 0.5rem;
+  background: var(--color-secundario, #67FDA3);
+  color: var(--color-texto, #121212);
+}
+
+@keyframes fadein {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeout {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}

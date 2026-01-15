@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Comprobador de contraste</title>
+  <link rel="icon" href="https://gd7distribuidor.com.br/wp-content/uploads/2020/01/gd7_cores_destaque.jpg" type="image/x-icon">
+  <link rel="stylesheet" href="contraste.css">
+</head>
+<body>
+  <header>
+
+    <nav class="menu">
+        <!-- Ícono hamburguesa (solo móvil) -->
+        <div class="menu-toggle" id="menu-toggle">☰</div>
+        <ul id="menu-list">
+            <li><a href="../inicio.html">Mapa</a></li>
+            <li><a href="../temaColores/indexTemas.html">Colores por tema</a></li>
+            <li><a href="../generadoDePaletasDeColores/indexGenerador.html">Paletas al azar</a></li>
+            <li><a href="../ingresarColor/indexIngresarColor.html">Ingresar color</a></li>
+            <li><a href="../contraste/contraste.html">Revisar contraste</a></li>
+            <li><a href="../extractorDeColor/extractor.html">Extractor de color</a></li>
+          </ul>
+          <button id="modoOscuroBtn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#d4af37" class="icon icon-tabler icons-tabler-filled icon-tabler-moon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 1.992a10 10 0 1 0 9.236 13.838c.341 -.82 -.476 -1.644 -1.298 -1.31a6.5 6.5 0 0 1 -6.864 -10.787l.077 -.08c.551 -.63 .113 -1.653 -.758 -1.653h-.266l-.068 -.006l-.06 -.002z" /></svg></button>
+    </nav>
+
+    <h1>Comprobador de contraste</h1>
+    <p>Elige los colores de texto y fondo para verificar el contraste.</p>
+  </header>
+
+  <main class="container" role="main">
+    <section class="card" aria-labelledby="controls-title">
+      <h2 id="controls-title">Controles de color</h2>
+      <div class="grid">
+        <div>
+          <label for="fgColor">Color de texto</label>
+          <input type="color" id="fgColor" value="#1a1a1a" />
+          <input type="text" id="fgHex" value="#1a1a1a" aria-label="Hex del texto" />
+        </div>
+        <div>
+          <label for="bgColor">Color de fondo</label>
+          <input type="color" id="bgColor" value="#ffffff" />
+          <input type="text" id="bgHex" value="#ffffff" aria-label="Hex del fondo" />
+        </div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="results-title">
+      <h2 id="results-title">Resultados</h2>
+      <div class="row">
+        <div class="ratio" id="ratio">—</div>
+      </div>
+      <!-- <p class="small">Fórmula: (Lmax + 0.05) / (Lmin + 0.05)</p> -->
+
+      <div class="badges">
+        <div class="badge"><span>Texto normal AA (Bueno)</span><span id="aaNormal" class="status">—</span></div>
+        <div class="badge"><span>Texto normal AAA (Optimo)</span><span id="aaaNormal" class="status">—</span></div>
+        <div class="badge"><span>Texto grande AA (Bueno)</span><span id="aaLarge" class="status">—</span></div>
+        <div class="badge"><span>Texto grande AAA (Optimo)</span><span id="aaaLarge" class="status">—</span></div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="preview-title">
+      <h2 id="preview-title">Previsualización</h2>
+      <div class="swatches">
+        <div class="swatch">
+          <div class="swatch-color" id="swatchFg" aria-label="Muestra de color de texto"></div>
+          <span class="swatch-hex" id="swatchFgHex">#1a1a1a</span>
+        </div>
+        <div class="swatch">
+          <div class="swatch-color" id="swatchBg" aria-label="Muestra de color de fondo"></div>
+          <span class="swatch-hex" id="swatchBgHex">#ffffff</span>
+        </div>
+      </div>
+      <div id="preview" class="preview">
+        <p class="normal">Texto normal — párrafo de ejemplo para lectura sostenida.</p>
+        <p class="large">Texto grande — encabezado o título destacado.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+  <small>
+    © 2026 La isla del color <br>
+    Creado para ayudar a verificar el contraste entre colores según las pautas WCAG.<br>
+  </small>
+</footer>
+
+  </footer>
+
+  <script src="contraste.js"></script>
+</body>
+</html>

@@ -1,0 +1,325 @@
+:root {
+    /* Fondos y Superficies */
+    --fondo-principal: #fdf6e3;
+    --fondo-tarjetas: #ffffff;
+    --sombra: rgba(0, 0, 0, 0.25);
+
+    /* Textos */
+    --color-texto: #222;
+    --color-texto-2: #fff;
+
+    /* Identidad y Acentos */
+    --acento: #d4af37;
+    --detalles: #1f1f1f;
+
+    /* Botones y Navegación */
+    --boton: #007BFF;
+    --boton-hover: #0056b3;
+    --nav-hover: #0056b3;
+}
+
+
+/* Reset básico */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--fondo-principal);
+  color: var(--color-texto);
+  line-height: 1.6;
+}
+
+/* modo oscuro */
+body.oscuro {
+    /*modo oscuro*/
+    --fondo-principal:#23043A;  
+    --fondo-tarjetas:#484747;
+    --sombra:rgba(255, 255, 255, 0.25);
+
+    --color-texto:#dcfbc5; 
+    --color-texto-2:#fff;
+
+    --acento:#5d8ece; 
+    --detalles:#d7d7d7;
+
+    --boton:#8d08d0;
+    --boton-hover:#cd2bed;
+    --nav-hover:#f7b8b0;
+}
+/* Menú superior */
+.menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--fondo-principal);
+    padding: 1.2rem 0;
+    z-index: 1000;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 8px var(--sombra);
+    color: var(--color-texto);
+}
+.menu-toggle {
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+}
+.menu ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+.menu li { margin: 0 20px; }
+.menu a {
+    text-decoration: none;
+    color: var(--color-texto);
+    font-weight: 600;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+.menu a:hover {
+    color: var(--nav-hover);
+    border-bottom: 2px solid var(--acento);
+}
+#modoOscuroBtn {
+    position: fixed;  
+    top: 18px;
+    right: 20px;
+    background: none;       
+    border: none;           
+    padding: 0;             
+    margin: 0;              
+    display: inline-flex;   
+    align-items: center;    
+    cursor: pointer;
+}
+h1{
+  margin: 6rem 0 0 0 ;
+  display: flex; /* Activa Flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+h2{
+  margin:1rempx;
+}
+p{
+  display: flex; /* Activa Flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+/* distribucción principal */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 80px 20px 20px; /* espacio para menú fijo */
+}
+.panel {
+  background: var(--fondo-tarjetas);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* Canvas principal */
+.stage-wrap {
+  position: relative;
+  margin-top: 10px;
+}
+#stage {
+  border-radius: 6px;
+  display: block; /* para evitar espacios extra */
+}
+
+.empty {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--detalles);
+  font-weight: bold;
+}
+
+/* Zoom flotante */
+#zoomCanvas {
+  position: absolute;
+  background: var(--fondo-tarjetas);
+  pointer-events: none;
+  border-radius: 6px;
+  z-index: 10;
+}
+
+/* Botones */
+.tools {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
+button {
+  font-weight: bold;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: var(--boton);
+  color: var(--color-texto-2);
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin:5px;
+}
+
+button:hover { 
+  background: var(--boton-hover);
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+select{
+  border-radius: 10px;
+  width: 80px;
+  height: 20px;
+}
+/* Panel de color seleccionado */
+.output {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.swatch {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--detalles);
+  border-radius: 6px;
+}
+.codes { flex: 1; }
+.code-line { margin: 4px 0; }
+.badge {
+  background: var(--acento);
+  color: var(--color-texto);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-right: 6px;
+  font-weight: bold;
+}
+.copy { margin-top: 10px; }
+
+/* Paleta de colores */
+.palette {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  padding: 4px;
+  border: 2px solid #b1b0b0;
+  border-radius: 4px;
+}
+
+.chip .color {
+  width: 30px;       
+  height: 30px;      
+  border: 1px solid #000; 
+  border-radius: 4px;     
+}
+.chip .meta {
+  flex: 1;
+  font-size: 14px;
+}
+.chip button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-texto);
+  color: var(--fondo-tarjetas);
+  padding: 8px 16px;
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.toast.show { 
+  opacity: 1; 
+}
+
+/* Media queries */
+
+/* Ajuste de grid en pantallas medianas */
+@media (max-width: 1000px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 930px) {
+  .menu-toggle {
+    display: block;
+    padding-left: 40px;
+  }
+  #menu-list {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--fondo-principal);
+    position: absolute;
+    top: 50px;
+    left: 0;
+    padding: 10px 0;
+  }
+  #menu-list li {
+    margin: 10px 0;
+    text-align: center;
+  }
+  #menu-list.show { display: flex; }
+  .menu-mapa {
+    border: none;
+    box-shadow: none;
+    background-color: rgba(253, 246, 227, 0.8);
+    border-radius: 12px;
+    padding: 40px 20px;
+    margin: 40px auto;
+    max-width: 600px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Tipografía adaptable */
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.2rem; }
+  p{padding: 30px 70px 0 70px;}
+
+  /* Espaciados y márgenes */
+  .panel { padding: 10px; }
+  .grid { gap: 10px; }
+
+  /* Botones ajustados a la pantalla al igual que su distancia */
+  button { padding: 8px 16px; font-size: 1rem; 
+  }
+  #paletteBtn, #copyPalette{
+    margin:15px 7px 5px 5px;
+  }
+
+  /* Canvas responsivo */
+  #stage { width: 100%; height: auto; }
+
+.swatch {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--detalles);
+  border-radius: 6px;
+}
+}
+
+/* Ajustes para pantallas grandes */
+@media (min-width: 1000px) {
+  .palette { 
+    flex-direction: row; 
+    flex-wrap: wrap; 
+  }
+}

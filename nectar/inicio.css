@@ -1,0 +1,749 @@
+/* Estilos globales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Variables globales */
+:root{
+    --color-blanco:#ffffff;
+    --color-letras:#333;
+    --color-de-fondo:#fdf6e3;
+    --color-de-fondo-2:rgba(253, 246, 227, 0.8);
+    --nav-hover: #0056b3;
+    --acento:#d4af37;
+    --hover-fondo:#b8860b;
+    --madera:#984c4c;
+    --rojo:red;
+    --github-icon:#000000;
+    --sombra:rgba(0,0,0,0.25);
+}
+
+/* Fondo y tipografía */
+body {
+    font-family: "EB Garamond", serif;
+    font-style: normal;
+    font-size: 20px;
+    background-color: var(--color-de-fondo);
+    color: var(--color-letras);
+    transition: background-color 0.5s ease;
+}
+
+/* modo oscuro */
+body.oscuro {
+    /*modo oscuro*/
+    --color-de-fondo:#23043A; 
+    --color-letras:#dcfbc5; 
+    --acento:#5d8ece; 
+    --hover-fondo:#054a2c; 
+    --color-de-fondo-2:#3a0437; 
+    --nav-hover:#f7b8b0;
+    --github-icon:#fff;
+    --sombra:rgba(255, 255, 255, 0.25);
+}
+
+#modoOscuroBtn {
+    position: fixed;  
+    top: 18px;
+    right: 20px;
+    background: none;       
+    border: none;           
+    padding: 0;             
+    margin: 0;              
+    display: inline-flex;   
+    align-items: center;    
+    cursor: pointer;
+    z-index: 1100;
+}
+
+
+/*Menú superior*/
+.menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--color-de-fondo);
+    z-index: 1000;
+    box-shadow: 0 4px 8px var(--sombra);
+    padding: 1.2rem 0;
+    z-index: 1000;
+}
+/* Ícono hamburguesa */
+.menu-toggle {
+    font-size: 24px;
+    cursor: pointer;
+    display: none; /* oculto en desktop/tablet */
+}
+
+.menu ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.menu li {
+    margin: 0 20px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--color-letras);
+    font-weight: 600;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.menu a:hover {
+    color: var(--nav-hover);
+    border-bottom: 2px solid var(--acento);
+    font-weight: bold;
+}
+
+/* Hero principal */
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: var(--color-letras);
+    text-shadow: 2px 2px var(--acento);
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+}
+
+/* Botón explorar */
+.btn {
+    padding: 12px 25px;
+    font-family: "EB Garamond", serif;
+    font-weight: bolder;
+    font-size: 16px;
+    color: var(--color-blanco);
+    background-color: var(--acento);
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    box-shadow: 3px 3px 0px var(--github-icon);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color:var(--hover-fondo);
+    transform: scale(1.05);
+}
+
+/* Secciones */
+section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--color-letras);
+    text-shadow: 1px 1px var(--acento);
+    font-weight: bold;
+}
+
+section p {
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-weight: bold;
+}
+
+
+/* Estilo para el Mapa EXPLORAR  */
+.menu-mapa {
+    background-color: var(--color-de-fondo-2); /* pergamino translúcido */
+    border: 2px solid var(--acento);
+    border-radius: 12px;
+    padding: 40px 20px;
+    margin: 40px auto;
+    max-width: 600px;
+    box-shadow: 4px 4px 0px #000;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-mapa:hover {
+    transform: scale(1.02);
+    box-shadow: 6px 6px 0px #000;
+    cursor: default;
+}
+
+.menu-mapa h2 {
+    font-size: 2rem;
+    color: var(--color-letras);
+    text-shadow: 2px 2px var(--acento);
+    margin-bottom: 25px;
+}
+
+/* Lista de enlaces */
+.menu-mapa ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu-mapa li {
+    margin: 15px 0;
+}
+
+.menu-mapa a {
+    display: block;
+    padding: 12px 20px;
+    background-color: var(--acento);
+    color: var(--color-blanco);
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 3px 3px 0px var(--github-icon);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.menu-mapa a:hover {
+    background-color: var(--hover-fondo);
+    transform: translateY(-3px);
+}
+
+/*guia*/
+#btnGuia {
+    background: none;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border: none;
+    animation: levitar 4s infinite ease-in-out;
+}
+
+/* Animación de flotación */
+@keyframes levitar {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px); /* Sube suavemente */
+    }
+    100% {
+        transform: translateY(0);     /* Regresa despacio */
+    }
+}
+
+/* ===== Estilos del modal de la info de la guía ===== */
+.modal {
+    display: none; /* oculto por defecto */
+    position: fixed;
+    z-index: 1000; /* encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: var(--madera);
+}
+
+/* Contenedor del contenido */
+.modal-contenido {
+    background: var(--color-de-fondo);
+    margin: 10% auto;
+    padding: 40px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    animation: aparecer 0.3s ease;
+}
+
+/* Botón de cerrar */
+.cerrar {
+    color: var(--color-letras);
+    float: right;
+    margin-top: -40px;
+    margin-right: -15px;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.cerrar:hover {
+    color: var(--rojo);
+}
+
+/* Animación */
+@keyframes aparecer {
+    from {transform: scale(0.8); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+
+/* ===== Estilos del texto dentro del modal ===== */
+.modal-contenido p {
+    margin-bottom: 1em;   /* espacio entre párrafos */
+    line-height: 1.5;     /* mejor legibilidad */
+    color: var(--color-letras);
+    font-size: 16px;
+}
+
+/* ===== Alternativa con lista ===== */
+.modal-contenido ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+.modal-contenido li {
+    margin-bottom: 0.8em;
+    line-height: 1.5;
+    color: var(--color-letras);
+    font-size: 16px;
+}
+
+
+/*Imagen de los tesoros*/
+
+img{
+    mix-blend-mode: multiply;
+    filter: brightness(1) contrast(1.2);
+}
+
+/*Estilos de tesoros*/
+/* Contenedor de cartas */
+.cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Estilo de cada carta de tesoros y su contenido */
+.cards h3{
+    font-size: 1rem;
+    color: var(--color-blanco);
+}
+
+.card {
+    width: 180px;
+    height: 120px;
+    background-image: url(https://png.pngtree.com/thumb_back/fw800/background/20231004/pngtree-closed-pirate-treasure-chest-stunning-3d-render-image_13578954.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 2px solid var(--color-letras);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s, background 0.3s;
+    text-align: center;
+    color: var(--color-blanco);
+}
+.card:hover {
+    transform: scale(1.05);
+    background-image: url(https://thumbs.dreamstime.com/b/cofre-del-tesoro-lleno-de-riquezas-y-joyas-rebosante-creadas-con-ai-generativo-274422108.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Modal base */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    overflow: auto;
+}
+
+/* Contenido del modal */
+.modal-content {
+    background:var(--color-de-fondo);
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    text-align: center;
+    animation: zoomIn 0.4s;
+}
+
+/*imagen de los modales*/
+.modal-content img {
+    width: 30%;
+    height: auto;
+}
+
+/* Animación */
+@keyframes zoomIn {
+    from {transform: scale(0.7);}
+    to {transform: scale(1);}
+}
+
+/* Botón cerrar */
+.close {
+    color: var(--color-letras);
+    float: right;
+    margin-top: -20px;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover {
+    color: var(--rojo);
+}
+
+/* Botón centrado para la guía EXPLORAR  de la isla */
+.btn-info {
+    font-family: "EB Garamond", serif;
+    display: block;
+    margin: 20px auto; /* centra horizontalmente */
+    padding: 12px 25px;
+    font-size: 16px;
+    color: var(--color-blanco);
+    background-color: var(--acento);
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    box-shadow: 3px 3px 0px #000;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-info:hover {
+    background-color: var(--hover-fondo);
+    transform: scale(1.05);
+}
+
+/* Contenedor de la info */
+#infoIsla {
+    margin-top: 20px;
+    padding: 15px;
+    border: 2px solid var(--acento);
+    background: var(--color-de-fondo);
+    color:var(--color-letras);
+    border-radius: 10px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    box-shadow: 3px 3px 0px #000;
+    transition: all 0.3s ease-in-out;
+    color: var(--color-blanco);
+    /* Ajuste de texto */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* Oculto por defecto */
+#infoIsla.hidden {
+    display: none;
+}
+
+#infoIsla h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: var(--color-letras);
+}
+
+#infoIsla p {
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    text-align: justify;
+    color: var(--color-letras);
+}
+
+/* Botón */
+.btn-info {
+    background: var(--acento);
+    color: var(--color-blanco);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+.btn-info:hover {
+    background: var(--hover-fondo);
+}
+
+/* Contenedor de las paletas */
+.paletas {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+/* Cada cuadro de color con forma cuadrada/rectangular */
+.color-box {
+    min-width: 90px;      /* ancho mínimo */
+    min-height: 90px;     /* alto mínimo */
+    padding: 10px;        /* espacio interno */
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--color-blanco);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+    text-align: center;
+    margin: 5px;
+    flex: 1 1 auto;       /* se adaptan proporcionalmente en filas */
+}
+
+/* Colores simulados */
+.complementario { background-color: #ca2602; }
+.triadico1     { background-color: #019f1e; }
+.triadico2     { background-color: #0824a0; }
+.analogo       { background-color: #9f015b; }
+.tetradico     { background-color: #ad8800; }
+
+
+/* Footer */
+footer {
+    font-family: "EB Garamond", serif;
+    font-weight: bolder;
+    text-align: center;
+    padding: 20px;
+    background-color: var(--color-de-fondo);
+    border-top: 2px dashed var(--acento);
+    font-size: 0.9rem;
+    color: var(--texto, #222);
+    position: relative;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between; /* imágenes a los lados */
+    align-items: center;
+}
+
+.footer-center {
+    text-align: center;
+    flex: 1; /* ocupa el espacio central */
+}
+.footer-center > * {
+    margin-top: 20px; /* espacio arriba solo en los elementos del centro */
+}
+
+footer h2 {
+    font-size: 1.4rem;
+    color: var(--color-letras);
+}
+
+footer nav a{
+    margin: 0 10px;
+    background-color: var(--color-letras);
+    padding: 8px 10px;
+    border-radius: 8px;
+    color:var(--color-de-fondo);
+}
+
+footer nav a:hover{
+    margin: 0 10px;
+    background-color: var(--github-icon);
+    padding: 8px 10px;
+    border-radius: 8px;
+    color:var(--color-de-fondo);
+}
+
+footer a{
+    color: var(--acento);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px;
+}
+
+footer p {
+    color: var(--color-letras, #555);
+    font-weight: bold;
+    font-family: "Germania One", system-ui;
+}
+
+.github-link {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.github-icon {
+    fill: var(--github-icon);
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.github-icon:hover {
+    transform: scale(1.2) rotate(8deg);
+    filter: drop-shadow(0 0 26px var(--acento));
+}
+
+.footer-image {
+    width: 150px;   /* tamaño reducido */
+    height: auto;
+    margin: 0 100px;
+}
+
+/* Capa fija para las joyas en toda la ventana */
+.treasure-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1; /* bajo el contenido interactivo */
+}
+
+#treasureCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+body.oscuro img {
+    visibility: hidden;
+}
+
+/*Media queries para responsividad*/
+/* --- MÓVIL --- */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        padding-left: 40px;
+    }
+
+    #menu-list {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--color-de-fondo);
+        position: absolute;
+        top: 50px;
+        left: 0;
+        padding: 10px 0;
+    }
+
+    #menu-list li {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    #menu-list.show {
+        display: flex;
+    }
+
+.menu-mapa {
+    border: none;
+    box-shadow: none;
+    background-color: var(--color-de-fondo-2); /* pergamino translúcido */
+    border-radius: 12px;
+    padding: 40px 20px;
+    margin: 40px auto;
+    max-width: 600px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero h1 {
+    font-size: 2rem;
+    color: var(--color-letras);
+    text-shadow: 2px 2px var(--acento);
+    margin-bottom: 20px;
+}
+
+.menu-mapa h2 {
+    margin-left: 0;           /* quitar margen en móvil */
+    text-align: center;       /* centrar título */
+}
+
+.menu-mapa a {
+    width: 90%;               /* que ocupen casi todo el ancho */
+    max-width: 300px;         /* límite opcional */
+    margin: 10px auto;        /* centrado automático */
+    text-align: center;
+}
+
+
+
+/*guia*/
+#btnGuia {
+    background: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border: none;
+    animation: levitar 4s infinite ease-in-out;
+}
+
+    /*Los modales*/
+.modal-content {
+    width: 90%;
+    padding: 20px;
+}
+.modal h2 {
+    font-size: 1.5rem;
+}
+.modal-content img {
+    display: none;
+}
+
+/* Contenedor de las paletas como lista */
+.paletas {
+    display: flex;
+    flex-direction: column;   /* apila los recuadros */
+    align-items: center;      /* centra horizontalmente */
+    gap: 12px;                /* espacio entre recuadros */
+}
+
+.color-box {
+    width: 90%;               /* que ocupen casi todo el ancho */
+    max-width: 300px;         /* límite opcional para que no se estiren demasiado */
+    margin: 0 auto;           /* centrado automático */
+}
+/* Footer en móvil */
+.footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 12px;
+}
+
+.footer-image {
+    display: none; /* ocultar cofres en móvil */
+}
+
+.footer-center h2 {
+    font-size: 18px;
+}
+
+.footer-center p {
+    font-size: 14px;
+}
+
+.github-link .github-icon {
+    width: 32px;
+    height: 32px;
+}
+}
+
+/* --- Ajuste para pantallas medianas/móviles --- */
+@media (max-width: 1100px) {
+.footer-content {
+    flex-direction: column;   /* apila todo en columna */
+    align-items: center;
+    text-align: center;
+}
+
+.footer-image {
+    display: none;            /* oculta cofres en pantallas medianas/pequeñas */
+}
+
+.footer-center h2 {
+    font-size: 1.4rem;
+}
+
+.footer-center p {
+    font-size: 0.9rem;
+}
+}

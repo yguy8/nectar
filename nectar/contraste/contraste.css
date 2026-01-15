@@ -1,0 +1,330 @@
+:root {
+    /* Fondos y Capas */
+    --fondo-principal: #fdf6e3;
+    --fondo-suave: rgba(253, 246, 227, 0.8);
+    --tarjeta-fondo: #984c4c;
+    --sombra: rgba(0, 0, 0, 0.25);
+
+    /* Identidad y Colores Marca */
+    --acento: #d4af37;
+    --acento-fuerte: #8b0000;
+    --primario: #1f1f1f;
+
+    /* Textos */
+    --texto-base: #222;
+    --texto-claro: #ffffff;
+
+    /* Botones y Acciones */
+    --boton-fondo: #007BFF;
+    --boton-hover: #0056b3;
+
+    /* Estados*/
+    --estado-exito: #15c46f;
+    --estado-error: #f07070;
+    --estado-foco: #5ab0ff;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--texto-claro);
+    background:var(--fondo-principal) ;
+    line-height: 1.6;
+}
+
+/* modo oscuro */
+body.oscuro {
+    /*modo oscuro*/
+    --fondo-principal:#23043A; 
+    --fondo-suave:#3a0437; 
+    --tarjeta-fondo:#087077;
+    --sombra:rgba(255, 255, 255, 0.25);
+    
+    --acento:#5d8ece; 
+    --acento-fuerte:#60065c; 
+
+    --texto-base:#dcfbc5;
+    
+    --hover-fondo:#054a2c; 
+    --boton-hover:#f7b8b0;
+}
+
+/* Menú pirata */
+.menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--fondo-principal);
+    padding: 1.2rem 0;
+    z-index: 1000;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 8px var(--sombra);
+    color: var(--texto-base);
+}
+
+.menu-toggle {
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+}
+
+.menu ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    margin: 0 1.25rem;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--texto-base);
+    font-weight: 600;
+    padding: 0.25rem 0;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.menu a:hover,
+.menu a:focus {
+    color: var(--boton-hover);
+    border-bottom: 2px solid var(--acento);
+}
+
+#modoOscuroBtn {
+    position: fixed;  
+    top: 18px;
+    right: 20px;
+    background: none;       
+    border: none;           
+    padding: 0;             
+    margin: 0;              
+    display: inline-flex;   
+    align-items: center;    
+    cursor: pointer;
+}
+
+header, footer {
+    padding: 6rem 0 0 0 ;
+    color: var(--texto-base);
+}
+
+footer {
+    border-bottom: none;
+    color: var(--texto-base);
+    text-align: center;
+    margin: 15px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.card {
+    background: var(--tarjeta-fondo);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}
+
+h1, h2, p{
+  margin: 0 auto 0.5rem; /* auto en los lados centra el bloque */
+  width: fit-content;    /* el ancho se ajusta al contenido */
+}
+
+.grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* Formularios */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+input[type="color"],
+input[type="text"] {
+    width: 80%;
+    border-radius: 8px;
+    color: var(--texto-claro);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid var(--acento-fuerte);
+}
+
+input[type="color"] {
+    height: 44px;
+    cursor: pointer;
+    border: none;
+}
+
+input[type="text"] {
+    padding: 10px 12px;
+    margin-top: 0.5rem;
+    color: var(--primario);
+    font-weight: bold;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--boton-hover);
+    box-shadow: 0 0 0 2px var(--boton-hover);
+}
+
+/* Contraste y estados */
+.ratio {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 10px;
+  text-align: center;      /* centra el texto dentro del div */
+}
+
+.badges {
+  display: grid;
+  gap:10px;
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+  grid-template-rows: repeat(2, auto);   /* 2 filas */
+  margin-top: 0.75rem;
+  padding: 10px;
+}
+
+.badge{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--primario);
+}
+
+.status {
+  font-weight: 700;
+}
+
+.status.ok {
+  color: var(--estado-exito);
+}
+
+.status.bad {
+  color: var(--estado-error);
+}
+
+/* Vista previa */
+.preview {
+  background: var(--tarjeta-fondo);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 0.75rem;
+}
+
+.preview .normal {
+  font-size: 1rem;
+}
+
+.preview .large {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Swatches--- muestra de como se veria el color de fondo y el del texto*/
+.swatches {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.swatch {
+  flex: 1 1 160px;
+  border: 2px solid var(--tarjeta-fondo);
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+.swatch span{
+  color: var(--texto-claro);
+  text-align: center;
+  font-weight: bold;
+}
+.swatch-color {
+  height: 60px;
+  border-radius: 8px;
+  border: 1px solid var(--texto-base);
+}
+
+.swatch-hex {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--texto-claro);
+  font-size: 0.85rem;
+}
+
+/* Botones y utilidades */
+.small {
+  color: var(--primario);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  justify-content: center; /* centra horizontalmente */
+  align-items: center;     /* centra verticalmente */
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 930px) {
+.menu-toggle {
+    display: block;
+    padding-left: 40px;
+}
+
+#menu-list {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--fondo-principal);
+    position: absolute;
+    top: 50px;
+    left: 0;
+    padding: 10px 0;
+}
+
+#menu-list li {
+    margin: 10px 0;
+    text-align: center;
+}
+
+#menu-list.show {
+    display: flex;
+}
+
+.menu-mapa {
+    border: none;
+    box-shadow: none;
+    background-color: var(--fondo-suave); /* pergamino translúcido */
+    border-radius: 12px;
+    padding: 40px 20px;
+    margin: 40px auto;
+    max-width: 600px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+h1, h2, p{
+  margin: 1rem; /* auto en los lados centra el bloque */
+  width: fit-content;    /* el ancho se ajusta al contenido */
+}
+}

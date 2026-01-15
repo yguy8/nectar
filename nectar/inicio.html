@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isla del Color</title>
+    <!-- Icono -->
+    <link rel="icon" href="https://gd7distribuidor.com.br/wp-content/uploads/2020/01/gd7_cores_destaque.jpg" type="image/x-icon">
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <!-- Estilos -->
+    <link rel="stylesheet" href="inicio.css">
+</head>
+<body>
+
+    <!-- Menú superior -->
+    <nav class="menu">
+        <!-- Ícono hamburguesa (solo móvil) -->
+        <div class="menu-toggle" id="menu-toggle">☰</div>
+
+        <!-- Lista de enlaces -->
+        <ul id="menu-list">
+            <li><a href="#hero">Inicio</a></li>
+            <li><a href="#leyenda">Leyenda</a></li>
+            <li><a href="#explorar">Explorar</a></li>
+            <li><a href="#tesoros">Tesoros</a></li>
+            <li><a href="#info">Acerca de</a></li>
+        </ul>
+        <button id="modoOscuroBtn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#d4af37" class="icon icon-tabler icons-tabler-filled icon-tabler-moon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 1.992a10 10 0 1 0 9.236 13.838c.341 -.82 -.476 -1.644 -1.298 -1.31a6.5 6.5 0 0 1 -6.864 -10.787l.077 -.08c.551 -.63 .113 -1.653 -.758 -1.653h-.266l-.068 -.006l-.06 -.002z" /></svg></button>
+    </nav>
+
+
+    <!-- Hero principal -->
+    <header id="hero" class="hero" >
+        <h1>¡Bienvenido a la Isla del Color!</h1>
+        <p>
+        Embárcate en sus profundas y místicas aguas  
+        y consigue lo que nadie ha logrado:  
+        dominar la combinación de colores perfecta para cada ocasión.
+        </p>
+        <button class="btn" onclick="irASeccion()">Explorar ahora</button>
+    </header>
+
+    <!-- Narrativa -->
+    <section id="leyenda">
+        <h2>Leyenda</h2>
+        <p>
+        En las profundidades del océano, más allá de las rutas conocidas,  
+        se oculta una isla envuelta en misterio y leyendas.  
+        Dicen los marineros que en sus costas embrujadas reposan cofres repletos de tesoros coloridos,  
+        y que una guía mágica guía a los valientes hacia secretos jamás revelados.  
+
+        Aquí cada color es un destino, cada matiz un hechizo.  
+        Atrévete a explorar, noble aventurero, pues la Isla del Color  
+        te aguarda con riquezas que ningún pirata ha logrado reclamar...
+        </p>
+    </section>
+
+    <!-- Explorar -->
+    <section id="explorar" class="menu-mapa"> <h2 class="titulo-mapa"> <span>Explorar</span> 
+        <button id="btnGuia"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-help-square-rounded"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" /><path d="M12 16v.01" /><path d="M12 13a2 2 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483" /></svg></button> </h2> 
+        <ul> 
+            <li><a href="temaColores/indexTemas.html">Colores por tema</a></li> 
+            <li><a href="ingresarColor/indexIngresarColor.html">Ingresar color</a></li> 
+            <li><a href="generadoDePaletasDeColores/indexGenerador.html">Paletas al azar</a></li> 
+            <li><a href="contraste/contraste.html">Revisar contraste</a></li> 
+            <li><a href="extractorDeColor/extractor.html">Extractor de color</a></li>
+        </ul> 
+    </section>
+
+    <!-- Modal oculto --> 
+    <div id="modalGuia" class="modal"> 
+        <div class="modal-contenido"> 
+            <span id="cerrarModal" class="cerrar">&times;</span> 
+            <p>
+                En <b>colores por tema</b>, navegarás a través de las combinaciones sorprendentes según el tema que quieras, desde algo elegante hasta lo más extravagante.
+            </p>
+            <p>
+                <b>Ingresar un color</b> te permitirá descubrir paletas armoniosas basadas en tu elección.
+            </p>
+            <p>
+                Y si te sientes aventurero, <b>el generador de paletas al azar</b> te llevará a explorar combinaciones inesperadas y únicas.
+            </p>
+            <p>Ya una vez encontrado el tesoro puedes <b>revisar el contraste</b> para un mejor color de texto y fondo.</p>
+            <p>Si eres un curioso de las imagenes podras <b>extarer sus colores</b> y disfrutarlos.</p>
+        </div> 
+    </div>
+
+    
+    <!-- Sección de tesoros -->
+    <section id="tesoros">
+        <h2>Guía de tesoros</h2>
+        <p> Aqui encontrarás información sobre las herramientas sobre teoria de color que usa la isla del color.</p>
+    
+    <div class="cards"> 
+        <!-- Complementario --> <div class="card" onclick="openModal('modalComplementario')"> <h3>Complementarios</h3> </div>
+        <!-- Análogo --> <div class="card" onclick="openModal('modalAnalogo')"> <h3>Análogos</h3> </div> 
+        <!-- Triádico --> <div class="card" onclick="openModal('modalTriadico')"> <h3>Triádicos</h3> </div> 
+        <!-- Tetrádico --><div class="card" onclick="openModal('modalTetradico')"> <h3>Tetrádicos</h3> </div> 
+    </div>
+    
+    <!-- Modales -->
+    <div id="modalComplementario" class="modal"> <div class="modal-content"> <span class="close" onclick="closeModal('modalComplementario')">&times;</span> <h2>Complementario</h2> <p>Los colores complementarios son aquellos que se encuentran en posiciones opuestas dentro de la rueda de colores. <br><img src="https://www.benjaminmoore.com/-/media/sites/benjaminmoore/images/color/complementary-colors/color-wheel-complementary-640.jpg" alt="complementarios"></p> </div> </div> 
+    <div id="modalAnalogo" class="modal"> <div class="modal-content"> <span class="close" onclick="closeModal('modalAnalogo')">&times;</span> <h2>Análogo</h2> <p>Los colores análogos son aquellos que se encuentran próximos entre sí en la rueda de colores. <br><img src="https://fthmb.tqn.com/u0sf8oG3c-6QKPC_GZYixpfphtM=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/combinar-colores-analogos-597bae1a3df78cbb7a25b740.jpg" alt="análogos"></p> </div> </div>
+    <div id="modalTriadico" class="modal"> <div class="modal-content"> <span class="close" onclick="closeModal('modalTriadico')">&times;</span> <h2>Triádico</h2> <p>Los colores triádicos utiliza tres colores que su distancia forma un triángulo equilátero. <br><img src="https://tse1.explicit.bing.net/th/id/OIP.B2xU_EXSA_K8vkIFq_NwTgHaHa?cb=ucfimg2&ucfimg=1&w=625&h=626&rs=1&pid=ImgDetMain&o=7&rm=3" alt="triádico"></p> </div> </div>
+    <div id="modalTetradico" class="modal"> <div class="modal-content"> <span class="close" onclick="closeModal('modalTetradico')">&times;</span> <h2>Tetrádico</h2> <p>Los colores tetrádicos se refieren a un esquema de color que utiliza cuatro colores organizados en dos pares de colores complementarios. <br><img src="https://tse3.mm.bing.net/th/id/OIP.Qt8q47S7-4aHTXq5Vadi1gHaGM?cb=ucfimg2&ucfimg=1&w=1600&h=1338&rs=1&pid=ImgDetMain&o=7&rm=3" alt="tetrádicos"></p> </div> </div>
+    
+    
+    <!-- Botón para desplegar info --> 
+    <button id="btnInfoIsla" class="btn-info"> ¿Cómo funciona la teoría del color en la isla? </button> 
+    <div id="infoIsla" style="display:none;">
+        <h3>Paletas de la isla</h3>
+        <p>La isla usa en el siguiente orden la teoría del color para generar paletas 
+        basadas en un color principal elegido por el usuario: 
+        </p>
+        
+        <div class="paletas">
+            <!-- Complementario ocupa todo el ancho -->
+            <div class="color-box complementario">Complementario</div>
+
+            <!-- Triádicos -->
+            <div class="color-box triadico1">Triádico 1</div>
+            <div class="color-box triadico2">Triádico 2</div>
+
+            <!-- Análogo -->
+            <div class="color-box analogo">Análogo</div>
+
+            <!-- Tetrádico -->
+            <div class="color-box tetradico">Tetrádico</div>
+
+        </div>
+
+</div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer" id="info">
+    <div class="footer-content">
+    
+        <!-- Columna izquierda -->
+        <div class="footer-left">
+            <img src="https://img.freepik.com/premium-photo/lost-adventures-journey-animated-treasure-chest-isometric-view_983420-197527.jpg" 
+                alt="Cofre del tesoro" class="footer-image">
+        </div>
+
+        <!-- Columna central -->
+        <div class="footer-center">
+            <h2>🏝️ Isla del Color</h2>
+                <p>Explora combinaciones mágicas y encuentra inspiración para tus ideas.</p>
+                <nav class="footer-links">
+                    <a href="#hero">Inicio</a> 
+                    <a href="#explorar">Explorar</a> 
+                    <a href="#tesoros">Tesoros</a> 
+                    <a href="#info">Acerca de</a>
+                </nav>
+                <div class="social-icons">
+                <a href="https://github.com/yguy8/Isla-del-color" target="_blank" aria-label="GitHub">
+                    <!-- Ícono GitHub -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" class="github-icon">
+                        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2.1c-3.2.7-3.9-1.5-3.9-1.5-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1.6 1.7 2.6 1.2.1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.9 0-1.3.5-2.4 1.2-3.3-.1-.3-.5-1.6.1-3.3 0 0 1-.3 3.4 1.2a11.7 11.7 0 0 1 6.2 0c2.4-1.5 3.4-1.2 3.4-1.2.6 1.7.2 3 .1 3.3.8.9 1.2 2 1.2 3.3 0 4.6-2.7 5.6-5.3 5.9.4.3.8 1 .8 2.1v3.1c0 .3.2.7.8.6A10.9 10.9 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+                    </svg>
+                    </a>
+                </div>
+        </div>
+
+        <!-- Columna derecha -->
+        <div class="footer-right">
+            <img src="https://img.freepik.com/premium-photo/lost-adventures-journey-animated-treasure-chest-isometric-view_983420-197527.jpg" 
+                alt="Cofre del tesoro" class="footer-image">
+        </div>
+    </div>
+</footer>
+
+
+<!-- CONTENEDOR DE JOYAS -->
+<div class="treasure-container"></div>
+<div class="treasure-layer"> 
+    <canvas id="treasureCanvas"></canvas> 
+</div>
+
+
+    <!-- Script -->
+    <script src="inicio.js"></script>
+    </body>
+</html>

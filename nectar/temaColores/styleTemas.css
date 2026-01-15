@@ -1,0 +1,398 @@
+/* Estilos globales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Variables globales colores */
+:root{
+    --color-de-fondo:#fdf6e3;
+    --acento:#d4af37;
+    --fondo-icono:#b8860b;
+    --blanco:#ffffff;
+    --color-letras:#222;
+    --nav-hover: #0056b3;
+    --color-secundario:#8b0000;
+    --resaltar:#984c4c;
+    --sombra:rgba(0,0,0,0.25)
+}
+
+/* Fondo general */
+body {
+    font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--color-de-fondo);
+    color: var(--color-letras);
+}
+
+/* modo oscuro */
+body.oscuro {
+    /*modo oscuro*/
+    --color-de-fondo:#23043A; 
+    --color-letras:#dcfbc5; 
+    --acento:#5d8ece; 
+    --fondo-icono:#054a2c; 
+    --color-secundario:#60065c; 
+    --nav-hover:#f7b8b0;
+    --resaltar:#087077;
+    --sombra:rgba(255, 255, 255, 0.25)
+}
+/* Menú */
+.menu {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--color-de-fondo);
+    padding: 1.2rem 0;
+    z-index: 1000;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 4px 8px var(--sombra);
+    color: var(--color-letras);
+}
+/* Ícono hamburguesa */
+.menu-toggle {
+    font-size: 24px;
+    cursor: pointer;
+    display: none; /* oculto en desktop/tablet */
+}
+
+.menu ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.menu li {
+    margin: 0 20px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--color-negro);
+    font-weight: 600;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.menu a:hover {
+    color: var(--nav-hover);
+    border-bottom: 2px solid var(--acento);
+}
+
+#modoOscuroBtn {
+    position: fixed;  
+    top: 18px;
+    right: 20px;
+    background: none;       
+    border: none;           
+    padding: 0;             
+    margin: 0;              
+    display: inline-flex;   
+    align-items: center;    
+    cursor: pointer;
+}
+
+/* Header */
+header {
+    margin-top: 3.6rem;
+    text-align: center;
+    padding: 30px;
+    background-color: var(--color-secundario);
+    color: var(--blanco);
+    box-shadow: inset 0 0 20px var(--negro);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    text-shadow: 2px 2px var(--acento);
+}
+
+p{
+    font-weight: bold;
+}
+
+/* Formulario */
+.form-container {
+    text-align: center;
+    margin: 20px 0;
+}
+/*input del formulario*/
+input{
+    padding: 10px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 5px;
+    cursor:text;
+}
+
+/*boton de generar paleta*/
+.generar {
+    background: var(--color-secundario);
+    color: var(--blanco);
+    border: 2px solid var(--acento);
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+.generar:hover {
+    background: var(--resaltar);
+    transform: scale(1.05);
+}
+
+/* Paletas */
+#paletteContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+.palette-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px;
+    background: var(--color-de-fondo);
+    border: 2px dashed var(--resaltar);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+.color-card {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    border: 2px solid var(--resaltar);
+}
+.color-name {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    font-size: 15px;
+    background: var(--color-de-fondo);
+    padding: 3px 6px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.copy-color-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    border: none;
+    background: var(--fondo-icono);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.copy-color-btn:hover {
+    background: var(--acento);
+}
+
+.remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: var(--color-secundario);
+    color: var(--blanco);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    margin: 7px;
+}
+.copy-btn {
+    background: var(--color-secundario);
+    border-color: var(--acento);
+    bottom: 10px;              
+    left: 50%;                 
+    width: 70%;
+    height: 35px;
+    padding: 10px ;
+    cursor: pointer;
+    border-radius: 8px;
+    color: var(--blanco);
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+.copy-btn:hover {
+    background: var(--resaltar);
+    transform: scale(1.05);
+}
+
+/* Toast flotante aviso de que el usuario no ingreso un tema */
+#toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: var(--nav-hover);
+    color: var(--color-de-fondo);
+    text-align: center;
+    transform: translate(-50%, -50%); /*centrar */
+    border-radius: 8px;
+    padding: 12px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 70%;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    transition: visibility 0s, opacity 0.5s ease-in-out;
+    opacity: 0;
+}
+
+#toast.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/*media queries para cualquier dispositivo*/
+@media (max-width: 910px) {
+    .menu-toggle {
+        display: block;
+        padding-left: 40px;
+    }
+
+    #menu-list {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--color-de-fondo);
+        position: absolute;
+        top: 50px;
+        left: 0;
+        padding: 10px 0;
+    }
+
+    #menu-list li {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    #menu-list.show {
+        display: flex;
+    }
+
+.menu-mapa {
+    border: none;
+    box-shadow: none;
+    background-color: var(--color-de-fondo-2); /* pergamino translúcido */
+    border-radius: 12px;
+    padding: 40px 20px;
+    margin: 40px auto;
+    max-width: 600px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Header */
+header {
+    margin-top: 50px;
+    text-align: center;
+    padding: 30px;
+    background-color: var(--color-secundario);
+    color: var(--blanco);
+}
+
+header h1 {
+    font-size: 1.8rem;
+    text-shadow: 2px 2px var(--acento);
+}
+
+p{
+    font-weight: bold;
+}
+
+/* Estilos base (móviles y pantallas pequeñas) */
+#paletteContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.palette-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    justify-items: center;
+    gap: 10px;
+    padding: 30px 60px 60px 60px;
+}
+.color-card {
+    width: 110px;
+    height: 110px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    border: 2px solid var(--resaltar);
+}
+
+/* Botón de eliminar en esquina superior derecha */
+.remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: var(--color-secundario);
+    color: var(--blanco);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    display: flex;         /* Centra el contenido dentro del círculo */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Botón de copiar en la parte inferior, centrado y ocupando 60% */
+.copy-btn {
+    position: absolute;    
+    bottom: 10px;              /* lo fija en la parte inferior */
+    left: 50%;                 /* lo lleva al centro horizontal */
+    transform: translateX(-50%); /* lo centra respecto a su propio ancho */
+    width: 60%;                /* ocupa el 60% del contenedor */
+    height: 35px;
+    padding: 10px;
+    margin-top: 50px;
+    background: var(--color-secundario);
+    border: 2px solid var(--acento);
+    cursor: pointer;
+    border-radius: 8px;
+    color: var(--blanco);
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+}
+
+@media (max-width: 400px) {
+.palette-group {
+    padding: 30px 40px 55px 40px;
+}
+
+/* Botón de eliminar en esquina superior derecha */
+.remove-btn {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    background: var(--color-secundario);
+    color: var(--blanco);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    display: flex;         /* Centra el contenido dentro del círculo */
+    align-items: center;
+    justify-content: center;
+}
+
+}
