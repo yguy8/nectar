@@ -19,84 +19,103 @@ body {
     line-height: 1.6;
 }
 
-/* HEADER ESTILO HUEMINT */
+/* HEADER ESTILO */
 .main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 4rem;
+    padding: 1.2rem 2.5rem;
     border-bottom: 1px solid var(--border);
-    background: white;
+    background: #6f6765;
+    color: #fdfffa;
     position: sticky;
     top: 0;
     z-index: 100;
+    gap: 2rem; /* espacio entre logo, semáforo y nav */
 }
 
 .logo-area h1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 1.4rem;
     font-weight: 800;
     letter-spacing: -1px;
 }
 
-/* EL SEMÁFORO WCAG */
+/* SEMÁFORO WCAG */
 .wcag-traffic-light {
     display: flex;
     align-items: center;
     gap: 12px;
-    background: #f5f5f5;
-    padding: 8px 16px;
+    background: #f9f9f9;
+    padding: 6px 12px;
     border-radius: 50px;
+    font-size: 0.85rem;
 }
 
 .light-container {
     display: flex;
-    gap: 8px;
+    gap: 6px;
 }
 
 .light {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #ddd; /* Apagado */
+    background: #ddd;
     transition: var(--transition);
 }
 
-#light-green.active { background: var(--success); box-shadow: 0 0 10px var(--success); }
-#light-red.active { background: var(--danger); box-shadow: 0 0 10px var(--danger); }
+#light-green.active { background: var(--success); box-shadow: 0 0 8px var(--success); }
+#light-red.active { background: var(--danger); box-shadow: 0 0 8px var(--danger); }
 
-/* MENÚ DE NAVEGACIÓN */
-.nav-menu button {
+/* NAV TOOLS (botones + slider + generar) */
+.nav-tools {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.nav-tools button {
     background: transparent;
     border: none;
-    padding: 8px 16px;
     cursor: pointer;
-    font-weight: 500;
-    color: #666;
+    padding: 6px;
+    color: var(--text-main);
     transition: var(--transition);
-}
-
-.nav-menu button:hover { color: var(--text-main); }
-
-/* CONTROLES GLOBALES */
-.global-controls {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 20px;
-    padding: 4rem 2rem;
 }
 
-input[type="range"] {
-    width: 200px;
-    accent-color: var(--text-main);
+.nav-tools button:hover {
+    color: var(--accent);
 }
 
+/* Control cantidad */
+.control-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.control-item label {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.control-item input[type="range"] {
+    width: 120px;
+    accent-color: var(--accent);
+}
+
+/* Botón generar paleta */
 .btn-generate {
-    background: var(--text-main);
+    background: var(--accent);
     color: white;
     border: none;
-    padding: 15px 40px;
-    border-radius: 8px;
+    padding: 10px 20px;
+    border-radius: 6px;
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
@@ -106,22 +125,22 @@ input[type="range"] {
 
 .btn-generate:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
-/* VISUALIZACIÓN DE PALETA (BLOQUES DINÁMICOS) */
+/* VISUALIZACIÓN DE PALETA */
 .palette-display {
     display: flex;
     height: 150px;
     width: 100%;
     max-width: 1000px;
-    margin: 0 auto 4rem;
+    margin: 2rem auto 4rem;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: var(--card-shadow);
 }
 
-/* PREVIEW 60-30-10 (MOCKUP LIMPIO) */
+/* PREVIEW 60-30-10 */
 .preview-603010 {
     max-width: 1000px;
     margin: 0 auto 5rem;
@@ -168,7 +187,7 @@ input[type="range"] {
     text-align: center;
 }
 
-/* ESTILO PARA EL INPUT DE COLOR MANUAL */
+/* INPUT DE COLOR MANUAL */
 .color-picker-input input[type="color"] {
     width: 80px;
     height: 80px;
