@@ -8,6 +8,8 @@
     --border: #eeeeee;
     --card-shadow: 0 4px 20px rgba(0,0,0,0.05);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* #406a9c, 142636*/
 }
 
 /* RESET GENERAL */
@@ -112,7 +114,7 @@ body {
 /* Botón generar paleta */
 .btn-generate {
     background: var(--accent);
-    color: white;
+    color: rgb(255, 255, 255);
     border: none;
     padding: 10px 20px;
     border-radius: 6px;
@@ -126,6 +128,8 @@ body {
 .btn-generate:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    background-color: #ddd;
+    color: var(--text-main);
 }
 
 /* VISUALIZACIÓN DE PALETA */
