@@ -49,16 +49,16 @@ body {
 .wcag-traffic-light {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 3px;
     background: #f9f9f9;
-    padding: 6px 12px;
+    padding: 4px 4px;
     border-radius: 50px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
 }
 
 .light-container {
     display: flex;
-    gap: 6px;
+    gap: 4px;
 }
 
 .light {
@@ -84,7 +84,6 @@ body {
     border: none;
     cursor: pointer;
     padding: 6px;
-    color: var(--text-main);
     transition: var(--transition);
     display: flex;
     align-items: center;
