@@ -1,15 +1,14 @@
 /* VARIABLES DE DISEÑO NECTAR */
 :root {
-    --bg-app: #fcfcfc;
-    --text-main: #1a1a1a;
-    --accent: #7000FF;
-    --success: #00c853;
-    --danger: #ff1744;
-    --border: #eeeeee;
-    --card-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    --bg-app: #fdf6e3;  
+    --text-main: #333333;
+    --nav: #6C86F4;
+    --accent: #0066ff;
+    --success: #009688;
+    --danger: #e53935;
+    --border: #ddd6d6;
+    --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    /* #406a9c, 142636*/
 }
 
 /* RESET GENERAL */
@@ -21,6 +20,19 @@ body {
     line-height: 1.6;
 }
 
+body.dark-mode {
+    --bg-app: #d5d0c0;  
+    --text-main: #000000;
+    --nav: #0023BE;
+    --accent: #bb86fc;
+    --success: #03dac6;
+    --danger: #cf6679;
+    --border: #333333;
+    --card-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+
+
+
 /* HEADER ESTILO */
 .main-header {
     display: flex;
@@ -28,7 +40,7 @@ body {
     align-items: center;
     padding: 1.2rem 2.5rem;
     border-bottom: 1px solid var(--border);
-    background: #6f6765;
+    background: var(--nav);
     color: #fdfffa;
     position: sticky;
     top: 0;
