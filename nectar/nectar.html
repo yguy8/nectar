@@ -28,7 +28,6 @@
                     <option value="4">4</option>
                     <option value="5" selected>5</option>
                     <option value="6">6</option>
-                    <option value="7">7</option>
                 </select>
             </div>
 
@@ -99,25 +98,57 @@
         </nav>
     </header>
 
-    <main class="content">
+<main class="content">
 
-       <section class="preview-603010">
+  <!-- Botón con ícono SVG -->
+  <button id="open-form" class="icon-button" aria-label="Personalizar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+         viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" 
+         stroke-linecap="round" stroke-linejoin="round" 
+         class="icon icon-tabler icon-tabler-pencil">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+    </svg>
+  </button>
+
+  <!-- Formulario oculto -->
+  <section id="customization-panel" class="customization-panel hidden">
+    <h3>Personalizar Página</h3>
+    <label for="brand-name">Nombre de la marca:</label>
+    <input type="text" id="brand-name" placeholder="Escribe tu marca">
+
+    <label for="font-choice">Tipografía:</label>
+    <select id="font-choice">
+      <option value="'Arial', sans-serif">Arial</option>
+      <option value="'Georgia', serif">Georgia</option>
+      <option value="'Courier New', monospace">Courier New</option>
+      <option value="'Roboto', sans-serif">Roboto</option>
+    </select>
+
+    <button id="apply-customization">Aplicar</button>
+  </section>
+
+  <!-- Previsualización -->
+  <section class="preview-603010">
     <h3>Previsualización</h3>
     <div class="mockup-container">
-        <div id="preview-bg" class="mockup-window">
-            <header id="preview-header">
-                <span>Menú de Ejemplo</span>
-            </header>
-            <div id="preview-card" class="card-sample">
-                <h4>Título de Tarjeta</h4>
-                <p>Este es el color secundario aplicado a un elemento de contenido.</p>
-                <button id="preview-cta">Botón de Acción</button>
-            </div>
+      <div id="preview-bg" class="mockup-window">
+        <header id="preview-header">
+          <span id="brand-display">Menú de Ejemplo</span>
+        </header>
+        <div id="preview-card" class="card-sample">
+          <h4>Título de Tarjeta</h4>
+          <p>Este es el color secundario aplicado a un elemento de contenido.</p>
+          <button id="preview-cta">Botón de Acción</button>
         </div>
+      </div>
     </div>
-</section>
+  </section>
 
 </main>
+
+
 
 <footer class="footer">
   <div class="footer-container">
@@ -171,6 +202,26 @@ imagen
     toggleButton.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
     });
+
+//función de formulario de personalización
+// Mostrar/Ocultar formulario
+document.getElementById("open-form").addEventListener("click", () => {
+  const panel = document.getElementById("customization-panel");
+  panel.classList.toggle("hidden");
+});
+
+// Aplicar personalización
+document.getElementById("apply-customization").addEventListener("click", () => {
+  const brandName = document.getElementById("brand-name").value;
+  const fontChoice = document.getElementById("font-choice").value;
+
+  if (brandName.trim() !== "") {
+    document.getElementById("brand-display").textContent = brandName;
+  }
+
+  document.getElementById("preview-bg").style.fontFamily = fontChoice;
+});
+
 </script>
 
 </body>
