@@ -100,19 +100,19 @@
 
 <main class="content">
 
-  <!-- Botón con ícono SVG -->
+  <!-- Botón que abré el formulario de personalizar página con ícono SVG
   <button id="open-form" class="icon-button" aria-label="Personalizar">
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
-         viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" 
-         stroke-linecap="round" stroke-linejoin="round" 
-         class="icon icon-tabler icon-tabler-pencil">
+        viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" 
+        stroke-linecap="round" stroke-linejoin="round" 
+        class="icon icon-tabler icon-tabler-pencil">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
       <path d="M13.5 6.5l4 4" />
     </svg>
   </button>
 
-  <!-- Formulario oculto -->
+  <!-- Formulario de personalización oculto 
   <section id="customization-panel" class="customization-panel hidden">
     <h3>Personalizar Página</h3>
     <label for="brand-name">Nombre de la marca:</label>
@@ -127,7 +127,7 @@
     </select>
 
     <button id="apply-customization">Aplicar</button>
-  </section>
+  </section> -->
 
   <!-- Previsualización -->
   <section class="preview-603010">
@@ -208,23 +208,23 @@
     });
 
 //función de formulario de personalización
-// Mostrar/Ocultar formulario
-document.getElementById("open-form").addEventListener("click", () => {
-  const panel = document.getElementById("customization-panel");
-  panel.classList.toggle("hidden");
-});
+// Mostrar/Ocultar formulario dejarlo para depúes
+// document.getElementById("open-form").addEventListener("click", () => {
+//   const panel = document.getElementById("customization-panel");
+//   panel.classList.toggle("hidden");
+// });
 
-// Aplicar personalización
-document.getElementById("apply-customization").addEventListener("click", () => {
-  const brandName = document.getElementById("brand-name").value;
-  const fontChoice = document.getElementById("font-choice").value;
+// // Aplicar personalización
+// document.getElementById("apply-customization").addEventListener("click", () => {
+//   const brandName = document.getElementById("brand-name").value;
+//   const fontChoice = document.getElementById("font-choice").value;
 
-  if (brandName.trim() !== "") {
-    document.getElementById("brand-display").textContent = brandName;
-  }
+//   if (brandName.trim() !== "") {
+//     document.getElementById("brand-display").textContent = brandName;
+//   }
 
-  document.getElementById("preview-bg").style.fontFamily = fontChoice;
-});
+//   document.getElementById("preview-bg").style.fontFamily = fontChoice;
+// });
 
 </script>
 
