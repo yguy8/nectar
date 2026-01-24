@@ -207,7 +207,11 @@ body.dark-mode {
     cursor: pointer;
 }
 
+/*seción de la página personalizable que esta solo de muestra*/
 
+
+
+/*diseño del footer */
 .footer {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
     background-color: var(--nav);
@@ -302,8 +306,8 @@ body.dark-mode {
 }
 
 .footer svg {
-    width: 20px; 
-    height: 20px;
+    width: 24px; 
+    height: 24px;
     fill: #f4da6c;
     flex-shrink: 0;
     filter: drop-shadow(0 0 5px rgba(244, 218, 108, 0.2));
