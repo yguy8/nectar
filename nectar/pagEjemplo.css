@@ -1,0 +1,56 @@
+
+/* PREVIEW*/
+.preview {
+    max-width: 1000px;
+    margin: 0 auto 5rem;
+}
+
+.mockup-container {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+}
+
+.mockup-window {
+    border-radius: 12px;
+    min-height: 400px;
+    padding: 2rem;
+    transition: var(--transition);
+}
+
+.card-sample {
+    max-width: 400px;
+    padding: 2.5rem;
+    border-radius: 16px;
+    margin: 2rem auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    text-align: center;
+}
+
+#preview-cta {
+    margin-top: 1.5rem;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* UTILIDADES */
+.hidden { display: none; }
+.tab-pane {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* INPUT DE COLOR MANUAL */
+.color-picker-input input[type="color"] {
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
