@@ -151,8 +151,8 @@ body.dark-mode {
     box-shadow: var(--card-shadow);
 }
 
-/* PREVIEW 60-30-10 */
-.preview-603010 {
+/* PREVIEW*/
+.preview {
     max-width: 1000px;
     margin: 0 auto 5rem;
 }
