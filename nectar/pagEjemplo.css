@@ -162,9 +162,6 @@
   text-align: center;
   color: var(--text-light);
   font-size: 0.9rem;
-  background: var(--background);
-  border-radius: 12px;
-  box-shadow: var(--card-shadow);
 }
 
 /* Utilidades */
