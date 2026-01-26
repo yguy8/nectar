@@ -78,7 +78,7 @@
 }
 
 #preview-header nav a:hover {
-  color: var(--secondary);
+  color: var(--accent);
 }
 
 /* Texto de ejemplo */
@@ -133,7 +133,7 @@
 }
 
 #preview-cta:hover {
-  background: var(--secondary);
+  background: var(--background);
   color: #fff;
 }
 
