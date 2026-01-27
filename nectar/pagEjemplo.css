@@ -10,15 +10,6 @@
   --card-shadow: 0 8px 20px rgba(0,0,0,0.08);
   --transition: all 0.3s ease;
 }
-
-.preview {
-  max-width: 1000px;
-  margin: 3rem auto 5rem;
-  background-color: #fdf6e3; /* Fondo de la sección de la web */
-  border-radius: 20px;
-  overflow: hidden;
-}
-
 .preview-label h3 {
   margin: 1.5rem;
   color: #000;
@@ -88,7 +79,7 @@
 .preview-nav a:hover {
   opacity: 1;
   text-decoration: underline;
-  color: var(--secondary);
+  color: var(--accent);
 }
 
 #brand-display {

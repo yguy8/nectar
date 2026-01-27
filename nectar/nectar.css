@@ -5,6 +5,7 @@
     --nav: #6C86F4;
     --accent: #0066ff;
     --success: #009688;
+    --medium:#ffb300;
     --danger: #e53935;
     --border: #ddd6d6;
     --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
@@ -54,31 +55,63 @@ body.dark-mode {
 }
 
 /* SEMÁFORO WCAG */
+
 .wcag-traffic-light {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 3px;
-    background: #f9f9f9;
-    padding: 4px 4px;
-    border-radius: 50px;
-    font-size: 0.75rem;
+    gap: 8px;
+    background: #222; /* Carcasa del semáforo */
+    padding: 10px;
+    border-radius: 15px;
+    width: fit-content;
 }
 
 .light-container {
     display: flex;
-    gap: 4px;
+    gap: 5px;
 }
 
 .light {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    background: #ddd;
-    transition: var(--transition);
+    background-color: #444; /* Color apagado */
+    transition: all 0.3s ease;
 }
 
-#light-green.active { background: var(--success); box-shadow: 0 0 8px var(--success); }
-#light-red.active { background: var(--danger); box-shadow: 0 0 8px var(--danger); }
+/* Colores activos con brillo */
+#light-red.active { 
+    background-color: var(--danger); 
+    box-shadow: 0 0 12px var(--danger); 
+}
+#light-yellow.active { 
+    background-color: var(--medium); 
+    box-shadow: 0 0 12px var(--medium); 
+}
+#light-green.active { 
+    background-color: var(--success); 
+    box-shadow: 0 0 12px var(--success); 
+}
+
+#contrast-ratio-text {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #eee;
+    font-family: monospace;
+}
+
+/*La sección de la preview*/
+
+.preview {
+    max-width: 1000px;
+    margin: 3rem auto 5rem;
+    background-color: var(--bg-app);
+    border-radius: 20px;
+    padding: 1rem;
+    overflow: hidden;
+}
+
 
 /* NAV TOOLS (botones + slider + generar) */
 .nav-tools {
