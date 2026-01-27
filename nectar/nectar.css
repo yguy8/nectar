@@ -4,14 +4,16 @@
     --text-main: #333333;
     --nav: #6C86F4;
     --accent: #0066ff;
-    --success: #009688;
-    --medium:#ffb300;
-    --danger: #e53935;
     --border: #ddd6d6;
     --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
+    /*colores del semaforo WCGA*/
+    --danger: #ff4d4d;
+    --medium: #f1c40f;
+    --success: #2ecc71;
+    --off-color: #333; /* Color de luz apagada */
+}
 /* RESET GENERAL */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { 
@@ -55,28 +57,30 @@ body.dark-mode {
 }
 
 /* SEMÁFORO WCAG */
-
 .wcag-traffic-light {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     background: #222; /* Carcasa del semáforo */
-    padding: 10px;
     border-radius: 15px;
     width: fit-content;
 }
 
 .light-container {
     display: flex;
-    gap: 5px;
+    gap: 10px;
+    background: #222;
+    padding: 10px;
+    border-radius: 20px;
+    width: fit-content;
 }
 
 .light {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background-color: #444; /* Color apagado */
+    background-color: var(--off-color);
     transition: all 0.3s ease;
 }
 
