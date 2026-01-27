@@ -1,44 +1,47 @@
-/* VARIABLES DE COLOR */
+
 :root {
-  --primary: #f4da6c;        /* Color principal (ej. marca) */
-  --secondary: #6c9ef4;      /* Color secundario */
-  --accent: #f46c9e;         /* Color de acento */
-  --background: #ffffff;     /* Fondo principal */
-  --text: #333333;           /* Texto principal */
-  --text-light: #666666;     /* Texto secundario */
-  --border: #e0e0e0;         /* Bordes */
+  --primary: #f4da6c;         /* Marca Nectar */
+  --secondary: #6c9ef4;       /* 30% - Bloques */
+  --accent: #f46c9e;          /* 10% - Acción */
+  --background: #ffffff;      /* 60% - Base */
+  --text: #333333;            /* Texto sobre background */
+  --text-light: #666666;      /* Texto sobre secondary */
+  --border: #e0e0e0;          /* Separadores */
   --card-shadow: 0 8px 20px rgba(0,0,0,0.08);
   --transition: all 0.3s ease;
 }
 
-/* PREVIEW */
 .preview {
   max-width: 1000px;
   margin: 3rem auto 5rem;
-  background-color: #fdf6e3;
+  background-color: #fdf6e3; /* Fondo de la sección de la web */
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 .preview-label h3 {
-  margin: 1rem;
+  margin: 1.5rem;
   color: #000;
+  font-family: sans-serif;
 }
 
 .mockup-container {
   padding: 40px;
   border-radius: 20px;
+  transition: var(--transition);
 }
 
-/*color de la página*/
 .mockup-window {
   border-radius: 12px;
   min-height: 400px;
   padding: 2rem;
   transition: var(--transition);
-  background: var(--primary); 
+  background-color: var(--background); 
   color: var(--text);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* encabezado */
+/* Encabezado de la previsualización */
 #preview-header {
   display: flex;
   justify-content: space-between;
@@ -48,78 +51,62 @@
   margin-bottom: 2rem;
 }
 
+/* Bloques de contenido y Tarjetas */
+.text-sample, .preview-section, .card-sample {
+  background-color: var(--secondary);
+  color: var(--text-light);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 1.5rem;
+  transition: var(--transition);
+}
+
+.card-sample {
+  max-width: 400px;
+  margin: 2rem auto;
+  text-align: center;
+}
+
+/* Títulos internos */
+.text-sample h2, .card-sample h4, .preview-section h3 {
+  color: var(--text-light);
+  margin-bottom: 0.8rem;
+  filter: contrast(1.2); /* Mejora legibilidad del título */
+}
+
+/* Navegación interna */
+.preview-nav ul { list-style: none; padding: 0; }
+.preview-nav li { display: inline-block; margin-left: 1rem; }
+.preview-nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.preview-nav a:hover {
+  opacity: 1;
+  text-decoration: underline;
+  color: var(--secondary);
+}
+
 #brand-display {
   font-weight: 700;
   font-size: 1.2rem;
-  color: var(--background);
+  color: var(--accent);
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-/* SVG */
 #brand-display svg {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   fill: currentColor;
-  flex-shrink: 0;
 }
 
-#preview-header nav li {
-  display: inline-block;
-  margin-left: 1rem;
-}
-
-#preview-header nav a {
-  text-decoration: none;
-  color: var(--text-light);
-  font-weight: 500;
-  transition: var(--transition);
-}
-
-#preview-header nav a:hover {
-  color: var(--accent);
-}
-
-/* Texto de ejemplo */
-.text-sample {
-  background: var(--background);
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: var(--card-shadow);
-}
-
-.text-sample h2 {
-  color: var(--secondary);
-  margin-bottom: 1rem;
-}
-
-.text-sample p {
-  color: var(--text-light);
-  line-height: 1.6;
-}
-
-/* CARD ejemplo */
-.card-sample {
-  max-width: 400px;
-  padding: 2.5rem;
-  border-radius: 16px;
-  margin: 2rem auto;
-  text-align: center;
-  background: var(--secondary);
-  color: #fff;
-  box-shadow: var(--card-shadow);
-}
-
-.card-sample h4 {
-  margin-bottom: 1rem;
-}
-
-.card-sample p {
-  font-size: 0.95rem;
-}
-
-/* Botón */
+/* Botón de Llamada a la Acción (CTA) */
 #preview-cta {
   margin-top: 1.5rem;
   padding: 12px 24px;
@@ -127,48 +114,32 @@
   border-radius: 6px;
   font-weight: 600;
   cursor: pointer;
-  background: var(--accent);
-  color: #fff;
+  background-color: var(--accent);
+  color:var(--text); /* Texto siempre blanco en botón de acento por estética */
   transition: var(--transition);
 }
 
 #preview-cta:hover {
-  background: var(--background);
-  color: #fff;
+  filter: brightness(1.1);
+  transform: translateY(-2px);
 }
-
-/* Secciones */
-.preview-section {
-  background: var(--background);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.preview-section h3 {
-  color: var(--secondary);
-}
-
-.preview-section p {
-  color: var(--text-light);
-  margin-top: 0.5rem;
-}
-
-/* Footer */
+/* Pie de página de la previsualización */
 #preview-footer {
   margin-top: 3rem;
   padding-top: 1rem;
   border-top: 1px solid var(--border);
   text-align: center;
-  color: var(--text-light);
-  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.6;
+  font-size: 0.85rem;
 }
 
-/* Utilidades */
+/* Caso especial: Adaptación para 3 colores */
+.palette-size-3 .text-sample, 
+.palette-size-3 .preview-section {
+    background-color: transparent;
+    border: 2px solid var(--secondary);
+    box-shadow: none;
+}
+
 .hidden { display: none; }
-.tab-pane {
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-}
-
