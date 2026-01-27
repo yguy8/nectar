@@ -106,7 +106,7 @@
   font-weight: 600;
   cursor: pointer;
   background-color: var(--accent);
-  color:var(--text); /* Texto siempre blanco en botón de acento por estética */
+  color:var(--text-cta); 
   transition: var(--transition);
 }
 

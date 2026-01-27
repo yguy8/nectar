@@ -1,14 +1,17 @@
-/**
- * ARCHIVO: alAzar.js
- * Lógica de generación armónica y validación de contraste
- */
+// Conversión HSL a HEX
+const hslToHex = (h, s, l) => {
+    l /= 100;
+    const a = s * Math.min(l, 1 - l) / 100;
+    const f = n => {
+        const k = (n + h / 30) % 12;
+        const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+        return Math.round(255 * color).toString(16).padStart(2, '0');
+    };
+    return `#${f(0)}${f(8)}${f(4)}`;
+};
 
-// 1. UTILIDADES DE COLOR
 const generateHex = () => '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
 
-/**
- * Calcula la luminancia relativa para estándares WCAG
- */
 function getLuminance(hex) {
     const rgb = hex.replace('#', '').match(/.{2}/g).map(x => {
         const s = parseInt(x, 16) / 255;
@@ -17,104 +20,128 @@ function getLuminance(hex) {
     return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
 }
 
-/**
- * Calcula el ratio de contraste entre dos colores (ej: 4.5)
- */
 function getContrastRatio(hex1, hex2) {
     const l1 = getLuminance(hex1);
     const l2 = getLuminance(hex2);
     return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
 }
 
-/**
- * Determina si el texto debe ser negro o blanco según el fondo
- */
-const getBestTextColor = (bgColor) => (getLuminance(bgColor) > 0.5 ? '#1a1a1a' : '#ffffff');
+const getBestTextColor = (bgColor) => (getLuminance(bgColor) > 0.5 ? '#1a1a1a' : '#f5f5f5');
 
-// 2. FUNCIÓN PRINCIPAL
-function generateRandomPalette() {
-    // Obtenemos la cantidad elegida por el usuario
-    const size = parseInt(document.getElementById('palette-size').value) || 5;
-    const previewContainer = document.querySelector('.mockup-container');
+// Función para generar una paleta armónica
+function getHarmonicPalette() {
+    const h = Math.floor(Math.random() * 360);
+    const s = Math.floor(Math.random() * 40) + 40; // Saturación estable (40-80%)
+    const l = Math.floor(Math.random() * 60) + 20; // Luminosidad base (20-80%)
     
-    // Aplicamos Regla 60-30-10
-    // 60% Dominante (Fondo principal)
-    const color60 = generateHex(); 
-    // 30% Secundario (Tarjetas/Header)
-    const color30 = generateHex(); 
-    // 10% Acento (Botones/Iconos)
-    const color10 = generateHex(); 
+    const tipos = ['puro', 'mono', 'analogo', 'complementario', 'triada'];
+    const tipo = tipos[Math.floor(Math.random() * tipos.length)];
 
-    // Calculamos colores de texto automáticos para evitar invisibilidad
-    const textOn60 = getBestTextColor(color60);
-    const textOn30 = getBestTextColor(color30);
-    const textOn10 = getBestTextColor(color10);
+    let c60, c30, c10;
 
-    // Mapeo de variables CSS
+    switch(tipo) {
+        case 'mono':
+            c60 = hslToHex(h, s, l);
+            c30 = hslToHex(h, s - 20, l > 50 ? l - 20 : l + 20);
+            c10 = hslToHex(h, s, l > 50 ? l - 40 : l + 40);
+            break;
+        case 'analogo':
+            c60 = hslToHex(h, s, l);
+            c30 = hslToHex((h + 30) % 360, s, l);
+            c10 = hslToHex((h + 60) % 360, s, l);
+            break;
+        case 'complementario':
+            c60 = hslToHex(h, s, l);
+            c30 = hslToHex(h, s - 10, l > 50 ? l - 10 : l + 10);
+            c10 = hslToHex((h + 180) % 360, s + 10, l);
+            break;
+        case 'triada':
+            c60 = hslToHex(h, s, l);
+            c30 = hslToHex((h + 120) % 360, s, l);
+            c10 = hslToHex((h + 240) % 360, s, l);
+            break;
+        default: // Azar puro
+            c60 = generateHex();
+            c30 = generateHex();
+            c10 = generateHex();
+    }
+    return { c60, c30, c10, tipo };
+}
+
+// Generador aleatorio de paletas con verificación de accesibilidad
+function generateRandomPalette() {
+    const previewContainer = document.querySelector('.mockup-container');
+    const size = parseInt(document.getElementById('palette-size').value) || 5;
+    
+    let paleta, t60, ratio, esAceptable = false;
+
+    // 90% de las veces buscamos que el fondo sea legible
+    while (!esAceptable) {
+        paleta = getHarmonicPalette();
+        t60 = getBestTextColor(paleta.c60);
+        ratio = getContrastRatio(paleta.c60, t60);
+
+        if (ratio >= 4.5 || Math.random() < 0.10) esAceptable = true;
+    }
+
+    const t30 = getBestTextColor(paleta.c30);
+    const t10 = getBestTextColor(paleta.c10);
+
     let variables = {
-        '--background': color60,      // Dominante
-        '--text': textOn60,           // Contraste con dominante
-        '--secondary': color30,      // Secundario
-        '--text-light': textOn30,     // Contraste con secundario
-        '--accent': color10,          // Acento
-        '--border': color30 + '44'    // Borde sutil basado en el secundario
+        '--background': paleta.c60,
+        '--text': t60,
+        '--secondary': paleta.c30,
+        '--text-light': t30,
+        '--accent': paleta.c10,
+        '--text-cta': t10,
+        '--border': paleta.c30 + '44'
     };
 
-    // Ajuste por cantidad (Si es 3, simplificamos la paleta visualmente)
-    if (size === 3) {
-        previewContainer.classList.add('palette-size-3');
-    } else {
-        previewContainer.classList.remove('palette-size-3');
-    }
+    Object.keys(variables).forEach(k => previewContainer.style.setProperty(k, variables[k]));
+    if (size === 3) previewContainer.classList.add('palette-size-3');
+    else previewContainer.classList.remove('palette-size-3');
 
-    // 3. APLICAR AL DOM
-    Object.keys(variables).forEach(key => {
-        previewContainer.style.setProperty(key, variables[key]);
+    verificarAccesibilidadGlobal({
+        bg: paleta.c60, sec: paleta.c30, acc: paleta.c10,
+        txt: t60, txtSec: t30, txtBtn: t10
     });
 
-    // 4. ACTUALIZAR SEMÁFORO WCAG (Contraste Texto vs Fondo Dominante)
-    const ratio = getContrastRatio(color60, textOn60);
-    updateWCAGStatus(ratio);
-
-    console.log(`Paleta Armónica Generada. Ratio de contraste: ${ratio.toFixed(2)}`);
+    console.log(`Modo: ${paleta.tipo}`);
 }
 
-/**
- * Actualiza visualmente el semáforo de accesibilidad
- */
-function updateWCAGStatus(ratio) {
-    const greenLight = document.getElementById('light-green');
-    const redLight = document.getElementById('light-red');
-    const ratioText = document.getElementById('contrast-ratio-text');
+// Semaforo de accesibilidad WCAG
+function verificarAccesibilidadGlobal(colores) {
+    const parejas = [
+        { fondo: colores.bg, texto: colores.txt },
+        { fondo: colores.sec, texto: colores.txtSec },
+        { fondo: colores.acc, texto: colores.txtBtn },
+        { fondo: colores.bg, texto: colores.acc }
+    ];
+    const fallas = parejas.filter(p => getContrastRatio(p.fondo, p.texto) < 4.5).length;
+    updateWCAGStatus(fallas);
+}
+
+function updateWCAGStatus(numFallas) {
+    const red = document.getElementById('light-red'), yellow = document.getElementById('light-yellow'), green = document.getElementById('light-green');
     const statusLabel = document.querySelector('.status-label');
+    if (!red || !yellow || !green) return;
+    [red, yellow, green].forEach(l => l.classList.remove('active'));
 
-    if (!greenLight || !redLight) return;
-
-    ratioText.innerText = `${ratio.toFixed(2)}:1`;
-
-    if (ratio >= 4.5) {
-        // Pasa estándar AA
-        greenLight.classList.add('active');
-        redLight.classList.remove('active');
-        statusLabel.innerText = "ACCESIBLE";
-        statusLabel.style.color = "#2ecc71";
+    if (numFallas === 0) {
+        green.classList.add('active');
+        statusLabel.innerText = "EXCELENTE";
+        statusLabel.style.color = "var(--success)";
+    } else if (numFallas <= 1) {
+        yellow.classList.add('active');
+        statusLabel.innerText = "EQUILIBRADO";
+        statusLabel.style.color = "var(--medium)";
     } else {
-        // Falla
-        redLight.classList.add('active');
-        greenLight.classList.remove('active');
-        statusLabel.innerText = "BAJO CONTRASTE";
-        statusLabel.style.color = "#e74c3c";
+        red.classList.add('active');
+        statusLabel.innerText = "FALLA";
+        statusLabel.style.color = "var(--danger)";
     }
 }
 
-/**
- * Interceptor para el botón del Header
- */
 function switchTab(type) {
-    if (type === 'random') {
-        generateRandomPalette();
-    } else {
-        console.log("Cambiando a pestaña:", type);
-        // Aquí puedes añadir la lógica para mostrar/ocultar otras secciones
-    }
+    if (type === 'random') generateRandomPalette();
 }
