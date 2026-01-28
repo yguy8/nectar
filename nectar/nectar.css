@@ -2,7 +2,7 @@
 :root {
     --bg-app: #fdf6e3;  
     --text-main: #333333;
-    --nav: #7f7d1a;
+    --nav: #87661a;
     --accent: #0066ff;
     --border: #ddd6d6;
     --card-shadow: 0 2px 12px rgba(0,0,0,0.08);
@@ -26,7 +26,7 @@ body {
 body.dark-mode {
     --bg-app: #d5d0c0;  
     --text-main: #000000;
-    --nav: #52510f;
+    --nav: #634b14;
     --accent: #bb86fc;
     --border: #333333;
     --card-shadow: 0 2px 12px rgba(0,0,0,0.5);
