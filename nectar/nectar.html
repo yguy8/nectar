@@ -101,7 +101,12 @@
   <!-- Previsualización -->
   <section class="preview">
   <h3 class="preview-label">Previsualización</h3>
-  <div class="mockup-container">
+  <div class="export-actions">
+    <button onclick="copyToClipboard('css', event)">Copiar CSS</button>
+    <button onclick="copyToClipboard('tailwind', event)">Copiar Tailwind</button>
+    <button onclick="copyToClipboard('scss', event)">Copiar SCSS</button>
+  </div>
+    <div class="mockup-container">
     <div id="preview-bg" class="mockup-window">
       <!-- Encabezado -->
       <header id="preview-header" class="preview-header">
