@@ -114,8 +114,110 @@ body.dark-mode {
     font-family: monospace;
 }
 
-/*La sección de la preview*/
 
+/*Formulario para ingresar color*/
+/* Panel flotante */
+.color-form-overlay {
+    position: fixed;
+    top: 80px; /* Ajusta según la posición de tu botón */
+    right: 20px;
+    width: 280px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    z-index: 1000;
+    border: 1px solid #e0e0e0;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.color-form-overlay.hidden {
+    display: none; 
+}
+
+.color-form-content { padding: 16px; }
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+.form-header h4 {
+    margin: 0; color: #333; 
+    font-size: 1rem; 
+}
+
+.close-btn { 
+    background: none;
+    border: none; 
+    font-size: 1.5rem; 
+    cursor: pointer; 
+}
+
+.close-btn:hover { 
+    background: none;
+    border: none; 
+    font-size: 1.5rem; 
+    cursor: pointer; 
+    fill: var(--danger);
+}
+
+.input-row { 
+    margin-bottom: 12px; 
+}
+
+.input-row label { 
+    display: block;
+    font-size: 0.75rem; 
+    color: #666; 
+    margin-bottom: 4px; 
+    font-weight: bold;
+}
+
+.input-group { display: flex; gap: 8px; align-items: center; }
+
+input[type="color"] {
+    border: none; 
+    width: 30px; 
+    height: 30px; 
+    cursor: pointer; 
+    background: none;
+}
+
+input[type="text"] {
+    flex: 1; 
+    padding: 5px; 
+    border: 1px solid #ddd; 
+    border-radius: 4px; 
+    font-family: monospace;
+}
+
+.apply-btn {
+    width: 100%; 
+    padding: 8px; 
+    background: #333; 
+    color: white; 
+    border: none; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    margin-top: 10px;
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(-10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+/*La sección de la preview*/
 .preview {
     max-width: 1000px;
     margin: 3rem auto 5rem;

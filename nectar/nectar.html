@@ -49,7 +49,7 @@
             </button>
 
             <!-- Botón agregar color -->
-            <button onclick="switchTab('input')">
+            <button onclick="switchTab('input')" class="btn-tool">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
                     viewBox="0 0 24 24" fill="none" stroke="#ffffff" 
                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
@@ -62,6 +62,42 @@
                     <path d="M20 8v.01" /><path d="M20 12v.01" /><path d="M20 16v.01" /><path d="M20 20v.01" />
                 </svg>
             </button>
+
+<div id="color-form-panel" class="color-form-overlay hidden">
+    <div class="color-form-content">
+        <div class="form-header">
+            <h4>Personalizar Colores</h4>
+            <button onclick="switchTab('input')"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg></button>
+        </div>
+        <div class="form-body">
+            <div class="input-block">
+                <label>Fondo (Base 60%)</label>
+                <div class="input-group">
+                    <input type="color" id="user-bg" oninput="updateSpecificColor('bg', this.value)">
+                    <input type="text" id="hex-bg" placeholder="#FFFFFF" oninput="syncTextToPicker(this, 'user-bg', 'bg')">
+                </div>
+                <button class="btn-gen-small" onclick="generateHarmoniesFromCurrent()">Generar Armonía</button>
+            </div>
+
+            <div class="input-block">
+                <label>Secundario (30%)</label>
+                <div class="input-group">
+                    <input type="color" id="user-sec" oninput="updateSpecificColor('sec', this.value)">
+                    <input type="text" id="hex-sec" placeholder="#6C9EF4" oninput="syncTextToPicker(this, 'user-sec', 'sec')">
+                </div>
+            </div>
+
+            <div class="input-block">
+                <label>Acento (10%)</label>
+                <div class="input-group">
+                    <input type="color" id="user-acc" oninput="updateSpecificColor('acc', this.value)">
+                    <input type="text" id="hex-acc" placeholder="#F46C9E" oninput="syncTextToPicker(this, 'user-acc', 'acc')">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            
 
             <!-- Botón aleatorio -->
             <button onclick="switchTab('random')">
@@ -197,6 +233,7 @@
 <script src="alAzar.js"></script>
 <script src="tema.js"></script>
 <script src="colores.js"></script>
+<script src="configuracion.js"></script>
 
 <script>
   //Script para funciones simples y de personalización
