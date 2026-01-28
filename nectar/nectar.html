@@ -141,7 +141,14 @@
     <button onclick="copyToClipboard('css', event)">Copiar CSS</button>
     <button onclick="copyToClipboard('tailwind', event)">Copiar Tailwind</button>
     <button onclick="copyToClipboard('scss', event)">Copiar SCSS</button>
-  </div>
+    <button onclick="toggleDarkMode()" class="btn-dark-mode" title="Alternar Modo Oscuro">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#000" class="icon icon-tabler icons-tabler-filled icon-tabler-brightness">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M17 3.34a10 10 0 1 1 -15 8.66l.005 -.324a10 10 0 0 1 14.995 -8.336m-9 1.732a8 8 0 0 0 4.001 14.928l-.001 -16a8 8 0 0 0 -4 1.072" />
+        </svg>
+        <span>Modo Oscuro</span>
+    </button>
+</div>
     <div class="mockup-container">
     <div id="preview-bg" class="mockup-window">
       <!-- Encabezado -->
