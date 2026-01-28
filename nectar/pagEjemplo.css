@@ -1,13 +1,11 @@
-
 :root {
   --primary: #f4da6c;         /* Marca Nectar */
   --secondary: #6c9ef4;       /* 30% - Bloques */
   --accent: #f46c9e;          /* 10% - Acción */
   --background: #ffffff;      /* 60% - Base */
-  --text: #333333;            /* Texto sobre background */
-  --text-light: #666666;      /* Texto sobre secondary */
+  --text: #565656;            /* Texto sobre background */
+  --text-light: #f5f2f2;      /* Texto sobre secondary */
   --border: #e0e0e0;          /* Separadores */
-  --card-shadow: 0 8px 20px rgba(0,0,0,0.08);
   --transition: all 0.3s ease;
 }
 .preview-label h3 {
@@ -29,7 +27,6 @@
   transition: var(--transition);
   background-color: var(--background); 
   color: var(--text);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 /* Encabezado de la previsualización */
@@ -48,7 +45,6 @@
   color: var(--text-light);
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: var(--card-shadow);
   margin-bottom: 1.5rem;
   transition: var(--transition);
 }
