@@ -129,13 +129,12 @@ body.dark-mode {
     display: flex;
     gap: 1rem;
     justify-content: center;
-    margin-top: 2rem;
 }
 
 .export-actions button {
     padding: 10px 20px;
     border: 1px solid var(--border);
-    background: white;
+    background: #ffeea0;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
@@ -143,7 +142,7 @@ body.dark-mode {
 }
 
 .export-actions button:hover {
-    background: var(--primary);
+    background: #f4da6c;
     color: #000;
 }
 
