@@ -31,10 +31,11 @@ const getBestTextColor = (bgColor) => (getLuminance(bgColor) > 0.5 ? '#1a1a1a' :
 // Función para generar una paleta armónica
 function getHarmonicPalette() {
     const h = Math.floor(Math.random() * 360);
-    const s = Math.floor(Math.random() * 40) + 40; // Saturación estable (40-80%)
-    const l = Math.floor(Math.random() * 60) + 20; // Luminosidad base (20-80%)
+    const s = Math.floor(Math.random() * 50) + 40; // Saturación balanceada (40-90)
+    const l = Math.floor(Math.random() * 60) + 20; // Luz base (20-80)
     
-    const tipos = ['puro', 'mono', 'analogo', 'complementario', 'triada'];
+    // variedad excéntrica
+    const tipos = ['puro', 'mono', 'analogo', 'complementario', 'triada', 'tetradica'];
     const tipo = tipos[Math.floor(Math.random() * tipos.length)];
 
     let c60, c30, c10;
@@ -42,25 +43,38 @@ function getHarmonicPalette() {
     switch(tipo) {
         case 'mono':
             c60 = hslToHex(h, s, l);
-            c30 = hslToHex(h, s - 20, l > 50 ? l - 20 : l + 20);
-            c10 = hslToHex(h, s, l > 50 ? l - 40 : l + 40);
+            c30 = hslToHex(h, s - 15, l > 50 ? l - 25 : l + 25);
+            c10 = hslToHex(h, s + 10, l > 50 ? l - 45 : l + 45);
             break;
+
         case 'analogo':
             c60 = hslToHex(h, s, l);
-            c30 = hslToHex((h + 30) % 360, s, l);
-            c10 = hslToHex((h + 60) % 360, s, l);
+            // El secundario y acento se mueven en matiz y ligeramente en luz
+            c30 = hslToHex((h + 30) % 360, s, l > 50 ? l - 15 : l + 15);
+            c10 = hslToHex((h + 60) % 360, s + 10, l > 50 ? l - 25 : l + 25);
             break;
+
         case 'complementario':
             c60 = hslToHex(h, s, l);
-            c30 = hslToHex(h, s - 10, l > 50 ? l - 10 : l + 10);
-            c10 = hslToHex((h + 180) % 360, s + 10, l);
+            c30 = hslToHex(h, s - 10, l > 50 ? l - 20 : l + 20);
+            c10 = hslToHex((h + 180) % 360, s + 15, l); // El opuesto puro
             break;
+
         case 'triada':
+            // Tres colores equidistantes
             c60 = hslToHex(h, s, l);
-            c30 = hslToHex((h + 120) % 360, s, l);
-            c10 = hslToHex((h + 240) % 360, s, l);
+            c30 = hslToHex((h + 120) % 360, s - 5, l > 50 ? l - 10 : l + 10);
+            c10 = hslToHex((h + 240) % 360, s + 5, l);
             break;
-        default: // Azar puro
+
+        case 'tetradica':
+            // Dos pares de complementarios
+            c60 = hslToHex(h, s, l);
+            c30 = hslToHex((h + 180) % 360, s, l > 50 ? l - 20 : l + 20);
+            c10 = hslToHex((h + 90) % 360, s + 10, l);
+            break;
+
+        default: // Azar puro 
             c60 = generateHex();
             c30 = generateHex();
             c10 = generateHex();
