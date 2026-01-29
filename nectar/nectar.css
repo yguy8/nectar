@@ -307,6 +307,17 @@ input[type="text"] {
     color: var(--text-main);
 }
 
+/*Botón para modo oscuro de la paleta*/
+.btn-dark-mode {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
 /* VISUALIZACIÓN DE PALETA */
 .palette-display {
     display: flex;
