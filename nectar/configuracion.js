@@ -1,4 +1,4 @@
-//Este archivo gestiona el guardado, el modo oscuro y el copiado de código.
+//Este archivo gestiona el guardado, el modo oscuro, el copiado de código y semáforo WCGA
 
 // UTILIDADES DE OBTENCIÓN DE DATOS ---
 function getCurrentColors() {
@@ -203,3 +203,38 @@ function loadPaletteLocally() {
 
 // Inicialización
 document.addEventListener('DOMContentLoaded', loadPaletteLocally);
+
+//Semáforo WCGA para la detección de accesibilidad
+
+// Semaforo de accesibilidad WCAG
+function verificarAccesibilidadGlobal(colores) {
+    const parejas = [
+        { fondo: colores.bg, texto: colores.txt },
+        { fondo: colores.sec, texto: colores.txtSec },
+        { fondo: colores.acc, texto: colores.txtBtn },
+        { fondo: colores.bg, texto: colores.acc }
+    ];
+    const fallas = parejas.filter(p => getContrastRatio(p.fondo, p.texto) < 4.5).length;
+    updateWCAGStatus(fallas);
+}
+
+function updateWCAGStatus(numFallas) {
+    const red = document.getElementById('light-red'), yellow = document.getElementById('light-yellow'), green = document.getElementById('light-green');
+    const statusLabel = document.querySelector('.status-label');
+    if (!red || !yellow || !green) return;
+    [red, yellow, green].forEach(l => l.classList.remove('active'));
+
+    if (numFallas === 0) {
+        green.classList.add('active');
+        statusLabel.innerText = "EXCELENTE";
+        statusLabel.style.color = "var(--success)";
+    } else if (numFallas <= 1) {
+        yellow.classList.add('active');
+        statusLabel.innerText = "EQUILIBRADO";
+        statusLabel.style.color = "var(--medium)";
+    } else {
+        red.classList.add('active');
+        statusLabel.innerText = "FALLA";
+        statusLabel.style.color = "var(--danger)";
+    }
+}
