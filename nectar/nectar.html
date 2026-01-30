@@ -62,13 +62,18 @@
                     <path d="M20 8v.01" /><path d="M20 12v.01" /><path d="M20 16v.01" /><path d="M20 20v.01" />
                 </svg>
             </button>
-
+<!-- El fórmulario de colores que se abre con el botón -->
 <div id="color-form-panel" class="color-form-overlay hidden">
     <div class="color-form-content">
         <div class="form-header">
             <h4>Personalizar Colores</h4>
-            <button onclick="switchTab('input')"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg></button>
+            <button onclick="switchTab('input')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" />
+                </svg>
+            </button>
         </div>
+        
         <div class="form-body">
             <div class="input-block">
                 <label>Fondo (Base 60%)</label>
@@ -94,10 +99,25 @@
                     <input type="text" id="hex-acc" placeholder="#F46C9E" oninput="syncTextToPicker(this, 'user-acc', 'acc')">
                 </div>
             </div>
+
+            <div class="input-block" id="block-c4">
+                <label>Color Auxiliar 4</label>
+                <div class="input-group">
+                    <input type="color" id="user-c4" oninput="updateSpecificColor('c4', this.value)">
+                    <input type="text" id="hex-c4" placeholder="#A1C4FD" oninput="syncTextToPicker(this, 'user-c4', 'c4')">
+                </div>
+            </div>
+
+            <div class="input-block" id="block-c5">
+                <label>Color Auxiliar 5</label>
+                <div class="input-group">
+                    <input type="color" id="user-c5" oninput="updateSpecificColor('c5', this.value)">
+                    <input type="text" id="hex-c5" placeholder="#FD9EB3" oninput="syncTextToPicker(this, 'user-c5', 'c5')">
+                </div>
+            </div>
         </div>
     </div>
 </div>
-            
 
             <!-- Botón aleatorio -->
             <button onclick="switchTab('random')">
@@ -150,7 +170,7 @@
         <span id="dark-mode-text">Modo Oscuro</span>
     </button>
 </div>
-    <div class="mockup-container">
+  <div class="mockup-container">
     <div id="preview-bg" class="mockup-window">
       <!-- Encabezado -->
       <header id="preview-header" class="preview-header">

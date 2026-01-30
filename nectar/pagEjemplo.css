@@ -1,19 +1,24 @@
+
 :root {
-  --primary: #f4da6c;         /* Marca Nectar */
-  --secondary: #6c9ef4;       /* 30% - Bloques */
-  --accent: #f46c9e;          /* 10% - Acción */
-  --background: #ffffff;      /* 60% - Base */
-  --text: #565656;            /* Texto sobre background */
-  --text-light: #f5f2f2;      /* Texto sobre secondary */
-  --border: #e0e0e0;          /* Separadores */
-  --transition: all 0.3s ease;
-}
-.preview-label h3 {
-  margin: 1.5rem;
-  color: #000;
-  font-family: sans-serif;
+  /* Variables base independientes */
+  --background: #ffffff;
+  --text: #1a1a1a;
+  --secondary: #6c9ef4;
+  --text-light: #ffffff;
+  --accent: #f46c9e;
+  --text-cta: #ffffff;
+  
+  /* Colores auxiliares 4 y 5 */
+  --color-4: #a1c4fd;
+  --text-c4: #1a1a1a;
+  --color-5: #fd9eb3;
+  --text-c5: #1a1a1a;
+
+  --border: #e0e0e0;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* --- CONTENEDORES --- */
 .mockup-container {
   padding: 40px;
   border-radius: 20px;
@@ -27,9 +32,10 @@
   transition: var(--transition);
   background-color: var(--background); 
   color: var(--text);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
 
-/* Encabezado de la previsualización */
+/* --- ENCABEZADO --- */
 #preview-header {
   display: flex;
   justify-content: space-between;
@@ -37,45 +43,6 @@
   border-bottom: 2px solid var(--border);
   padding-bottom: 1rem;
   margin-bottom: 2rem;
-}
-
-/* Bloques de contenido y Tarjetas */
-.text-sample, .preview-section, .card-sample {
-  background-color: var(--secondary);
-  color: var(--text-light);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  transition: var(--transition);
-}
-
-.card-sample {
-  max-width: 400px;
-  margin: 2rem auto;
-  text-align: center;
-}
-
-/* Títulos internos */
-.text-sample h2, .card-sample h4, .preview-section h3 {
-  color: var(--text-light);
-  margin-bottom: 0.8rem;
-  filter: contrast(1.2); /* Mejora legibilidad del título */
-}
-
-/* Navegación interna */
-.preview-nav ul { list-style: none; padding: 0; }
-.preview-nav li { display: inline-block; margin-left: 1rem; }
-.preview-nav a {
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 500;
-  opacity: 0.8;
-}
-
-.preview-nav a:hover {
-  opacity: 1;
-  text-decoration: underline;
-  color: var(--accent);
 }
 
 #brand-display {
@@ -93,7 +60,61 @@
   fill: currentColor;
 }
 
-/* Botón de Llamada a la Acción (CTA) */
+/* --- BLOQUES DE CONTENIDO --- */
+.text-sample, .preview-section, .extra-section-4, .extra-section-5, .card-sample {
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: var(--transition);
+}
+
+/* Bloque Acento (10%) */
+.text-sample {
+  background-color: var(--secondary);
+  color: var(--text);
+}
+
+/* Bloque Secundario (30%) */
+.preview-section {
+  background-color: transparent;
+  color: var(--text-light);
+}
+
+/* Nuevo Bloque Color 4 */
+.extra-section-4 {
+  background-color: var(--color-4);
+  color: var(--text-c4);
+}
+
+/* Nuevo Bloque Color 5 */
+.extra-section-5 {
+  background-color: var(--color-5);
+  color: var(--text-c5);
+}
+
+/* Tarjetas */
+.card-sample {
+  max-width: 400px;
+  margin: 2rem auto;
+  text-align: center;
+  background-color: var(--border);
+  color: var(--text);
+}
+
+/* Títulos internos */
+.text-sample h2, .card-sample h4, 
+.preview-section h3, .extra-section-4 h3, .extra-section-5 h3 {
+  /*color: inherit;*/
+  margin-bottom: 0.8rem;
+  filter: contrast(1.2);
+}
+
+.text-sample      { background-color: var(--secondary); color: var(--text);}
+.preview-section  { color: var(--text-light); }
+.extra-section-4  { background-color: var(--color-4); color: var(--text-c4); }
+.extra-section-5  { background-color: var(--color-5); color: var(--text-c5);  border: 1px solid var(--border); }
+
+/* --- BOTÓN CTA --- */
 #preview-cta {
   margin-top: 1.5rem;
   padding: 12px 24px;
@@ -102,15 +123,50 @@
   font-weight: 600;
   cursor: pointer;
   background-color: var(--accent);
-  color:var(--text-cta); 
+  color: var(--text-cta); 
   transition: var(--transition);
 }
 
 #preview-cta:hover {
-  filter: brightness(1.1);
-  transform: translateY(-2px);
+  filter: saturate(1.2) brightness(1.1);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
-/* Pie de página de la previsualización */
+
+/*Contenedores con paletas*/
+.mockup-container.palette-size-3 .extra-section-4,
+.mockup-container.palette-size-3 .extra-section-5 {
+  display: none;
+}
+
+/* Si tiene la clase palette-size-4, ocultamos solo el 5 */
+.mockup-container.palette-size-4 .extra-section-5 {
+  display: none;
+}
+
+/* Ajuste minimalista original para 3 colores */
+.palette-size-3 .text-sample {
+  background-color: var(--secondary);
+
+  
+}
+
+/* --- NAVEGACIÓN Y FOOTER --- */
+.preview-nav ul { list-style: none; padding: 0; }
+.preview-nav li { display: inline-block; margin-left: 1rem; }
+.preview-nav a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.preview-nav a:hover {
+  text-decoration: underline;
+  opacity: 1;
+  color: var(--accent);
+}
+
 #preview-footer {
   margin-top: 3rem;
   padding-top: 1rem;
@@ -119,14 +175,6 @@
   color: var(--text);
   opacity: 0.6;
   font-size: 0.85rem;
-}
-
-/* Caso especial: Adaptación para 3 colores */
-.palette-size-3 .text-sample, 
-.palette-size-3 .preview-section {
-    background-color: transparent;
-    border: 2px solid var(--secondary);
-    box-shadow: none;
 }
 
 .hidden { display: none; }
