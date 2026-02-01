@@ -66,16 +66,15 @@
         <div class="form-body">
             <div class="form-body">
               <div class="input-block">
-                  <label>Fondo (Base 60%)</label>
+                  <label class="form-info">Fondo (Base 60%)</label>
                   <div class="input-group">
                       <input type="color" id="user-bg" oninput="updateSpecificColor('bg', this.value)">
                       <input type="text" id="hex-bg" placeholder="#FFFFFF" oninput="syncTextToPicker(this, 'user-bg', 'bg')">
                   </div>
-                  <button class="btn-gen-small" onclick="generateHarmoniesFromCurrent()">Generar Armonía</button>
               </div>
 
               <div class="input-block">
-                  <label>Secundario (30%)</label>
+                  <label class="form-info">Secundario (30%)</label>
                   <div class="input-group">
                       <input type="color" id="user-sec" oninput="updateSpecificColor('sec', this.value)">
                       <input type="text" id="hex-sec" placeholder="#6C9EF4" oninput="syncTextToPicker(this, 'user-sec', 'sec')">
@@ -83,7 +82,7 @@
               </div>
 
               <div class="input-block">
-                  <label>Acento (10%)</label>
+                  <label class="form-info">Acento (10%)</label>
                   <div class="input-group">
                       <input type="color" id="user-acc" oninput="updateSpecificColor('acc', this.value)">
                       <input type="text" id="hex-acc" placeholder="#F46C9E" oninput="syncTextToPicker(this, 'user-acc', 'acc')">
@@ -136,7 +135,7 @@
     <!--Botón para copiar las variables-->
     <button onclick="copyToClipboard('css', event)">Copiar CSS</button>
     <button onclick="copyToClipboard('tailwind', event)">Copiar Tailwind</button>
-    <button onclick="copyToClipboard('scss', event)">Copiar SCSS</button>
+    <button onclick="copyToClipboard('scss', event)">Copiar SASS</button>
     <!--Boótn de modo oscuro-->
     <button onclick="handleDarkModeClick()" class="btn-dark-mode" title="Alternar Modo Oscuro">
       <span id="dark-mode-icon">

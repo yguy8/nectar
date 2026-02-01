@@ -135,7 +135,7 @@ function applyOriginalPalette(base) {
 function updateAllUI(bg, txt, sec, acc) {
     const container = document.querySelector('.mockup-container');
     
-    // 1. Aplicar variables CSS al Mockup
+    //Aplicar variables CSS al Mockup
     const vars = {
         '--background': bg,
         '--text': txt,
@@ -147,7 +147,7 @@ function updateAllUI(bg, txt, sec, acc) {
     };
     Object.keys(vars).forEach(k => container.style.setProperty(k, vars[k]));
 
-    // 2. Sincronizar todos los inputs del formulario para que coincidan
+    // Sincronizar todos los inputs del formulario para que coincidan
     const inputsMap = {
         'user-bg': bg, 'hex-bg': bg,
         'user-sec': sec, 'hex-sec': sec,
@@ -158,7 +158,7 @@ function updateAllUI(bg, txt, sec, acc) {
         if (el) el.value = id.startsWith('hex') ? inputsMap[id].toUpperCase() : inputsMap[id];
     });
 
-    // 3. Actualizar Semáforo de Accesibilidad
+    // Actualizar Semáforo de Accesibilidad
     if (window.verificarAccesibilidadGlobal) {
         window.verificarAccesibilidadGlobal({
             bg, sec, acc,
@@ -205,16 +205,26 @@ function loadPaletteLocally() {
 document.addEventListener('DOMContentLoaded', loadPaletteLocally);
 
 //Semáforo WCGA para la detección de accesibilidad
-
-// Semaforo de accesibilidad WCAG
 function verificarAccesibilidadGlobal(colores) {
     const parejas = [
-        { fondo: colores.bg, texto: colores.txt },
-        { fondo: colores.sec, texto: colores.txtSec },
+        // texto principal
+        { fondo: colores.bg, texto: colores.txt }, 
+        
+        // texto de ejemplo
+        { fondo: colores.sec, texto: colores.txt }, 
+        
+        // texto de botón
         { fondo: colores.acc, texto: colores.txtBtn },
+        
+        // sobre fondo general
         { fondo: colores.bg, texto: colores.acc }
     ];
-    const fallas = parejas.filter(p => getContrastRatio(p.fondo, p.texto) < 4.5).length;
+
+    const ratios = parejas.map(p => getContrastRatio(p.fondo, p.texto));
+    
+    // Contamos cuántas combinaciones fallan el estándar AA (4.5)
+    const fallas = ratios.filter(r => r < 4.5).length;
+    
     updateWCAGStatus(fallas);
 }
 
