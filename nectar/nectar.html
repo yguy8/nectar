@@ -21,17 +21,6 @@
 
         <!-- Herramientas -->
         <nav class="nav-tools">
-            <!-- Control cantidad -->
-            <div class="control-item">
-                <label for="palette-size">Cantidad:</label>
-                <select id="palette-size">
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5" selected>5</option>
-                </select>
-            </div>
-
-
             <!-- Semáforo WCAG -->
           <div class="wcag-traffic-light" id="wcag-status">
                 <div class="light-container" title="Accesibilidad WCAG">
@@ -97,22 +86,6 @@
                 <div class="input-group">
                     <input type="color" id="user-acc" oninput="updateSpecificColor('acc', this.value)">
                     <input type="text" id="hex-acc" placeholder="#F46C9E" oninput="syncTextToPicker(this, 'user-acc', 'acc')">
-                </div>
-            </div>
-
-            <div class="input-block" id="block-c4">
-                <label>Color Auxiliar 4</label>
-                <div class="input-group">
-                    <input type="color" id="user-c4" oninput="updateSpecificColor('c4', this.value)">
-                    <input type="text" id="hex-c4" placeholder="#A1C4FD" oninput="syncTextToPicker(this, 'user-c4', 'c4')">
-                </div>
-            </div>
-
-            <div class="input-block" id="block-c5">
-                <label>Color Auxiliar 5</label>
-                <div class="input-group">
-                    <input type="color" id="user-c5" oninput="updateSpecificColor('c5', this.value)">
-                    <input type="text" id="hex-c5" placeholder="#FD9EB3" oninput="syncTextToPicker(this, 'user-c5', 'c5')">
                 </div>
             </div>
         </div>
