@@ -131,8 +131,6 @@ function triggerWCAGUpdate() {
         bg: getVal('user-bg'),
         sec: getVal('user-sec'),
         acc: getVal('user-acc'),
-        c4: getVal('user-c4'),
-        c5: getVal('user-c5'),
         txt: window.getBestTextColor(getVal('user-bg')),
         txtSec: window.getBestTextColor(getVal('user-sec')),
         txtBtn: window.getBestTextColor(getVal('user-acc'))
