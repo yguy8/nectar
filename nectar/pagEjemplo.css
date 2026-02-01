@@ -7,12 +7,6 @@
   --text-light: #ffffff;
   --accent: #f46c9e;
   --text-cta: #ffffff;
-  
-  /* Colores auxiliares 4 y 5 */
-  --color-4: #a1c4fd;
-  --text-c4: #1a1a1a;
-  --color-5: #fd9eb3;
-  --text-c5: #1a1a1a;
 
   --border: #e0e0e0;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

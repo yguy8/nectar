@@ -6,7 +6,6 @@ window.switchTab = function(type) {
     if (type === 'input') {
         panel.classList.toggle('hidden');
         if (!panel.classList.contains('hidden')) {
-            updateVisibleInputs(); // Ajusta cuántos inputs se ven antes de sincronizar
             syncInputsWithPreview(); 
         }
     } else {
@@ -14,16 +13,6 @@ window.switchTab = function(type) {
         if(typeof window.generateRandomPalette === "function") window.generateRandomPalette();
     }
 };
-
-//Controla qué inputs mostrar en el formulario según el select
-function updateVisibleInputs() {
-    const size = getElement('palette-size').value;
-    const block4 = getElement('block-c4'); // Asegúrate de añadir estos IDs a los contenedores en tu HTML
-    const block5 = getElement('block-c5');
-
-    if (block4) block4.classList.toggle('hidden', size < 4);
-    if (block5) block5.classList.toggle('hidden', size < 5);
-}
 
 // ACTUALIZAR UN COLOR ESPECÍFICO
 window.updateSpecificColor = function(part, value) {
@@ -121,8 +110,9 @@ function syncInputsWithPreview() {
     const container = document.querySelector('.mockup-container');
     const style = getComputedStyle(container);
     
-    const parts = ['bg', 'sec', 'acc', 'c4', 'c5'];
-    const vars = ['--background', '--secondary', '--accent', '--color-4', '--color-5'];
+    // Solo estos 3
+    const parts = ['bg', 'sec', 'acc'];
+    const vars = ['--background', '--secondary', '--accent'];
 
     parts.forEach((part, index) => {
         const color = style.getPropertyValue(vars[index]).trim();
@@ -134,7 +124,6 @@ function syncInputsWithPreview() {
         }
     });
 }
-
 function triggerWCAGUpdate() {
     const getVal = (id) => getElement(id)?.value || '#ffffff';
 
