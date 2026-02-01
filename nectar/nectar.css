@@ -64,7 +64,23 @@ body.dark-mode {
     font-weight: 800;
     letter-spacing: -1px;
 }
+/*Ingresa img*/
+#color-cursor {
+    position: fixed; /* Para que ignore el scroll del contenedor */
+    width: 35px;
+    height: 35px;
+    border: 3px solid white;
+    border-radius: 50%;
+    pointer-events: none; /* Crucial para no bloquear el clic al canvas */
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    display: none;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+}
 
+.extractor-area:hover #color-cursor {
+    display: block;
+}
 /* SEMÁFORO WCAG */
 .wcag-traffic-light {
     display: flex;
@@ -273,22 +289,6 @@ input[type="text"] {
     color: var(--accent);
 }
 
-/* Control cantidad */
-.control-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.control-item label {
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.control-item input[type="range"] {
-    width: 120px;
-    accent-color: var(--accent);
-}
 
 /* Botón generar paleta */
 .btn-generate {
