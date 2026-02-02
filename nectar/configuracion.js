@@ -16,6 +16,7 @@ function getCurrentColors() {
 }
 
 //FORMATEADORES PARA COPIADO
+//hacer que copie ambos modos oscuro y claro 
 const formatters = {
     css: (c) => `:root {
     --primary: ${c.primary};
