@@ -404,7 +404,8 @@ input[type="text"] {
 }
 
 .footer-nav a:hover {
-    color: var(--accent);
+    color: #ffea8b;
+    text-decoration:underline;
     opacity: 1;
 }
 
