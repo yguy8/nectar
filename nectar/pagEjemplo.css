@@ -104,7 +104,7 @@
 }
 
 .text-sample      { background-color: var(--secondary); color: var(--text);}
-.preview-section  { color: var(--text-light); }
+.preview-section  { color: var(--text); }
 .extra-section-4  { background-color: var(--color-4); color: var(--text-c4); }
 .extra-section-5  { background-color: var(--color-5); color: var(--text-c5);  border: 1px solid var(--border); }
 
