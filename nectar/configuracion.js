@@ -75,27 +75,24 @@ window.copyToClipboard = async function(format, event) {
 //MODO OSCURO (INVERSIÓN INTELIGENTE)
 let isDarkModeActive = false;
 let originalPalette = null; // Guarda la paleta generada o editada
+// Icono de Sol para cuando estés en Modo Oscuro (para volver al claro)
+const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 19a1 1 0 0 1 .993 .883l.007 .117v1a1 1 0 0 1 -1.993 .117l-.007 -.117v-1a1 1 0 0 1 1 -1z" /><path d="M18.313 16.91l.094 .083l.7 .7a1 1 0 0 1 -1.32 1.497l-.094 -.083l-.7 -.7a1 1 0 0 1 1.218 -1.567l.102 .07z" /><path d="M7.007 16.993a1 1 0 0 1 .083 1.32l-.083 .094l-.7 .7a1 1 0 0 1 -1.497 -1.32l.083 -.094l.7 -.7a1 1 0 0 1 1.414 0z" /><path d="M12 5a7 7 0 1 1 -6.996 7.26l-.004 -.26l.004 -.26a7 7 0 0 1 6.996 -6.74z" /><path d="M12 2a1 1 0 0 1 .993 .883l.007 .117v1a1 1 0 0 1 -1.993 .117l-.007 -.117v-1a1 1 0 0 1 1 -1z" /><path d="M18.313 5.603a1 1 0 0 1 1.32 -.083l.094 .083l.7 .7a1 1 0 0 1 -1.32 1.497l-.094 -.083l-.7 -.7a1 1 0 0 1 1.3 -1.414z" /><path d="M7.007 5.69a1 1 0 0 1 0 1.414l-.7 .7a1 1 0 0 1 -1.414 -1.414l.7 -.7a1 1 0 0 1 1.414 0z" /><path d="M21 11a1 1 0 0 1 .117 1.993l-.117 .007h-1a1 1 0 0 1 -.117 -1.993l.117 -.007h1z" /><path d="M4 11a1 1 0 0 1 .117 1.993l-.117 .007h-1a1 1 0 0 1 -.117 -1.993l.117 -.007h1z" /></svg>`;
+// Icono de Luna para cuando estés en Modo Claro (para ir al oscuro)
+const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 1.992a10 10 0 1 0 9.236 13.838c.341 -.82 -.476 -1.644 -1.298 -1.31a6.5 6.5 0 0 1 -6.864 -10.787l.077 -.08c.551 -.63 .113 -1.653 -.758 -1.653h-.266l-.068 -.006l-.06 -.002z" /></svg>`;
 
 window.handleDarkModeClick = function() {
     const btnText = document.getElementById('dark-mode-text');
     const btnIcon = document.getElementById('dark-mode-icon');
 
-    // Icono de Sol para cuando estés en Modo Oscuro (para volver al claro)
-    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 19a1 1 0 0 1 .993 .883l.007 .117v1a1 1 0 0 1 -1.993 .117l-.007 -.117v-1a1 1 0 0 1 1 -1z" /><path d="M18.313 16.91l.094 .083l.7 .7a1 1 0 0 1 -1.32 1.497l-.094 -.083l-.7 -.7a1 1 0 0 1 1.218 -1.567l.102 .07z" /><path d="M7.007 16.993a1 1 0 0 1 .083 1.32l-.083 .094l-.7 .7a1 1 0 0 1 -1.497 -1.32l.083 -.094l.7 -.7a1 1 0 0 1 1.414 0z" /><path d="M12 5a7 7 0 1 1 -6.996 7.26l-.004 -.26l.004 -.26a7 7 0 0 1 6.996 -6.74z" /><path d="M12 2a1 1 0 0 1 .993 .883l.007 .117v1a1 1 0 0 1 -1.993 .117l-.007 -.117v-1a1 1 0 0 1 1 -1z" /><path d="M18.313 5.603a1 1 0 0 1 1.32 -.083l.094 .083l.7 .7a1 1 0 0 1 -1.32 1.497l-.094 -.083l-.7 -.7a1 1 0 0 1 1.3 -1.414z" /><path d="M7.007 5.69a1 1 0 0 1 0 1.414l-.7 .7a1 1 0 0 1 -1.414 -1.414l.7 -.7a1 1 0 0 1 1.414 0z" /><path d="M21 11a1 1 0 0 1 .117 1.993l-.117 .007h-1a1 1 0 0 1 -.117 -1.993l.117 -.007h1z" /><path d="M4 11a1 1 0 0 1 .117 1.993l-.117 .007h-1a1 1 0 0 1 -.117 -1.993l.117 -.007h1z" /></svg>`;
-    
-    // Icono de Luna para cuando estés en Modo Claro (para ir al oscuro)
-    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 1.992a10 10 0 1 0 9.236 13.838c.341 -.82 -.476 -1.644 -1.298 -1.31a6.5 6.5 0 0 1 -6.864 -10.787l.077 -.08c.551 -.63 .113 -1.653 -.758 -1.653h-.266l-.068 -.006l-.06 -.002z" /></svg>`;
-
     if (!isDarkModeActive) {
-        // --- ACTIVAR MODO OSCURO ---
         originalPalette = getCurrentColors(); 
+        
         applyScientificDark(originalPalette);
         
         if(btnText) btnText.innerText = "Modo Claro";
         if(btnIcon) btnIcon.innerHTML = sunIcon; 
         isDarkModeActive = true;
     } else {
-        // --- VOLVER A MODO CLARO ---
         applyOriginalPalette(originalPalette);
         
         if(btnText) btnText.innerText = "Modo Oscuro";
@@ -107,24 +104,17 @@ window.handleDarkModeClick = function() {
 // FUNCIÓN PARA INVERTIR COLORES
 function applyScientificDark(base) {
     if (!window.hexToHsl || !window.hslToHex) return;
-
-    // Extraemos el matiz (H) de tus colores de marca
-    const secHsl = window.hexToHsl(base.secondary);
     const accHsl = window.hexToHsl(base.accent);
+    const bgHsl = window.hexToHsl(base.background);
+    const newBg = window.hslToHex(accHsl.h, Math.max(accHsl.s, 20), 15);
+    let newAcc = base.background;
+    if (bgHsl.l > 95) newAcc = "#f4da6c"; 
+    const secHsl = window.hexToHsl(base.secondary);
+    const newSec = window.hslToHex(secHsl.h, Math.max(secHsl.s, 40), 60);
 
-    // FONDO: Matiz de tu marca, pero casi negro (L=8%) y muy poca saturación (S=15%)
-    const darkBg = window.hslToHex(secHsl.h, 15, 8); 
-    
-    // TEXTO: Un blanco orgánico con un toque de tu color (L=92%)
-    const lightText = window.hslToHex(secHsl.h, 10, 92);
-    
-    // SECUNDARIO: Lo subimos de luz para que destaque sobre el fondo oscuro
-    const brightSec = window.hslToHex(secHsl.h, Math.max(secHsl.s, 40), 60);
-    
-    // ACENTO: Lo hacemos vibrante para que el CTA resalte
-    const brightAcc = window.hslToHex(accHsl.h, Math.max(accHsl.s, 50), 55);
+    const newTxt = "#f1f1f1";
 
-    updateAllUI(darkBg, lightText, brightSec, brightAcc);
+    updateAllUI(newBg, newTxt, newSec, newAcc);
 }
 
 function applyOriginalPalette(base) {
