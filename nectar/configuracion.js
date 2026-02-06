@@ -5,72 +5,139 @@ function getCurrentColors() {
     const container = document.querySelector('.mockup-container');
     const style = getComputedStyle(container);
     
+    // Leemos las variables CSS directamente del contenedor de previsualización
     return {
-        primary: style.getPropertyValue('--primary').trim() || '#f4da6c',
-        secondary: style.getPropertyValue('--secondary').trim() || '#6c9ef4',
-        accent: style.getPropertyValue('--accent').trim() || '#f46c9e',
-        background: style.getPropertyValue('--background').trim() || '#ffffff',
-        text: style.getPropertyValue('--text').trim() || '#333333',
-        border: style.getPropertyValue('--border').trim() || '#eeeeee'
+        background: style.getPropertyValue('--background').trim(),
+        text: style.getPropertyValue('--text').trim(),
+        secondary: style.getPropertyValue('--secondary').trim(),
+        accent: style.getPropertyValue('--accent').trim(),
+        border: style.getPropertyValue('--border').trim()
     };
 }
 
 //FORMATEADORES PARA COPIADO
 //hacer que copie ambos modos oscuro y claro 
 const formatters = {
-    css: (c) => `:root {
-    --primary: ${c.primary};
-    --secondary: ${c.secondary};
-    --accent: ${c.accent};
-    --background: ${c.background};
-    --text: ${c.text};
-    --border: ${c.border};
-}`,
+    //CSS CUSTOM PROPERTIES 
+    css: (c) => {
+        const isDark = window.getLuminance(c.background) < 0.5;
+        //invertir los colores
+        const opp = (isDark && originalPalette) ? originalPalette : {
+            background: '#ffffff',
+            text: '#1a1a1a',
+            secondary: '#f3f4f6',
+            accent: c.accent
+        };
 
-    tailwind: (c) => `// tailwind.config.js
-    module.exports = {
-    theme: {
-        extend: {
-        colors: {
-            primary: '${c.primary}',
-            secondary: '${c.secondary}',
-            accent: '${c.accent}',
-            background: '${c.background}',
-            text: '${c.text}',
-            border: '${c.border}',
+        return `/* --- CONFIGURACIÓN DE COLORES --- */
+
+        /* MODO ${isDark ? 'OSCURO' : 'CLARO'} (ACTUAL) */
+        :root {
+        --background: ${c.background};
+        --text: ${c.text};
+        --secondary: ${c.secondary};
+        --accent: ${c.accent};
+        --border: ${c.secondary}44;
         }
-        }
+
+        /* MODO ${isDark ? 'CLARO' : 'OSCURO'} (OPUESTO) */
+        /* Aplica esta clase al body o contenedor principal */
+        .${isDark ? 'light-mode' : 'dark'} {
+        --background: ${opp.background || opp.background};
+        --text: ${isDark ? '#1a1a1a' : '#f1f1f1'};
+        --secondary: ${opp.secondary};
+        --accent: ${opp.accent};
+        --border: ${opp.secondary}44;
+        }`;
+    },
+
+    // SCSS 
+    scss: (c) => {
+        const isDark = window.getLuminance(c.background) < 0.5;
+        
+                return `// --- VARIABLES SCSS ---
+        $bg-main: ${c.background};
+        $text-main: ${c.text};
+        $secondary-main: ${c.secondary};
+        $accent-main: ${c.accent};
+        $border-main: ${c.secondary}44;
+
+        // Mapa de colores para iteración
+        $theme: (
+            "background": $bg-main,
+            "text": $text-main,
+            "secondary": $secondary-main,
+            "accent": $accent-main
+        );
+
+        // Mixin para temas dinámicos
+        @mixin theme-provider($is-dark: ${isDark}) {
+            background-color: $bg-main;
+            color: $text-main;
+            
+            .accent-element {
+                color: $accent-main;
+            }
+        }`;
+    },
+
+    // TAILWIND CSS
+    tailwind: (c) => {
+        const isDark = window.getLuminance(c.background) < 0.5;
+        return `// tailwind.config.js
+        /** @type {import('tailwindcss').Config} */
+        module.exports = {
+        darkMode: 'class', // Habilita el modo oscuro basado en clases
+        theme: {
+            extend: {
+            colors: {
+                // Colores actuales (${isDark ? 'Dark Mode' : 'Light Mode'})
+                'brand-bg': '${c.background}',
+                'brand-text': '${c.text}',
+                'brand-sec': '${c.secondary}',
+                'brand-acc': '${c.accent}',
+            },
+            // Configuración recomendada para usar con variables CSS
+            // background: 'var(--background)',
+            // foreground: 'var(--text)',
+            },
+        },
+        plugins: [],
+        }`;
     }
-}`,
-
-    scss: (c) => `// Variables SASS
-    $primary: ${c.primary};
-    $secondary: ${c.secondary};
-    $accent: ${c.accent};
-    $background: ${c.background};
-    $text: ${c.text};
-    $border: ${c.border};`
 };
 
-// FUNCIÓN DE COPIADO
+// FUNCIÓN DE COPIADO INTEGRADA
 window.copyToClipboard = async function(format, event) {
     const btn = event.currentTarget; 
     const originalText = btn.innerText;
     const colors = getCurrentColors();
     
-    if (!formatters[format]) return;
+    if (!formatters[format]) {
+        console.error('Formato no reconocido:', format);
+        return;
+    }
+
     const textToCopy = formatters[format](colors);
 
     try {
         await navigator.clipboard.writeText(textToCopy);
+        
         btn.innerText = "¡Copiado!";
+        btn.style.pointerEvents = "none"; // Evita múltiples clics rápidos
+        
         setTimeout(() => {
             btn.innerText = originalText;
+            btn.style.pointerEvents = "auto";
         }, 2000);
+
     } catch (err) {
         console.error('Error al copiar: ', err);
+        btn.innerText = "Error";
+        setTimeout(() => { btn.innerText = originalText; }, 2000);
     }
 };
+
 
 //MODO OSCURO (INVERSIÓN INTELIGENTE)
 let isDarkModeActive = false;
