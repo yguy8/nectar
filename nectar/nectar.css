@@ -260,7 +260,7 @@ input[type="text"] {
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
 }
 
 .export-actions button:hover {
