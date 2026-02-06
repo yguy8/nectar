@@ -41,12 +41,15 @@ window.getContrastRatio = function(hex1, hex2) {
     return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
 };
 
-window.getBestTextColor = (bgColor) => (window.getLuminance(bgColor) > 0.45 ? '#1a1a1a' : '#f5f5f5');
-
-const getElement = (id) => document.getElementById(id);
+window.getBestTextColor = (bgColor) => {
+    // Calculamos el ratio contra blanco puro y un negro suave
+    const ratioWithWhite = window.getContrastRatio(bgColor, '#ffffff');
+    const ratioWithBlack = window.getContrastRatio(bgColor, '#1a1a1a');
+    return ratioWithWhite > ratioWithBlack ? '#ffffff' : '#1a1a1a';
+};
 
 // SINCRONIZACIÓN FORMULARIO-AL AZAR    
-
+const getElement = (id) => document.getElementById(id);
 // Actualiza los inputs del formulario cuando se genera una paleta al azar
 window.syncFormWithPalette = function(colors) {
     const parts = ['bg', 'sec', 'acc'];
@@ -109,29 +112,30 @@ window.syncTextToPicker = function(textInput, pickerId, part) {
 //  GENERACIÓN ALEATORIA (AZAR)
 function getHarmonicPalette() {
     const h = Math.floor(Math.random() * 360);
-    const s = Math.floor(Math.random() * 40) + 40; 
-    const l = Math.floor(Math.random() * 40) + 30;
+    const s = Math.floor(Math.random() * 40) + 30; // Saturación moderada
     
-    // Tipos de armonía (simplificado para tus 3 colores principales)
+    const l = Math.random() > 0.5 
+        ? Math.floor(Math.random() * 15) + 10  // Oscuro (10-25%)
+        : Math.floor(Math.random() * 15) + 80; // Claro (80-95%)
+    
     const tipos = ['analogo', 'complementario', 'triada'];
     const tipo = tipos[Math.floor(Math.random() * tipos.length)];
     let cBg, cSec, cAcc;
 
+    cBg = window.hslToHex(h, s, l);
+
     switch(tipo) {
         case 'analogo':
-            cBg = window.hslToHex(h, s, l);
-            cSec = window.hslToHex((h + 30) % 360, s, l);
-            cAcc = window.hslToHex((h + 60) % 360, s, l + 10);
+            cSec = window.hslToHex((h + 20) % 360, s, l);
+            cAcc = window.hslToHex((h + 40) % 360, s + 10, l > 50 ? l - 40 : l + 40);
             break;
         case 'complementario':
-            cBg = window.hslToHex(h, s, l);
-            cSec = window.hslToHex(h, s - 10, l > 50 ? l - 20 : l + 20);
-            cAcc = window.hslToHex((h + 180) % 360, s + 10, l);
+            cSec = window.hslToHex(h, s - 10, l > 50 ? l - 10 : l + 10);
+            cAcc = window.hslToHex((h + 180) % 360, s + 15, l > 50 ? l - 30 : l + 30);
             break;
         case 'triada':
-            cBg = window.hslToHex(h, s, l);
             cSec = window.hslToHex((h + 120) % 360, s, l);
-            cAcc = window.hslToHex((h + 240) % 360, s, l);
+            cAcc = window.hslToHex((h + 240) % 360, s + 10, l > 50 ? l - 30 : l + 30);
             break;
     }
     return { bg: cBg, sec: cSec, acc: cAcc };
@@ -140,16 +144,18 @@ function getHarmonicPalette() {
 window.generateRandomPalette = function() {
     const previewContainer = document.querySelector('.mockup-container');
     let paleta, tBg, ratio, esAceptable = false;
+    let intentos = 0;
 
-    // calidad (asegurar contraste mínimo)
-    while (!esAceptable) {
+    while (!esAceptable && intentos < 20) {
         paleta = getHarmonicPalette();
         tBg = window.getBestTextColor(paleta.bg);
         ratio = window.getContrastRatio(paleta.bg, tBg);
-        if (ratio >= 4.5 || Math.random() < 0.1) esAceptable = true;
+        
+        // estandár de WCGA
+        if (ratio >= 4.5) esAceptable = true;
+        intentos++;
     }
 
-    // Mockup (prototipo)
     const vars = {
         '--background': paleta.bg,
         '--text': tBg,
@@ -159,11 +165,9 @@ window.generateRandomPalette = function() {
         '--text-cta': window.getBestTextColor(paleta.acc),
         '--border': paleta.sec + '44'
     };
-    Object.keys(vars).forEach(k => previewContainer.style.setProperty(k, vars[k]));
     
-    // actualizar formulario (el usuario vea qué colores salieron)
+    Object.keys(vars).forEach(k => previewContainer.style.setProperty(k, vars[k]));
     window.syncFormWithPalette(paleta);
-
     triggerWCAGUpdate();
 };
 
